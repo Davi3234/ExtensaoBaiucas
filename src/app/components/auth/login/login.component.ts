@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { InputTextComponent } from '@app/components/input-text/input-text.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [InputTextComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
