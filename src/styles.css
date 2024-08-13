@@ -9,4 +9,12 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: 1.6rem;
+  background-color: #eeeeee;
+  width: 100vw;
+  min-height: 100vh;
+}
+
+*,
+a {
+  color: #272727;
 }
