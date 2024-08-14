@@ -1,0 +1,26 @@
+<form [formGroup]="form">
+  <ng-container *ngFor="let group of groups">
+    <div class="title">
+      <h4 style="text-align: center;">{{ group.title }}</h4>
+    </div>
+
+    <ng-container *ngFor="let line of group.lines">
+      <div class="lines">
+        <ng-container *ngFor="let field of line.fields">
+
+          <input-text *ngIf="field.inputType == 'text'"
+            [placeholder]="field.placeholder"
+            [label]="field.label">
+          </input-text>
+
+            <mat-form-field *ngIf="field.inputType == 'password'">
+              <mat-label>{{ field.label }}</mat-label>
+              <input matInput [placeholder]="field.placeholder">
+            </mat-form-field>
+
+        </ng-container>
+      </div>
+    </ng-container>
+
+  </ng-container>
+</form>
