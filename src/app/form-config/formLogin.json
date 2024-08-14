@@ -1,0 +1,17 @@
+{
+  "title": "Formulário de Login",
+  "fields":[
+    {
+      "label": "Usuário",
+      "type": "text",
+      "placeholder": "Digite o nome do usuário",
+      "required": true
+    },
+    {
+      "label": "Senha",
+      "type": "password",
+      "placeholder": "Digite a senha",
+      "required": true
+    }
+  ]
+}
