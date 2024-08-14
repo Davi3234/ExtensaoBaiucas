@@ -2,13 +2,13 @@ import { Component, Input } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
-  selector: 'input-text',
+  selector: 'input-numeric',
   standalone: true,
   imports: [MatInputModule],
-  templateUrl: './input-text.component.html',
-  styleUrl: './input-text.component.css'
+  templateUrl: './input-numeric.component.html',
+  styleUrl: './input-numeric.component.css'
 })
-export class InputTextComponent {
+export class InputNumericComponent {
   @Input() label: string = "";
   @Input() placeholder: string = "";
 }
