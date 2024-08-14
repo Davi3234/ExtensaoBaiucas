@@ -3,6 +3,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { InputTextComponent } from '../ui/input-text/input-text.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 export interface FormComponent {
   form: FormGroup,
@@ -47,7 +49,13 @@ interface FormControlField{
 @Component({
   selector: 'dinamic-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, InputTextComponent],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    InputTextComponent,
+    MatFormFieldModule,
+    MatInputModule
+  ],
   templateUrl: './dinamic-form.component.html',
   styleUrl: './dinamic-form.component.css'
 })
@@ -65,7 +73,7 @@ export class DinamicFormComponent implements OnInit, FormComponent{
               "width": 50,
               "label": "Usuário",
               "inputType": "text",
-              "placeholder": "Digite o nome do usuário",
+              "placeholder": "Digite o login",
               "required": true
             },
             {

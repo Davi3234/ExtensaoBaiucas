@@ -8,15 +8,15 @@
       <div class="lines">
         <ng-container *ngFor="let field of line.fields">
 
-          <input-text *ngIf="field.inputType == 'text'"
-            [placeholder]="field.placeholder"
-            [label]="field.label">
+          <input-text
+            *ngIf="field.inputType == 'text'"
+            [label]="field.label!"
+            [placeholder]="field.placeholder!">
           </input-text>
-
-            <mat-form-field *ngIf="field.inputType == 'password'">
-              <mat-label>{{ field.label }}</mat-label>
-              <input matInput [placeholder]="field.placeholder">
-            </mat-form-field>
+          <mat-form-field *ngIf="field.inputType == 'password'">
+            <mat-label>{{field.label!}}</mat-label>
+            <input matInput placeholder="{{field.placeholder!}}">
+          </mat-form-field>
 
         </ng-container>
       </div>
