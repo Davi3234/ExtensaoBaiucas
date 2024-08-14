@@ -1,2 +1,10 @@
-<input-text label="Input Texto" placeholder="Informe um texto"></input-text>
-<input-numeric label="Input Numero" placeholder="Informe um numero"></input-numeric>
+<div class="list-view">
+  <span># Inputs</span>
+  <div class="list-view-group">
+    <input-text label="Campo editável" placeholder="Informe um texto" class="teste" [readonly]="false"></input-text>
+    <input-text label="Campo não editável" placeholder="" class="teste" [readonly]="true"></input-text>
+  </div>
+  <div class="list-view-group">
+    <input-numeric label="Input Numero" placeholder="Informe um numero" [readonly]="true"></input-numeric>
+  </div>
+</div>

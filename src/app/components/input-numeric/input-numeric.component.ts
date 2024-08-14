@@ -11,4 +11,5 @@ import { MatInputModule } from '@angular/material/input';
 export class InputNumericComponent {
   @Input() label: string = "";
   @Input() placeholder: string = "";
+  @Input() readonly = false;
 }

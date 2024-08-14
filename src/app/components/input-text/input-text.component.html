@@ -1,4 +1,4 @@
-<mat-form-field>
+<mat-form-field class="{{readonly && 'readonly'}}">
   <mat-label>{{ label }}</mat-label>
-  <input type="text" matInput [placeholder]="placeholder">
+  <input type="text" matInput [placeholder]="placeholder" [readonly]="readonly">
 </mat-form-field>
