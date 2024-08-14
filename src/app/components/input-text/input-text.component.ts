@@ -11,5 +11,5 @@ import { MatInputModule } from '@angular/material/input';
 export class InputTextComponent {
   @Input() label = "";
   @Input() placeholder = "";
-  @Input() readonly = false;
+  @Input() disabled = false;
 }

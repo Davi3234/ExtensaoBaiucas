@@ -21,4 +21,5 @@ a {
 
 .readonly {
   cursor: not-allowed;
+  pointer-events: none;
 }
