@@ -9,5 +9,7 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './input-text.component.css'
 })
 export class InputTextComponent {
-  @Input() label: string = "";
+  @Input() label = "";
+  @Input() placeholder = "";
+  @Input() readonly = false;
 }

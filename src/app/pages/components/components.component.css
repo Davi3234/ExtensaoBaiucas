@@ -1,0 +1,18 @@
+:host {
+  display: block;
+  margin: 1rem;
+  padding: 5rem;
+  border: 1px solid #a9a9a9;
+  border-radius: .7rem;
+}
+
+.list-view {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.list-view-group {
+  display: flex;
+  gap: 1rem;
+}

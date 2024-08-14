@@ -2,16 +2,22 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MenuComponent } from '@components/menu/menu.component';
 import { LoginComponent } from '@components/auth/login/login.component';
+import { HomeComponent } from '@pages/home/home.component';
+import { ComponentsComponent } from '@pages/components/components.component';
 
-export  const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
     redirectTo: 'auth/login',
   },
   {
-    path: 'cadastro',
-    component: MenuComponent
+    path: 'components',
+    component: ComponentsComponent
+  },
+  {
+    path: 'home',
+    component: HomeComponent
   },
   {
     path: 'auth/login',
@@ -23,4 +29,4 @@ export  const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
