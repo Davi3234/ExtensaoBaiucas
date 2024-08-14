@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { InputTextComponent } from "@components/input-text/input-text.component";
-import { InputNumericComponent } from "@components/input-numeric/input-numeric.component";
+import { InputTextComponent } from "@app/components/ui/input-text/input-text.component";
+import { InputNumericComponent } from "@app/components/ui/input-numeric/input-numeric.component";
 
 @Component({
   selector: 'app-home',

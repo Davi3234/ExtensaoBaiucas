@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { InputTextComponent } from '@app/components/input-text/input-text.component';
+import { InputTextComponent } from '@app/components/ui/input-text/input-text.component';
 
 @Component({
   selector: 'app-login',
