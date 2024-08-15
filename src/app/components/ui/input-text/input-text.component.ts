@@ -16,5 +16,4 @@ export class InputTextComponent {
   @Input() label = "";
   @Input() placeholder = "";
   @Input() disabled = false;
-  @Input() fxFlex = 100;
 }

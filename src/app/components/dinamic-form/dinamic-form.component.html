@@ -14,8 +14,7 @@
               <input-text
                 *ngIf="field.inputType == 'text'"
                 [label]="field.label!"
-                [placeholder]="field.placeholder!"
-                [fxFlex]="100">
+                [placeholder]="field.placeholder!">
               </input-text>
 
               <mat-form-field *ngIf="field.inputType == 'password'"
