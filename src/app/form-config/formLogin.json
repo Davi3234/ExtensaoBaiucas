@@ -6,7 +6,7 @@
       "fields": [
         {
           "ref": "nmUsuario",
-          "width": "50%",
+          "width": 50,
           "label": "Usuário",
           "inputType": "text",
           "placeholder": "Digite o nome do usuário",
@@ -14,7 +14,7 @@
         },
         {
           "ref": "dsSenha",
-          "width": "50%",
+          "width": 40,
           "label": "Senha",
           "inputType": "password",
           "placeholder": "Digite a senha",

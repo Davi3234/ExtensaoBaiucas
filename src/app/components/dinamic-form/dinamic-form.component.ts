@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { InputTextComponent } from '../ui/input-text/input-text.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 export interface FormComponent {
   form: FormGroup,
@@ -54,7 +55,8 @@ interface FormControlField{
     CommonModule,
     InputTextComponent,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    FlexLayoutModule
   ],
   templateUrl: './dinamic-form.component.html',
   styleUrl: './dinamic-form.component.css'
@@ -78,7 +80,7 @@ export class DinamicFormComponent implements OnInit, FormComponent{
             },
             {
               "ref": "dsSenha",
-              "width": 50,
+              "width": 20,
               "label": "Senha",
               "inputType": "password",
               "placeholder": "Digite a senha",

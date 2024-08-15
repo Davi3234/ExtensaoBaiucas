@@ -7,24 +7,24 @@
 
       <ng-container *ngFor="let line of group.lines">
         <div class="lines">
-          <ng-container *ngFor="let field of line.fields">
-
-            <div class="field">
+          <div *ngFor="let field of line.fields"
+            [fxFlex]="field.width!"
+            class="field">
 
               <input-text
                 *ngIf="field.inputType == 'text'"
                 [label]="field.label!"
-                [placeholder]="field.placeholder!">
+                [placeholder]="field.placeholder!"
+                [fxFlex]="100">
               </input-text>
 
-              <mat-form-field *ngIf="field.inputType == 'password'">
+              <mat-form-field *ngIf="field.inputType == 'password'"
+                fxFlex="100">
                 <mat-label>{{field.label!}}</mat-label>
                 <input matInput placeholder="{{field.placeholder!}}">
               </mat-form-field>
 
-            </div>
-
-          </ng-container>
+          </div>
         </div>
       </ng-container>
 
