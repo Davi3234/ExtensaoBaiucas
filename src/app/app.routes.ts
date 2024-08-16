@@ -5,6 +5,7 @@ import { LoginComponent } from '@components/auth/login/login.component';
 import { HomeComponent } from '@pages/home/home.component';
 import { ComponentsComponent } from '@pages/components/components.component';
 import { DinamicFormComponent } from './components/dinamic-form/dinamic-form.component';
+import { PageComponent } from './components/page/page.component';
 
 export const routes: Routes = [
   {
@@ -27,6 +28,10 @@ export const routes: Routes = [
   {
     path: 'form',
     component: DinamicFormComponent
+  },
+  {
+    path: 'page',
+    component: PageComponent
   }
 ];
 
