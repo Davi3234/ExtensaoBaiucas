@@ -11,11 +11,10 @@
             [fxFlex]="field.width!"
             class="field">
 
-              <input-text
-                *ngIf="field.inputType == 'text'"
-                [label]="field.label!"
-                [placeholder]="field.placeholder!">
-              </input-text>
+              <mat-form-field fxFlex="100" *ngIf="field.inputType == 'text'">
+                <mat-label>{{ field.label! }}</mat-label>
+                <input type="text" matInput [placeholder]="field.placeholder!" [title]="field.label!">
+              </mat-form-field>
 
               <mat-form-field *ngIf="field.inputType == 'password'"
                 fxFlex="100">

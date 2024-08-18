@@ -19,7 +19,8 @@ a {
   color: #272727;
 }
 
-.readonly {
-  cursor: not-allowed;
-  pointer-events: none;
+/* UI Styles */
+
+#input-width {
+  width: 300px;
 }

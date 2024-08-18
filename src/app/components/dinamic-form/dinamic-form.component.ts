@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { InputTextComponent } from '../ui/input-text/input-text.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -12,7 +11,7 @@ export interface FormComponent {
   groups: FormGrouping[]
 }
 
-interface FormGrouping{
+interface FormGrouping {
   lines: FormLine[],
   layout: "none" | "card" | "expansion",
   title?: string,
@@ -24,14 +23,14 @@ export interface FormControlFieldAsyncOptions {
   inputType?: "number" | "text" | "currency" | "email" | "time" | "cnpjCpf" | "password" | "onlyNumber" | "customPassword",
 }
 
-interface FormLine{
+interface FormLine {
   fields: FormControlField[],
   widthGap?: number,
   class?: string,
   layout?: string
 }
 
-interface FormControlField{
+interface FormControlField {
   ref: string,
   width: number,
   options?: any[],
@@ -53,7 +52,6 @@ interface FormControlField{
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    InputTextComponent,
     MatFormFieldModule,
     MatInputModule,
     FlexLayoutModule
@@ -62,12 +60,12 @@ interface FormControlField{
   styleUrl: './dinamic-form.component.css'
 })
 
-export class DinamicFormComponent implements OnInit, FormComponent{
+export class DinamicFormComponent implements OnInit, FormComponent {
   @Input() groups: FormGrouping[] = [
     {
       "title": "Formulário de Login",
       "layout": "none",
-      "lines":[
+      "lines": [
         {
           "fields": [
             {
