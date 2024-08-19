@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { defaultUrlMatcher, RouterModule, Routes } from '@angular/router';
 import { MenuComponent } from '@components/menu/menu.component';
-import { LoginComponent } from '@components/auth/login/login.component';
 import { HomeComponent } from '@pages/home/home.component';
 import { ComponentsComponent } from '@pages/components/components.component';
 import { DinamicFormComponent } from './components/dinamic-form/dinamic-form.component';
 import { PageComponent } from './components/page/page.component';
+import { LoginComponent } from './pages/auth/login/login.component';
 
 export const routes: Routes = [
   {
@@ -23,7 +23,7 @@ export const routes: Routes = [
   },
   {
     path: 'auth/login',
-    component: LoginComponent
+    component:LoginComponent
   },
   {
     path: 'form',

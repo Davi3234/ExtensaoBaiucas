@@ -1,51 +1,15 @@
+import { FormComponent, FormControlField, FormGrouping, FormLine } from './../../services/interface-form';
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { InputTextComponent } from '../ui/input-text/input-text.component';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FlexLayoutModule } from "@angular/flex-layout";
+import { FormService } from '@app/services/form.service';
 
-export interface FormComponent {
-  form: FormGroup,
-  groups: FormGrouping[]
-}
-
-interface FormGrouping{
-  lines: FormLine[],
-  layout: "none" | "card" | "expansion",
-  title?: string,
-  class?: string,
-  expanded?: boolean
-}
-
-export interface FormControlFieldAsyncOptions {
-  inputType?: "number" | "text" | "currency" | "email" | "time" | "cnpjCpf" | "password" | "onlyNumber" | "customPassword",
-}
-
-interface FormLine{
-  fields: FormControlField[],
-  widthGap?: number,
-  class?: string,
-  layout?: string
-}
-
-interface FormControlField{
-  ref: string,
-  width: number,
-  options?: any[],
-  readonly?: boolean,
-  visible?: boolean,
-  required?: boolean,
-  reset?: boolean,
-  tooltip?: string,
-  mask?: string,
-  placeholder?: string,
-  inputType?: "text" | "password" | "number" | "dropDown" | "checkBox" | "datePicker" | "monthPicker" | "intlPhone" | "textarea" | "simpleText" | "radioGroup" | "autoComplete" | "colorPicker" | "time" | "autoCompleteObjetcData";
-  style?: "standard" | "fill" | "outline" | "legacy",
-  label?: string
-}
+import { InputTextComponent } from '../ui/input-text/input-text.component';
+import { Formulario } from '@app/services/form';
 
 @Component({
   selector: 'dinamic-form',
@@ -56,49 +20,52 @@ interface FormControlField{
     InputTextComponent,
     MatFormFieldModule,
     MatInputModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatButtonModule
   ],
   templateUrl: './dinamic-form.component.html',
   styleUrl: './dinamic-form.component.css'
 })
 
 export class DinamicFormComponent implements OnInit, FormComponent{
-  @Input() groups: FormGrouping[] = [
-    {
-      "title": "Formulário de Login",
-      "layout": "none",
-      "lines":[
-        {
-          "fields": [
-            {
-              "ref": "nmUsuario",
-              "width": 50,
-              "label": "Usuário",
-              "inputType": "text",
-              "placeholder": "Digite o login",
-              "required": true
-            },
-            {
-              "ref": "dsSenha",
-              "width": 20,
-              "label": "Senha",
-              "inputType": "password",
-              "placeholder": "Digite a senha",
-              "required": true
-            }
-          ]
-        }
-      ]
-    }
-
-  ];
+  @Input() idformulario = 0;
+  groups: FormGrouping[] = [];
+  lines: FormLine[] = [];
+  fields: FormControlField[] = [];
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private formService: FormService) {
     this.form = this.fb.group({});
   }
 
   ngOnInit() {
+    this.formService.buscarPorId(this.idformulario).subscribe((formulario) => {
+      formulario.lines.forEach(line => {
+        line.fields.forEach(field => {
+          this.fields.push({
+            ref: field.ref,
+            width: field.width,
+            options: field.options,
+            required: field.required,
+            placeholder: field.placeholder,
+            inputType: field.type,
+            label: field.label,
+          });
+        })
+        this.lines.push({
+          fields: this.fields
+        })
+        this.fields = [];
+      });
+
+      this.groups = [
+        {
+          lines: this.lines,
+          layout: 'none',
+          title: formulario.title
+        }
+      ];
+    });
     this.createForm();
   }
 

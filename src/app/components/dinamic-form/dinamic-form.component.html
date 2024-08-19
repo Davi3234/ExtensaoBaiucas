@@ -1,9 +1,6 @@
 <div class="form">
   <form [formGroup]="form">
     <ng-container *ngFor="let group of groups">
-      <div class="title">
-        <h4 style="text-align: center;">{{ group.title }}</h4>
-      </div>
 
       <ng-container *ngFor="let line of group.lines">
         <div class="lines">
@@ -11,16 +8,13 @@
             [fxFlex]="field.width!"
             class="field">
 
-              <input-text
-                *ngIf="field.inputType == 'text'"
-                [label]="field.label!"
-                [placeholder]="field.placeholder!">
-              </input-text>
-
-              <mat-form-field *ngIf="field.inputType == 'password'"
+              <mat-form-field
                 fxFlex="100">
                 <mat-label>{{field.label!}}</mat-label>
-                <input matInput placeholder="{{field.placeholder!}}">
+                <input matInput
+                  [name]="field.ref"
+                  [placeholder]="field.placeholder!"
+                  [type]="field.inputType!">
               </mat-form-field>
 
           </div>

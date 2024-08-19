@@ -1,20 +1,20 @@
-export class Campo{
-  constructor(
-    public label: string,
-    public type: string,
-    public placeholder: string,
-    public required: boolean,
-    public options?: Array<Option>,
-    public maxWidth?: string,
-    public minWidth?: string,
-    public rows?: number
-  ){}
-}
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Formulario } from './form';
+import { Observable } from 'rxjs';
 
-export class Formulario{
-  constructor(public title: string, public fields: Campo[]){}
-}
+@Injectable({
+  providedIn: 'root'
+})
+export class FormService {
 
-export class Option{
-  constructor(public id: string, public nome: string){}
+  private readonly API = 'http://localhost:3000/formularios'
+
+  constructor(private http: HttpClient) { }
+
+  buscarPorId(id: number): Observable<Formulario> {
+    const url = `${this.API}/${id}`
+    return this.http.get<Formulario>(url)
+  }
+
 }

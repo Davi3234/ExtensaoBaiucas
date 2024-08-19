@@ -1,0 +1,17 @@
+#login-page{
+  background-color: #A30A0A;
+  height: 100%;
+}
+.submit{
+  background-color: green;
+  color: white;
+}
+.lines{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #8B0000;
+  width: 60%;
+  padding: 10px;
+  border-radius: 15px;
+}

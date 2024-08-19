@@ -1,0 +1,30 @@
+<div id="login-page">
+
+  <mat-grid-list cols="3" rowHeight="15rem">
+    <mat-grid-tile
+    colspan="3"
+    rowspan="1">
+      <img src="assets/logo.png" alt="Logo Baiucas" width="300">
+    </mat-grid-tile>
+    <mat-grid-tile
+    colspan="3"
+    rowspan="2">
+    <div class="lines">
+      <div>
+        <dinamic-form [idformulario]="1">
+        </dinamic-form>
+      </div>
+      <div style="margin: auto; margin-bottom: 10px;">
+        <button mat-flat-button
+        class="submit" (click)="login()">Entrar</button>
+      </div>
+      <div style="margin: auto;">
+        <button mat-flat-button
+          (click)="cadastrarUsuario()">Cadastrar-se</button>
+      </div>
+    </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+
