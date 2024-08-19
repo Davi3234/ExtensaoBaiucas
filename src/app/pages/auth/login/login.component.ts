@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { DinamicFormComponent } from '@app/components/dinamic-form/dinamic-form.component';
 import { MenuComponent } from '@app/components/menu/menu.component';
 import { PageComponent } from '@app/components/page/page.component';
@@ -20,13 +20,8 @@ import { FormControlField, FormGrouping, FormLine } from '@app/services/interfac
   styleUrl: './login.component.css'
 })
 export class LoginComponent implements OnInit{
-  @Input('dsLogin') dsLogin = "";
-  @Input('dsSenha') dsSenha = "";
 
-  groups: FormGrouping[] = [];
-  lines: FormLine[] = [];
-  fields: FormControlField[] = [];
-  idformulario = 1;
+  @ViewChild(DinamicFormComponent) dinamicFormComponent!: DinamicFormComponent;
 
   constructor(private formService: FormService){}
 
@@ -34,8 +29,10 @@ export class LoginComponent implements OnInit{
   }
 
   login(){
-    console.dir(this.dsLogin);
-    console.dir(this.dsSenha);
+    const dsLoginValue = this.dinamicFormComponent.form.get('dsLogin');
+    const dsSenhaValue = this.dinamicFormComponent.form.get('dsSenha');
+    console.log(dsLoginValue)
+    console.log(dsSenhaValue)
   }
 
   cadastrarUsuario(){

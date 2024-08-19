@@ -65,8 +65,8 @@ export class DinamicFormComponent implements OnInit, FormComponent{
           title: formulario.title
         }
       ];
+      this.createForm();
     });
-    this.createForm();
   }
 
   createForm() {

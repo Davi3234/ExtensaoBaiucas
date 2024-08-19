@@ -12,9 +12,9 @@
                 fxFlex="100">
                 <mat-label>{{field.label!}}</mat-label>
                 <input matInput
-                  [name]="field.ref"
                   [placeholder]="field.placeholder!"
-                  [type]="field.inputType!">
+                  [type]="field.inputType!"
+                  [formControlName]="field.ref">
               </mat-form-field>
 
           </div>
