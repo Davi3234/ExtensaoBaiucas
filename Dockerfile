@@ -1,16 +1,15 @@
 FROM node:18-alpine AS build
 
-RUN apk update && apk upgrade 
+RUN apk update && apk upgrade && \
+    addgroup -S appgroup && adduser -S frontend -G appgroup
 
-RUN addgroup -S appgroup && adduser -S frontend -G appgroup
+WORKDIR /var/www/html
 
-WORKDIR /app
 COPY --chown=frontend:appgroup package*.json ./
 
-RUN npm install --quiet && npm cache clean --force
+RUN npm install --quiet && npm cache clean --force && npm install -g @angular/cli@latest
 
 COPY --chown=frontend:appgroup . .
-RUN npm run build --prod
 
 EXPOSE 4200
 
