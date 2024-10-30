@@ -1,18 +1,10 @@
-FROM node:18-alpine AS build
+FROM node:18-alpine
 
-RUN apk update && apk upgrade && \
-    addgroup -S appgroup && adduser -S frontend -G appgroup
+WORKDIR /app
 
-WORKDIR /var/www/html
-
-COPY --chown=frontend:appgroup package*.json ./
-
-RUN npm install --quiet && npm cache clean --force && npm install -g @angular/cli@latest
-
-COPY --chown=frontend:appgroup . .
+COPY package*.json ./
+RUN npm install --quiet && npm cache clean --force
+COPY . .
 
 EXPOSE 4200
-
-USER frontend
-
 CMD ["npm", "start", "--", "--host", "0.0.0.0"]
