@@ -56,9 +56,9 @@
             type="password"
             class="form-control mb-3"
             id="password">
-          <!--
-            Validators
-           -->
+
+          <!-- Validators -->
+
           <ngb-alert [dismissible]="false"
             *ngIf="formulario.get('password')?.touched && formulario.get('password')?.hasError('minlength')">
             A senha deve ter pelo menos 8 caracteres.
@@ -87,7 +87,11 @@
 
         <div class="mb-3">
           <label for="confirm-password" class="form-label">Confirmação de senha</label>
-          <input formControlName="confirmPassword" type="password" class="form-control" id="confirm-password">
+          <input
+            formControlName="confirmPassword"
+            type="password"
+            class="form-control"
+            id="confirm-password">
 
           <!-- Validators -->
 
@@ -102,7 +106,7 @@
       </div>
 
       <div style="float: right;">
-        <div class="actions">
+        <div class="actions p-2">
           <div class="btn-group w-25" role="group">
             <button type="button" class="btn btn-success" (click)="salvar()">Salvar</button>
             <button type="button" class="btn btn-primary" (click)="cancelar()">Cancelar</button>
@@ -111,5 +115,13 @@
       </div>
 
     </div>
+
+    <div class="mt-3">
+      <ngb-alert [dismissible]="false"
+        *ngIf="formulario.get('login')?.hasError('backendError')">
+        {{ formulario.get('login')?.getError('backendError') }}
+      </ngb-alert>
+    </div>
+
   </form>
 </div>

@@ -1,1 +1,6 @@
-
+.row-selected td{
+  background-color: #cb5151 !important;
+}
+table .selected-row:hover {
+  background-color: #cb5151 !important;
+}
