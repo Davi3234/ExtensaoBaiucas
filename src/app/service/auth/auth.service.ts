@@ -3,7 +3,7 @@ import { AuthTokenService } from './../auth-token/auth-token.service'
 import { Injectable } from '@angular/core'
 import { environment } from '../../environments/environment'
 import { catchError, map, Observable, of } from 'rxjs'
-import { Result } from '../request'
+import { Result } from '../../@types/http'
 
 @Injectable({
   providedIn: 'root'
