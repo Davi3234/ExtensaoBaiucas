@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { AuthTokenService } from './../auth-token/auth-token.service'
 import { Injectable } from '@angular/core'
 import { environment } from '../../environments/environment'
-import { catchError, map, Observable, of } from 'rxjs'
+import { Observable } from 'rxjs'
 import { Result } from '../../@types/http'
 
 @Injectable({
@@ -17,18 +17,8 @@ export class AuthService {
     private readonly http: HttpClient
   ) { }
 
-  login(data: { login: string, password: string }): Observable<boolean> {
+  login(data: { login: string, password: string }): Observable<Result<{ token: string }>> {
     return this.http.post<Result<{ token: string }>>(`${AuthService.BASE_ENDPOINT_API}/login`, data)
-      .pipe(
-        map(response => {
-          this.authTokenService.saveToken(response.value.token)
-          return true;
-        }),
-        catchError(error => {
-          console.log(error);
-          return of(false);
-        })
-      )
   }
 
   logout() {
@@ -37,6 +27,10 @@ export class AuthService {
 
   isAuthenticated() {
     return this.authTokenService.hasToken()
+  }
+
+  saveToken(token: string) {
+    this.authTokenService.saveToken(token)
   }
 
   getAuthorizationToken() {

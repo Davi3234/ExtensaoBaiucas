@@ -7,6 +7,7 @@ import { lowercaseValidator, numberValidator, symbolValidator, uppercaseValidato
 import { CommonModule } from '@angular/common';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Result } from '../../../../@types/http';
 
 @Component({
   selector: 'app-edit-user',
@@ -20,18 +21,17 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.css'
 })
-export class EditUserComponent implements OnInit{
+export class EditUserComponent implements OnInit {
 
   formulario!: FormGroup;
   user!: User;
 
-  constructor (
+  constructor(
     private readonly userService: UserService,
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
     private readonly route: ActivatedRoute
-  )
-  {}
+  ) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -67,26 +67,26 @@ export class EditUserComponent implements OnInit{
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
-  salvar(){
-    if(this.formulario.valid){
+  salvar() {
+    if (this.formulario.valid) {
       this.userService.editar(this.formulario.value).subscribe({
         next: () => {
           this.cancelar();
         },
-        error: (error) => {
+        error: ({ error }: { error: Result }) => {
           if (error.status === 400) {
-            const causes = error.error?.error?.causes || [];
-            causes.forEach((cause: any) => {
-              if (cause.cause === 'login') {
-                this.formulario.get('login')?.setErrors({ backendError: cause.message });
-              }
+            const causes = error.error?.causes || [];
+
+            causes.forEach(({ message, origin }) => {
+              if (origin.includes('login'))
+                this.formulario.get('login')?.setErrors({ backendError: message });
             });
           }
         }
       });
     }
   }
-  cancelar(){
+  cancelar() {
     this.router.navigate(['/users']);
   }
 }

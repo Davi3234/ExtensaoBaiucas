@@ -14,7 +14,7 @@
           <!-- Validators -->
           <ngb-alert [dismissible]="false"
             *ngIf="formulario.get('login')?.touched && formulario.get('login')?.errors?.['required']">
-            O login é de preenchimento obrigatório
+            O login é de preenchimento obrigatório.
           </ngb-alert>
 
           <ngb-alert [dismissible]="false"
@@ -31,28 +31,8 @@
             Validators
            -->
           <ngb-alert [dismissible]="false"
-            *ngIf="formulario.get('password')?.touched && formulario.get('password')?.hasError('minlength')">
-            A senha deve ter pelo menos 8 caracteres.
-          </ngb-alert>
-
-          <ngb-alert [dismissible]="false"
-            *ngIf="formulario.get('password')?.touched && formulario.get('password')?.hasError('missingUppercase')">
-            A senha deve conter pelo menos uma letra maiúscula.
-          </ngb-alert>
-
-          <ngb-alert [dismissible]="false"
-            *ngIf="formulario.get('password')?.touched && formulario.get('password')?.hasError('missingLowercase')">
-            A senha deve conter pelo menos uma letra minúscula.
-          </ngb-alert>
-
-          <ngb-alert [dismissible]="false"
-            *ngIf="formulario.get('password')?.touched && formulario.get('password')?.hasError('missingNumber')">
-            A senha deve conter pelo menos um número.
-          </ngb-alert>
-
-          <ngb-alert [dismissible]="false"
-            *ngIf="formulario.get('password')?.touched && formulario.get('password')?.hasError('missingSymbol')">
-            A senha deve conter pelo menos um símbolo (&#64;, $, !, %, *, ?, &).
+            *ngIf="formulario.get('password')?.touched && formulario.get('password')?.hasError('required')">
+            A senha é de preenchimento obrigatório.
           </ngb-alert>
         </div>
 
@@ -61,8 +41,7 @@
       <div style="float: right;">
         <div class="actions">
           <div class="btn-group w-25" role="group">
-            <button type="button" class="btn btn-success" (click)="salvar()">Salvar</button>
-            <button type="button" class="btn btn-primary" (click)="cancelar()">Cancelar</button>
+            <button type="button" class="btn btn-success" (click)="login()">Entrar</button>
           </div>
         </div>
       </div>
