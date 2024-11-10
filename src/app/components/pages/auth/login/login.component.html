@@ -1,1 +1,51 @@
-<p>login works!</p>
+<app-menu></app-menu>
+<div class="container h-75">
+  <form [formGroup]="formulario" id="user-create" class="container-form mt-2 p-3">
+    <div class="card text-bg-danger">
+      <div class="card-header">
+        <h2>Login</h2>
+      </div>
+      <div class="card-body">
+
+        <div class="mb-3">
+          <label for="login" class="form-label">Login</label>
+          <input formControlName="login" type="email" class="form-control mb-3" id="login">
+
+          <!-- Validators -->
+          <ngb-alert [dismissible]="false"
+            *ngIf="formulario.get('login')?.touched && formulario.get('login')?.errors?.['required']">
+            O login é de preenchimento obrigatório.
+          </ngb-alert>
+
+          <ngb-alert [dismissible]="false"
+            *ngIf="formulario.get('login')?.touched && formulario.get('login')?.errors?.['email']">
+            O login deve ser um email.
+          </ngb-alert>
+
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Senha</label>
+          <input formControlName="password" type="password" class="form-control mb-3" id="password">
+          <!--
+            Validators
+           -->
+          <ngb-alert [dismissible]="false"
+            *ngIf="formulario.get('password')?.touched && formulario.get('password')?.hasError('required')">
+            A senha é de preenchimento obrigatório.
+          </ngb-alert>
+        </div>
+
+      </div>
+
+      <div style="float: right;">
+        <div class="actions">
+          <div class="btn-group w-25" role="group">
+            <button type="button" class="btn btn-success" (click)="login()">Entrar</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>

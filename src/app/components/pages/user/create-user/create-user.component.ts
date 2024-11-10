@@ -6,6 +6,7 @@ import { lowercaseValidator, numberValidator, symbolValidator, uppercaseValidato
 import { CommonModule } from '@angular/common';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { Result } from '../../../../@types/http';
 
 @Component({
   selector: 'app-create-user',
@@ -19,15 +20,14 @@ import { Router } from '@angular/router';
   templateUrl: './create-user.component.html',
   styleUrl: './create-user.component.css'
 })
-export class CreateUserComponent implements OnInit{
+export class CreateUserComponent implements OnInit {
   formulario!: FormGroup;
 
-  constructor (
+  constructor(
     private readonly userService: UserService,
     private readonly formBuilder: FormBuilder,
     private readonly router: Router
-  )
-  {}
+  ) { }
 
   ngOnInit(): void {
     this.formulario = this.formBuilder.group({
@@ -57,26 +57,26 @@ export class CreateUserComponent implements OnInit{
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
-  salvar(){
-    if(this.formulario.valid){
+  salvar() {
+    if (this.formulario.valid) {
       this.userService.criar(this.formulario.value).subscribe({
         next: () => {
           this.cancelar();
         },
-        error: (error) => {
+        error: ({ error }: { error: Result }) => {
           if (error.status === 400) {
-            const causes = error.error?.error?.causes || [];
-            causes.forEach((cause: any) => {
-              if (cause.cause === 'login') {
-                this.formulario.get('login')?.setErrors({ backendError: cause.message });
-              }
+            const causes = error.error?.causes || [];
+
+            causes.forEach(({ message, origin }) => {
+              if (origin.includes('login'))
+                this.formulario.get('login')?.setErrors({ backendError: message });
             });
           }
         }
       });
     }
   }
-  cancelar(){
+  cancelar() {
     this.router.navigate(['/users']);
   }
 }
