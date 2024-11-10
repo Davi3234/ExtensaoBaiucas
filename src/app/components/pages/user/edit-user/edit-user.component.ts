@@ -31,9 +31,7 @@ export class EditUserComponent implements OnInit{
     private readonly router: Router,
     private readonly route: ActivatedRoute
   )
-  {}
-
-  ngOnInit(): void {
+  {
     const id = this.route.snapshot.paramMap.get('id');
 
     this.userService.buscarPorId(parseInt(id!)).subscribe((result) => {
@@ -59,6 +57,9 @@ export class EditUserComponent implements OnInit{
         confirmPassword: ['']
       }, { validators: this.passwordMatchValidator });
     });
+  }
+
+  ngOnInit(): void {
   }
 
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
