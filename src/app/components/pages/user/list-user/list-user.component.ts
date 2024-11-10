@@ -1,12 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MenuComponent } from '../../../core/menu/menu.component';
 
 @Component({
   selector: 'app-list-user',
   standalone: true,
-  imports: [],
+  imports: [MenuComponent],
   templateUrl: './list-user.component.html',
-  styleUrl: './list-user.component.scss'
+  styleUrls: ['./list-user.component.scss']
 })
-export class ListUserComponent {
+export class ListUserComponent implements OnInit {
 
+  ngOnInit(): void {
+    console.log('ListUserComponent carregado');
+  }
+
+  teste() {
+    console.log('hello world');
+    alert('teste');
+  }
 }
