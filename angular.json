@@ -3,13 +3,9 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ExtensaoBaiucas": {
+    "extensao-baiucas": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
+      "schematics": {},
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -25,16 +21,15 @@
               "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public",
-                "output": "./"
+                "input": "public"
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
@@ -71,10 +66,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ExtensaoBaiucas:build:production"
+              "buildTarget": "extensao-baiucas:build:production"
             },
             "development": {
-              "buildTarget": "ExtensaoBaiucas:build:development"
+              "buildTarget": "extensao-baiucas:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -91,16 +86,14 @@
               "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public",
-                "output": "./"
+                "input": "public"
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.css"
             ],
             "scripts": []
           }
@@ -109,6 +102,6 @@
     }
   },
   "cli": {
-    "analytics": "92d91468-4924-4acb-96b1-4b64bbfdf40c"
+    "analytics": "e197dc11-1cac-48aa-b750-0aaa045204b4"
   }
 }

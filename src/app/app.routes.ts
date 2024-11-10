@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
-import { CreateUserComponent } from './components/pages/user/create-user/create-user.component';
-import { LoginComponent } from './components/pages/auth/login/login.component';
 import { ListUserComponent } from './components/pages/user/list-user/list-user.component';
+import { CreateUserComponent } from './components/pages/user/create-user/create-user.component';
+import { EditUserComponent } from './components/pages/user/edit-user/edit-user.component';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'auth/login',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    redirectTo: 'users'
   },
   {
     path: 'users',
@@ -18,7 +18,7 @@ export const routes: Routes = [
     component: CreateUserComponent
   },
   {
-    path: 'auth/login',
-    component: LoginComponent
-  },
+    path: 'users/edit/:id',
+    component: EditUserComponent
+  }
 ];

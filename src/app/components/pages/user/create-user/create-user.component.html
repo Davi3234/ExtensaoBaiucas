@@ -1,1 +1,40 @@
-<p>create-user works!</p>
+<app-menu></app-menu>
+<div class="container h-75">
+  <form id="user-create" class="container-form mt-2 p-3" style="height: 500px;">
+    <div class="card text-bg-danger">
+      <div class="card-header">
+        Cadastro de Usuário
+      </div>
+      <div class="card-body">
+
+        <div class="mb-3">
+          <label for="login" class="form-label">Login</label>
+          <input type="email" class="form-control" id="login">
+        </div>
+        <div class="mb-3">
+          <label for="login" class="form-label">Nome</label>
+          <input type="email" class="form-control" id="login">
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Senha</label>
+          <input type="password" class="form-control" id="password">
+        </div>
+        <div class="mb-3">
+          <label for="confirm-password" class="form-label">Confirmação de senha</label>
+          <input type="password" class="form-control" id="confirm-password">
+        </div>
+
+      </div>
+
+      <div style="float: right;">
+        <div class="actions">
+          <div class="btn-group w-25" role="group">
+            <button type="button" class="btn btn-success" (click)="salvar()">Salvar</button>
+            <button type="button" class="btn btn-primary" (click)="cancelar()">Cancelar</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>

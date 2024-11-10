@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+  background-color: #ff3131;
+}
+.actions{
+  display: flex;
+  justify-content: flex-end;
+}
+.container-form{
+  background-color: #a00000;
+  border-radius: 4px;
+}

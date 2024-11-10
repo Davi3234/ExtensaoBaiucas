@@ -1,2 +1,31 @@
 <app-menu></app-menu>
-<button type="button" onclick="teste()">Console.log</button>
+<div class="container h-75">
+  <form action="" id="user-list" class="container-form mt-2 p-3" style="height: 500px;">
+    <div class="actions mb-2">
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-primary" (click)="incluir()">Incluir</button>
+        <button type="button" class="btn btn-warning" (click)="editar()">Editar</button>
+        <button type="button" class="btn btn-danger" (click)="excluir()">Excluir</button>
+      </div>
+    </div>
+    <table class="table table-dark table-hover table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Login</th>
+          <th scope="col">Ativo</th>
+        </tr>
+      </thead>
+      @for (user of users; track $index) {
+        <tr class="table-dark">
+          <td>{{ user.id }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.login }}</td>
+          <td>{{ (user.active ? "Sim" : "Não") }}</td>
+        </tr>
+      }
+
+    </table>
+  </form>
+</div>
