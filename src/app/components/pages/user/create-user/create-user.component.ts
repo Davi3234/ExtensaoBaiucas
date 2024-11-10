@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MenuComponent } from '../../core/menu/menu.component';
 import { UserService } from '../../../../service/user/user.service';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ReactiveFormsModule } from '@angular/forms';
@@ -33,7 +33,7 @@ export class CreateUserComponent implements OnInit{
     this.formulario = this.formBuilder.group({
       name: ['', [
         Validators.required,
-        Validators.pattern(/^[a-zA-Z]+$/)
+        Validators.pattern(/^(?!\s*$)[a-zA-Z\s]+$/)
       ]],
       login: ['', [
         Validators.required,
@@ -59,12 +59,24 @@ export class CreateUserComponent implements OnInit{
 
   salvar(){
     if(this.formulario.valid){
-      this.userService.criar(this.formulario.value).subscribe(() => {
-        this.router.navigate(['/listarPensamento'])
-      })
+      this.userService.criar(this.formulario.value).subscribe({
+        next: () => {
+          this.cancelar();
+        },
+        error: (error) => {
+          if (error.status === 400) {
+            const causes = error.error?.error?.causes || [];
+            causes.forEach((cause: any) => {
+              if (cause.cause === 'login') {
+                this.formulario.get('login')?.setErrors({ backendError: cause.message });
+              }
+            });
+          }
+        }
+      });
     }
   }
   cancelar(){
-    // Implementação do método cancelar
+    this.router.navigate(['/users']);
   }
 }
