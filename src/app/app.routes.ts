@@ -3,6 +3,7 @@ import { ListUserComponent } from './components/pages/user/list-user/list-user.c
 import { CreateUserComponent } from './components/pages/user/create-user/create-user.component';
 import { EditUserComponent } from './components/pages/user/edit-user/edit-user.component';
 import { LoginComponent } from './components/pages/auth/login/login.component';
+import { AuthGuardService } from './service/auth/can-active';
 
 export const routes: Routes = [
   {
@@ -12,18 +13,21 @@ export const routes: Routes = [
   },
   {
     path: 'users',
-    component: ListUserComponent
+    component: ListUserComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'users/create',
-    component: CreateUserComponent
+    component: CreateUserComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'users/edit/:id',
-    component: EditUserComponent
+    component: EditUserComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'auth/login',
     component: LoginComponent
-  },
+  }
 ];
