@@ -73,7 +73,9 @@ export class ListUserComponent implements OnInit{
 
   }
   excluir(){
-
+    this.userService.excluir(this.id!).subscribe(element => {
+      console.log(element);
+    });
   }
 
 }

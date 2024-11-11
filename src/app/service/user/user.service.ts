@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from './user';
 import { environment } from '../../environments/environment';
 import { Result } from '../../@types/http'
+import { Message } from '../../@types/message';
 
 @Injectable({
   providedIn: 'root'
@@ -31,14 +32,14 @@ export class UserService {
     return this.http.put<Result<User>>(url, user )
   }
 
-  excluir(id: number): Observable<Result<User>> {
-    const url = `${this.API}/delete/${id}`
-    return this.http.delete<Result<User>>(url)
+  excluir(id: number): Observable<Result<Message[]>> {
+    const url = `${this.API}/${id}`
+    return this.http.delete<Result<Message[]>>(url)
   }
 
-  buscarPorId(id: number): Observable<Result<User>> {
+  buscarPorId(id: number): Observable<Result<{user:User}>> {
     const url = `${this.API}/${id}`
-    return this.http.get<Result<User>>(url)
+    return this.http.get<Result<{user:User}>>(url)
   }
 
 }

@@ -7,7 +7,6 @@ import { lowercaseValidator, numberValidator, symbolValidator, uppercaseValidato
 import { CommonModule } from '@angular/common';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Result } from '../../../../@types/http';
 
 @Component({
   selector: 'app-edit-user',
@@ -21,46 +20,49 @@ import { Result } from '../../../../@types/http';
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.css'
 })
-export class EditUserComponent implements OnInit {
+export class EditUserComponent implements OnInit{
 
   formulario!: FormGroup;
   user!: User;
 
-  constructor(
+  constructor (
     private readonly userService: UserService,
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
     private readonly route: ActivatedRoute
   )
-  {
-    const id = this.route.snapshot.paramMap.get('id');
-
-    this.userService.buscarPorId(parseInt(id!)).subscribe((result) => {
-      this.user = result.value;
-
-      this.formulario = this.formBuilder.group({
-        name: [this.user.name, [
-          Validators.required,
-          Validators.pattern(/^(?!\s*$)[a-zA-Z\s]+$/)
-        ]],
-        login: [this.user.login, [
-          Validators.required,
-          Validators.email
-        ]],
-        password: ['', [
-          Validators.required,
-          Validators.minLength(8),
-          uppercaseValidator(),
-          lowercaseValidator(),
-          numberValidator(),
-          symbolValidator()
-        ]],
-        confirmPassword: ['']
-      }, { validators: this.passwordMatchValidator });
-    });
-  }
+  {}
 
   ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+
+    this.formulario = this.formBuilder.group({
+      name: ['', [
+        Validators.required,
+        Validators.pattern(/^(?!\s*$)[a-zA-Z\s]+$/)
+      ]],
+      login: ['', [
+        Validators.required,
+        Validators.email
+      ]],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(8),
+        uppercaseValidator(),
+        lowercaseValidator(),
+        numberValidator(),
+        symbolValidator()
+      ]],
+      confirmPassword: ['']
+    }, { validators: this.passwordMatchValidator });
+
+    this.userService.buscarPorId(parseInt(id!)).subscribe((result) => {
+      this.user = result.value.user;
+
+      this.formulario.get('name')?.setValue(this.user.name);
+      this.formulario.get('login')?.setValue(this.user.login);
+    });
+
   }
 
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
@@ -69,26 +71,26 @@ export class EditUserComponent implements OnInit {
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
-  salvar() {
-    if (this.formulario.valid) {
+  salvar(){
+    if(this.formulario.valid){
       this.userService.editar(this.formulario.value).subscribe({
         next: () => {
           this.cancelar();
         },
-        error: ({ error }: { error: Result }) => {
+        error: (error) => {
           if (error.status === 400) {
-            const causes = error.error?.causes || [];
-
-            causes.forEach(({ message, origin }) => {
-              if (origin.includes('login'))
-                this.formulario.get('login')?.setErrors({ backendError: message });
+            const causes = error.error?.error?.causes || [];
+            causes.forEach((cause: any) => {
+              if (cause.cause === 'login') {
+                this.formulario.get('login')?.setErrors({ backendError: cause.message });
+              }
             });
           }
         }
       });
     }
   }
-  cancelar() {
+  cancelar(){
     this.router.navigate(['/users']);
   }
 }
