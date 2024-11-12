@@ -1,0 +1,14 @@
+:host {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 120px;
+  max-width: 50%;
+  pointer-events: none;
+}
+
+.notification-list {
+  display: flex;
+  flex-direction: column;
+  gap: .9rem;
+}
