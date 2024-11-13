@@ -4,12 +4,12 @@ import { CreateUserComponent } from './components/pages/user/create-user/create-
 import { EditUserComponent } from './components/pages/user/edit-user/edit-user.component';
 import { LoginComponent } from './components/pages/auth/login/login.component';
 import { AuthGuardService } from './service/auth/can-active';
-import { ListProdutoComponent } from './components/page/produto/list-produto/list-produto.component';
-import { CreateProdutoComponent } from './components/page/produto/create-produto/create-produto.component';
-import { EditProdutoComponent } from './components/page/produto/edit-produto/edit-produto.component';
-import { ListCategoriaComponent } from './components/page/categoria/list-categoria/list-categoria.component';
-import { CreateCategoriaComponent } from './components/page/categoria/create-categoria/create-categoria.component';
-import { EditCategoriaComponent } from './components/page/categoria/edit-categoria/edit-categoria.component';
+import { ListProductComponent } from './components/pages/product/list-product/list-product.component';
+import { CreateProductComponent } from './components/pages/product/create-product/create-product.component';
+import { EditProductComponent } from './components/pages/product/edit-product/edit-product.component';
+import { ListCategoryComponent } from './components/pages/category/list-category/list-category.component';
+import { CreateCategoryComponent } from './components/pages/category/create-category/create-category.component';
+import { EditCategoryComponent } from './components/pages/category/edit-category/edit-category.component';
 
 export const routes: Routes = [
   {
@@ -34,32 +34,32 @@ export const routes: Routes = [
   },
   {
     path: 'products',
-    component: ListProdutoComponent,
+    component: ListProductComponent,
     canActivate: [AuthGuardService]
   },
   {
     path: 'products/create',
-    component: CreateProdutoComponent,
+    component: CreateProductComponent,
     canActivate: [AuthGuardService]
   },
   {
     path: 'products/edit/:id',
-    component: EditProdutoComponent,
+    component: EditProductComponent,
     canActivate: [AuthGuardService]
   },
   {
-    path: 'category',
-    component: ListCategoriaComponent,
+    path: 'categories',
+    component: ListCategoryComponent,
     canActivate: [AuthGuardService]
   },
   {
-    path: 'category/create',
-    component: CreateCategoriaComponent,
+    path: 'categories/create',
+    component: CreateCategoryComponent,
     canActivate: [AuthGuardService]
   },
   {
-    path: 'category/edit/:id',
-    component: EditCategoriaComponent,
+    path: 'categories/edit/:id',
+    component: EditCategoryComponent,
     canActivate: [AuthGuardService]
   },
   {
