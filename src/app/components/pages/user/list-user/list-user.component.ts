@@ -1,8 +1,11 @@
 import { UserService } from '../../../../service/user/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MenuComponent } from '../../core/menu/menu.component';
 import { User } from '../../../../service/user/user';
 import { Router } from '@angular/router';
+import { HttpStatusCode } from '@angular/common/http';
+import { IUserService } from '../../../../interface/user.service.interface';
+import { USER_SERVICE_TOKEN } from '../../../../service/services.injection';
 
 @Component({
   selector: 'app-list-user',
@@ -17,7 +20,7 @@ export class ListUserComponent implements OnInit{
   id?: number
 
   constructor(
-    private readonly userService: UserService,
+    @Inject(USER_SERVICE_TOKEN) private readonly userService: IUserService,
     private readonly route: Router
   ){}
 
@@ -74,7 +77,9 @@ export class ListUserComponent implements OnInit{
   }
   excluir(){
     this.userService.excluir(this.id!).subscribe(element => {
-      console.log(element);
+      if(element.status == HttpStatusCode.Ok){
+        this.listAll();
+      }
     });
   }
 

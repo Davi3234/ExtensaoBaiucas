@@ -5,11 +5,12 @@ import { User } from './user';
 import { environment } from '../../environments/environment';
 import { Result } from '../../@types/http'
 import { Message } from '../../@types/message';
+import { IUserService } from '../../interface/user.service.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserService implements IUserService{
 
   private readonly API = `${environment.API_BASE_URL}:80/users`;
 

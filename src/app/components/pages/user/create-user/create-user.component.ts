@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MenuComponent } from '../../core/menu/menu.component';
 import { UserService } from '../../../../service/user/user.service';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ReactiveFormsModule } from '@angular/forms';
@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { Result } from '../../../../@types/http';
+import { IUserService } from '../../../../interface/user.service.interface';
+import { USER_SERVICE_TOKEN } from '../../../../service/services.injection';
 
 @Component({
   selector: 'app-create-user',
@@ -24,7 +26,7 @@ export class CreateUserComponent implements OnInit {
   formulario!: FormGroup;
 
   constructor(
-    private readonly userService: UserService,
+    @Inject(USER_SERVICE_TOKEN) private readonly userService: IUserService,
     private readonly formBuilder: FormBuilder,
     private readonly router: Router
   ) { }

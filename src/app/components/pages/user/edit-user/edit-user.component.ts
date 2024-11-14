@@ -1,5 +1,5 @@
-import { User } from './../../../../service/user/user';
-import { Component, OnInit } from '@angular/core';
+import { User } from '../../../../service/user/user';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MenuComponent } from '../../core/menu/menu.component';
 import { UserService } from '../../../../service/user/user.service';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ReactiveFormsModule } from '@angular/forms';
@@ -7,6 +7,8 @@ import { lowercaseValidator, numberValidator, symbolValidator, uppercaseValidato
 import { CommonModule } from '@angular/common';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IUserService } from '../../../../interface/user.service.interface';
+import { USER_SERVICE_TOKEN } from '../../../../service/services.injection';
 
 @Component({
   selector: 'app-edit-user',
@@ -26,7 +28,7 @@ export class EditUserComponent implements OnInit{
   user!: User;
 
   constructor (
-    private readonly userService: UserService,
+    @Inject(USER_SERVICE_TOKEN) private readonly userService: IUserService,
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
     private readonly route: ActivatedRoute

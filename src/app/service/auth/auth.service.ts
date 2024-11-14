@@ -4,11 +4,12 @@ import { Injectable } from '@angular/core'
 import { environment } from '../../environments/environment'
 import { Observable } from 'rxjs'
 import { Result } from '../../@types/http'
+import { IAuthService } from '../../interface/auth.service.interface'
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements IAuthService{
 
   private static readonly BASE_ENDPOINT_API = `${environment.API_BASE_URL}/auth`
 
@@ -21,19 +22,19 @@ export class AuthService {
     return this.http.post<Result<{ token: string }>>(`${AuthService.BASE_ENDPOINT_API}/login`, data)
   }
 
-  logout() {
+  logout(): void {
     this.authTokenService.removeToken()
   }
 
-  isAuthenticated() {
+  isAuthenticated(): boolean {
     return this.authTokenService.hasToken()
   }
 
-  saveToken(token: string) {
+  saveToken(token: string): void {
     this.authTokenService.saveToken(token)
   }
 
-  getAuthorizationToken() {
+  getAuthorizationToken(): string {
     return this.authTokenService.getToken()
   }
 }

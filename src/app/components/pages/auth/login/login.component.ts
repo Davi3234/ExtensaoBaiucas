@@ -1,11 +1,12 @@
 import { Router } from '@angular/router';
-import { AuthService } from './../../../../service/auth/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MenuComponent } from '../../core/menu/menu.component';
 import { CommonModule } from '@angular/common';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { Result } from '../../../../@types/http';
+import { AUTH_SERVICE_TOKEN } from '../../../../service/services.injection';
+import { IAuthService } from '../../../../interface/auth.service.interface';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
   formulario!: FormGroup;
 
   constructor(
-    private readonly authService: AuthService,
+    @Inject(AUTH_SERVICE_TOKEN) private readonly authService: IAuthService,
     private readonly router: Router,
     private readonly formBuilder: FormBuilder
   ) { }
