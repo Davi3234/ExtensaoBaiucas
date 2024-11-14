@@ -1,0 +1,31 @@
+<app-menu></app-menu>
+<div class="container h-75">
+  <form action="" id="category-list" class="container-form mt-2 p-3" style="height: 500px;">
+    <div class="actions mb-2">
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-primary" id="" (click)="incluir()">Incluir</button>
+        <button type="button" class="btn btn-warning" id="btnEditar" disabled (click)="editar()">Editar</button>
+        <button type="button" class="btn btn-danger" id="btnExcluir" disabled (click)="excluir()">Excluir</button>
+      </div>
+    </div>
+    <table class="table table-danger table-hover ">
+
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nome</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (category of categories; track $index) {
+          <tr id="line{{category.id}}" scope="row" (click)="this.selectionService.selectItem(category.id)">
+            <td>{{ category.id }}</td>
+            <td>{{ category.name }}</td>
+          </tr>
+        }
+      </tbody>
+
+    </table>
+  </form>
+</div>
