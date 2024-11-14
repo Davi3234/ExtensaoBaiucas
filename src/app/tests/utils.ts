@@ -5,8 +5,8 @@ export class MockStorage implements Storage {
     MockStorage.storage[key] = value
   }
 
-  getItem(keyName: string) {
-    return MockStorage.storage[keyName]
+  getItem<T = any>(keyName: string) {
+    return MockStorage.storage[keyName] as T
   }
 
   clear() {
