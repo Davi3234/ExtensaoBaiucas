@@ -13,4 +13,5 @@ export const AUTH_SERVICE_TOKEN = new InjectionToken<IAuthService>('IAuthService
 export const servicesInjection = [
   { provide: USER_SERVICE_TOKEN, useClass: environment.production ? UserService : UserMockService },
   { provide: AUTH_SERVICE_TOKEN, useClass: environment.production ? AuthService : AuthMockService },
+
 ];

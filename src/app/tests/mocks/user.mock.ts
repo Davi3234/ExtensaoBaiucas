@@ -1,47 +1,33 @@
-import { Injectable } from '@angular/core';
+import { UserMockStorage } from './../storage/user.storage';
+import { Inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { User } from '../../service/user/user';
 import { Result } from '../../@types/http'
 import { Message } from '../../@types/message';
 import { IUserService } from '../../interface/user.service.interface';
-import { getUserNextId, ofPadrao } from '../utils';
+import { ofPadrao } from '../utils';
+import { USER_MOCK_STORAGE } from '../mocks.manager.injection';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserMockService implements IUserService{
 
-  listaUser: User[] = [
-    {
-      id: getUserNextId(),
-      name: 'Davi',
-      login: 'davi@gmail.com',
-      active: true
-    },
-    {
-      id: getUserNextId(),
-      name: 'Danrley',
-      login: 'danrley@gmail.com',
-      active: true
-    },
-    {
-      id: getUserNextId(),
-      name: 'Daiane',
-      login: 'daiane@gmail.com',
-      active: true
-    },
-  ];
+  constructor (
+    @Inject(USER_MOCK_STORAGE) private readonly userMockStorage: UserMockStorage
+  ) { }
 
   listar(): Observable<Result<User[]>> {
     return of({
       ...ofPadrao,
-      value: this.listaUser
+      value: this.userMockStorage.getUsers()
     });
   }
 
   criar(user: User): Observable<Result<User>> {
-    user.id = getUserNextId();
-    this.listaUser.push(user);
+
+    this.userMockStorage.save(user);
+
     return of({
       ...ofPadrao,
       value: user
@@ -49,43 +35,25 @@ export class UserMockService implements IUserService{
   }
 
   editar(user: User): Observable<Result<User>> {
-    const existingUser = this.listaUser.find(u => u.id === user.id);
-
-    if (existingUser) {
-      Object.assign(existingUser, user);
-      return of({
-        ...ofPadrao,
-        value: existingUser
-      });
-    }
+    this.userMockStorage.edit(user);
 
     return of({
-      error: {
-        message: 'Usuário não encontrado',
-        causes: [
-          {
-            message: 'Usuário não encontrado',
-            origin: [
-              'login'
-            ]
-          }
-        ]
-      },
-      ok: false,
-      status: 404,
-      value: {id: 0, name: '', login: '', active: false}
+      ...ofPadrao,
+      value: user
     });
   }
 
-
   excluir(id: number): Observable<Result<Message[]>> {
-    return new Observable();
+    this.userMockStorage.remove(id);
+
+    return of({
+      ...ofPadrao,
+      value: [{message: "Usuário excluído com sucesso"}]
+    });
   }
 
   buscarPorId(id: number): Observable<Result<{user:User}>> {
-    let userReturn = this.listaUser.find(function(element){
-      return element.id == id;
-    });
+    let userReturn = this.userMockStorage.find(id);
 
     if(!userReturn){
       return of({
