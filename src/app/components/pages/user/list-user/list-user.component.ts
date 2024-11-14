@@ -23,7 +23,7 @@ export class ListUserComponent implements OnInit{
   constructor(
     @Inject(USER_SERVICE_TOKEN) private readonly userService: IUserService,
     private readonly route: Router,
-    private readonly selectionService: SelectionService
+    protected readonly selectionService: SelectionService
   ){}
 
   ngOnInit(): void {
