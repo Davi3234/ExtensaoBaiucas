@@ -1,29 +1,29 @@
-export class MockStorage<T> implements Storage{
-  constructor (protected object: T) {
+// export class MockStorage<T> implements Storage{
+//   constructor (protected object: T) {
 
-  }
+//   }
 
-  clear(): void{
+//   clear(): void{
 
-  }
-  getItem(key: string): string | null{
+//   }
+//   getItem(key: string): string | null{
 
-  }
-  key(index: number): string | null{
+//   }
+//   key(index: number): string | null{
 
-  }
-  removeItem(): void{
+//   }
+//   removeItem(): void{
 
-  }
-  setItem(value: string): void{
-    localStorage.setItem(this.object, value);
-  }
+//   }
+//   setItem(value: string): void{
+//     localStorage.setItem(this.object, value);
+//   }
 
-  protected gravar(object: T){
+//   protected gravar(object: T){
 
-  }
+//   }
 
-}
+// }
 
 export function getUserNextId(): number {
   return getId('user');

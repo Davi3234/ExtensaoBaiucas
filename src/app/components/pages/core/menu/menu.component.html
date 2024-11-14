@@ -6,11 +6,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="users" style="color: white;">Usuários</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="products" style="color: white;">Produtos</a>
+        <li class="nav-item" *ngFor="let route of routesWithTitle">
+          <a class="nav-link active" aria-current="page" href="{{ route.path }}" style="color: white;">{{ route.title }}</a>
         </li>
       </ul>
     </div>

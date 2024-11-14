@@ -20,7 +20,7 @@ export class ListCategoryComponent implements OnInit{
   constructor(
     private readonly categoryService: CategoryService,
     private readonly route: Router,
-    private readonly selectionService: SelectionService
+    protected readonly selectionService: SelectionService
   ){}
 
   ngOnInit(): void {

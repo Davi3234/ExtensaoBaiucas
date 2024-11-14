@@ -20,7 +20,8 @@ export const routes: Routes = [
   {
     path: 'users',
     component: ListUserComponent,
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuardService],
+    title: "Usuário"
   },
   {
     path: 'users/create',
@@ -35,7 +36,8 @@ export const routes: Routes = [
   {
     path: 'products',
     component: ListProductComponent,
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuardService],
+    title: "Produtos"
   },
   {
     path: 'products/create',
@@ -50,7 +52,8 @@ export const routes: Routes = [
   {
     path: 'categories',
     component: ListCategoryComponent,
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuardService],
+    title: "Categoria"
   },
   {
     path: 'categories/create',
