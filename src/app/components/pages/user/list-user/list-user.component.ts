@@ -39,16 +39,22 @@ export class ListUserComponent implements OnInit{
   incluir(){
     this.route.navigate(['users/create']);
   }
+
   editar(){
     this.route.navigate([`users/edit/${this.id}`]);
-
   }
+
   excluir(){
     this.userService.excluir(this.id!).subscribe(element => {
       if(element.status == HttpStatusCode.Ok){
         this.listAll();
       }
     });
+  }
+
+  selectItem(id?: number){
+    this.selectionService.selectItem(id);
+    this.id = id;
   }
 
 }

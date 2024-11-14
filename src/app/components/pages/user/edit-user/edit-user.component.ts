@@ -39,6 +39,7 @@ export class EditUserComponent implements OnInit{
     const id = this.route.snapshot.paramMap.get('id');
 
     this.formulario = this.formBuilder.group({
+      id: [0, []],
       name: ['', [
         Validators.required,
         Validators.pattern(/^(?!\s*$)[a-zA-Z\s]+$/)
@@ -61,6 +62,7 @@ export class EditUserComponent implements OnInit{
     this.userService.buscarPorId(parseInt(id!)).subscribe((result) => {
       this.user = result.value.user;
 
+      this.formulario.get('id')?.setValue(this.user.id);
       this.formulario.get('name')?.setValue(this.user.name);
       this.formulario.get('login')?.setValue(this.user.login);
     });
@@ -92,6 +94,7 @@ export class EditUserComponent implements OnInit{
       });
     }
   }
+
   cancelar(){
     this.router.navigate(['/users']);
   }
