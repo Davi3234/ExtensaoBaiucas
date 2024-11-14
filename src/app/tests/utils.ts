@@ -1,28 +1,30 @@
-export class MockStorage<T> implements Storage{
-  constructor (protected object: T) {
+export class MockStorage implements Storage {
+  private static storage: { [x: string]: any } = {}
 
+  setItem(key: string, value: any) {
+    MockStorage.storage[key] = value
   }
 
-  clear(): void{
-
-  }
-  getItem(key: string): string | null{
-
-  }
-  key(index: number): string | null{
-
-  }
-  removeItem(): void{
-
-  }
-  setItem(value: string): void{
-    localStorage.setItem(this.object, value);
+  getItem(keyName: string) {
+    return MockStorage.storage[keyName]
   }
 
-  protected gravar(object: T){
-
+  clear() {
+    MockStorage.storage = {}
   }
 
+  removeItem(keyName: string) {
+    if (MockStorage.storage[keyName])
+      delete MockStorage.storage[keyName]
+  }
+
+  key(indexItem: number) {
+    return Object.keys(MockStorage.storage)[indexItem]
+  }
+
+  public get length() {
+    return Object.keys(MockStorage.storage).length
+  }
 }
 
 export function getUserNextId(): number {
@@ -39,7 +41,7 @@ export const ofPadrao = {
 };
 
 function getId(model: string): number {
-  setId(model, (parseInt(""+localStorage.getItem(model))+1) || 1);
+  setId(model, (parseInt("" + localStorage.getItem(model)) + 1) || 1);
   return parseInt('' + localStorage.getItem(model));
 }
 function setId(model: string, value: number): void {
