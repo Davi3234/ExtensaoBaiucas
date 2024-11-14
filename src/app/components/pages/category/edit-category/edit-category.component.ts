@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-edit-categoria',
+  selector: 'app-edit-category',
   standalone: true,
   imports: [],
-  templateUrl: './edit-categoria.component.html',
-  styleUrl: './edit-categoria.component.css'
+  templateUrl: './edit-category.component.html',
+  styleUrl: './edit-category.component.css'
 })
 export class EditCategoryComponent {
 

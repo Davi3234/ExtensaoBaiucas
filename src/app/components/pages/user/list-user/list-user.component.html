@@ -21,7 +21,7 @@
 
       <tbody>
         @for (user of users; track $index) {
-          <tr id="line{{user.id}}" scope="row" (click)="selectItem(user.id)">
+          <tr id="line{{user.id}}" scope="row" (click)="this.selectionService.selectItem(user.id)">
             <td>{{ user.id }}</td>
             <td>{{ user.name }}</td>
             <td>{{ user.login }}</td>
