@@ -1,0 +1,144 @@
+.notification-item {
+  position: relative;
+  display: flex;
+  gap: .8rem;
+  background-color: rgba(26, 26, 26, .788);
+  padding: .5rem .9rem;
+  width: 100%;
+  min-height: 3rem;
+  max-height: 10rem;
+  border-radius: .3rem;
+  color: #e4e4e4;
+  animation: slideIn .3s ease-out;
+  cursor: pointer;
+  transition: all .3s;
+  overflow: hidden;
+}
+
+.notification-progress-bar {
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 3px;
+}
+
+.notification-progress-bar-fill {
+  position: absolute;
+  background-color: #00ff11;
+  height: 100%;
+  top: 0;
+  left: 0;
+  width: 0;
+}
+
+.notification-item:hover {
+  transform: translateY(-5px);
+}
+
+.notification-item:active {
+  transform: scale(.90) translateY(-5px);
+}
+
+.notification-item.hidden {
+  animation: slideOut .3s ease-out;
+}
+
+.notification-status {
+  position: relative;
+  border-right: 2px solid #e4e4e4;
+  padding-right: 2rem;
+  width: 2rem;
+}
+
+.notification-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 1.5rem;
+  line-height: 1.7rem;
+  width: 2rem;
+  height: 2rem;
+  transform: translate(-50%, -50%);
+}
+
+.notification-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.notification-content .notification-title {
+  display: flex;
+  font-size: 1rem;
+  flex-wrap: wrap;
+  font-weight: 600;
+}
+
+.notification-content .notification-message {
+  display: flex;
+  font-size: 1.2rem;
+  flex-wrap: wrap;
+  overflow: auto;
+}
+
+.notification-type-error .notification-progress-bar-fill {
+  background: #ff0000;
+}
+
+.notification-type-success .notification-progress-bar-fill {
+  background: #00ff11;
+}
+
+.notification-type-warning .notification-progress-bar-fill {
+  background: #ffb224;
+}
+
+.notification-type-info .notification-progress-bar-fill {
+  background: #f2f2f2;
+}
+
+.notification-type-error .notification-status {
+  color: #ff0000;
+  border-right-color: #ff0000;
+}
+
+.notification-type-success .notification-status {
+  color: #00ff11;
+  border-right-color: #00ff11;
+}
+
+.notification-type-warning .notification-status {
+  color: #ffb224;
+  border-right-color: #ffb224;
+}
+
+.notification-type-info .notification-status {
+  color: #f2f2f2;
+  border-right-color: #f2f2f2;
+}
+
+.notification-type-error .notification-icon {
+  font-size: 2rem;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
