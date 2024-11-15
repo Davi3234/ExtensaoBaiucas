@@ -1,31 +1,32 @@
 <div class="notification-list">
+
   @for (notification of notifications; track notification; let i = $index) {
   <div #notificationElement class="notification-item notification-type-{{notification.type.toLowerCase()}}"
     id="notification-id-{{notification.id}}" (click)="onClickNotification(notification.id)">
+
+    <i class="notification-progress-bar"></i>
+
     <div class="notification-status">
+
       <i class="notification-icon">
         @switch (notification.type) {
-        @case ("SUCCESS") {
-        &check;
-        }
-        @case ("ERROR") {
-        &times;
-        }
-        @case ("WARNING") {
-        &#9888;
-        }
-        @case ("INFO") {
-        &#8505;
-        }
+        @case ("SUCCESS") { &check; }
+        @case ("ERROR") { &times; }
+        @case ("WARNING") { &#9888; }
+        @case ("INFO") { &#8505; }
         }
       </i>
     </div>
+
     <div class="notification-content">
       @if (notification.title) {
       <span class="notification-title">{{notification.title}}</span>
       }
+
       <span class="notification-message">{{notification.message || ''}}</span>
     </div>
+
   </div>
   }
+
 </div>

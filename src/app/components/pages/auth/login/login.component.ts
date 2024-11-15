@@ -1,18 +1,17 @@
 import { Router } from '@angular/router';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MenuComponent } from '../../core/menu/menu.component';
 import { CommonModule } from '@angular/common';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { Result } from '../../../../@types/http';
 import { AUTH_SERVICE_TOKEN } from '../../../../service/services.injection';
 import { IAuthService } from '../../../../interface/auth.service.interface';
+import { NotificationService } from '../../../../service/notification/notification.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
-    MenuComponent,
     CommonModule,
     ReactiveFormsModule,
     NgbAlertModule
@@ -26,7 +25,8 @@ export class LoginComponent implements OnInit {
   constructor(
     @Inject(AUTH_SERVICE_TOKEN) private readonly authService: IAuthService,
     private readonly router: Router,
-    private readonly formBuilder: FormBuilder
+    private readonly formBuilder: FormBuilder,
+    private readonly notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -49,6 +49,9 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.formulario.value).subscribe({
         next: (response) => {
           this.authService.saveToken(response.value.token)
+
+          this.notificationService.success({ title: 'Autenticação', message: 'Usuário autenticado com sucesso' })
+
           this.router.navigate([''])
         },
         error: ({ error }: { error: Result }) => {
@@ -62,6 +65,7 @@ export class LoginComponent implements OnInit {
               if (origin.includes('password'))
                 this.formulario.get('password')?.setErrors({ backendError: message });
             });
+            this.notificationService.error({ title: 'Autenticação', message: 'Erro ao na autenticação do usuário' })
           }
         }
       })

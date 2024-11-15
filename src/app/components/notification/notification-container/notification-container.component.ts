@@ -1,4 +1,6 @@
-import { Component, ElementRef, Input, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { NotificationService } from '../../../service/notification/notification.service';
+import { Notification } from '../../../service/notification/notification';
 
 @Component({
   selector: 'app-notification-container',
@@ -7,19 +9,46 @@ import { Component, ElementRef, Input, QueryList, ViewChildren } from '@angular/
   templateUrl: './notification-container.component.html',
   styleUrl: './notification-container.component.css'
 })
-export class NotificationContainerComponent {
+export class NotificationContainerComponent implements OnInit {
 
-  @Input() notifications: {
-    id: number
-    title?: string
-    message: string
-    type: 'WARNING' | 'SUCCESS' | 'INFO' | 'ERROR'
-  }[] = []
+  @Input() notifications: Notification[] = []
 
   @ViewChildren('notificationElement') notificationElements!: QueryList<ElementRef<HTMLDivElement>>;
 
+  constructor(
+    private notificationService: NotificationService
+  ) { }
+
+  ngOnInit() {
+    this.notificationService.getNotifications().subscribe(notifications => {
+      this.notifications = notifications;
+    });
+  }
+
+  addNotification(notification: Notification) {
+    this.notifications.push(notification)
+    this.activeTimeoutToNotification(notification.id)
+  }
+
   onClickNotification(id: number) {
-    const notificationElement = this.notificationElements.find(el => el.nativeElement.id === `notification-id-${id}`);
+    this.removeNotification(id)
+  }
+
+  private activeTimeoutToNotification(id: number) {
+    const notificationElement = this.getElementNotification(id)
+
+    if (!notificationElement)
+      return
+
+    let count = 10
+
+    let timerCont = setInterval(() => {
+
+    }, 10)
+  }
+
+  private removeNotification(id: number) {
+    const notificationElement = this.getElementNotification(id);
 
     if (notificationElement) {
       notificationElement.nativeElement.classList.add('hidden')
@@ -33,5 +62,9 @@ export class NotificationContainerComponent {
 
       this.notifications.splice(index, 1)
     }, 300)
+  }
+
+  private getElementNotification(id: number) {
+    return this.notificationElements.find(el => el.nativeElement.id === `notification-id-${id}`) || null
   }
 }

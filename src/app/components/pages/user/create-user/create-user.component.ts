@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { Result } from '../../../../@types/http';
 import { IUserService } from '../../../../interface/user.service.interface';
 import { USER_SERVICE_TOKEN } from '../../../../service/services.injection';
+import { NotificationService } from '../../../../service/notification/notification.service';
 
 @Component({
   selector: 'app-create-user',
@@ -27,7 +28,8 @@ export class CreateUserComponent implements OnInit {
   constructor(
     @Inject(USER_SERVICE_TOKEN) private readonly userService: IUserService,
     private readonly formBuilder: FormBuilder,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -62,6 +64,8 @@ export class CreateUserComponent implements OnInit {
     if (this.formulario.valid) {
       this.userService.criar(this.formulario.value).subscribe({
         next: () => {
+          this.notificationService.success({ title: 'Cadastro de Usuário', message: 'Sucesso ao cadastrar o usuário' })
+
           this.cancelar();
         },
         error: ({ error }: { error: Result }) => {
@@ -72,6 +76,8 @@ export class CreateUserComponent implements OnInit {
               if (origin.includes('login'))
                 this.formulario.get('login')?.setErrors({ backendError: message });
             });
+
+            this.notificationService.error({ title: 'Cadastro de Usuário', message: 'Erro ao cadastrar o usuário' })
           }
         }
       });
