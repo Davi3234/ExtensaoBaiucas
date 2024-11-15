@@ -1,3 +1,12 @@
 <router-outlet></router-outlet>
-<app-notification-container [notifications]="[{message: 'Teste', type: 'SUCCESS'}]" />
+<app-notification-container [notifications]="[
+	{ id: 1, title: 'Teste Sucesso', message: 'Teste Sucesso testeeeee eeeeeeeeeee eeeeeee testeee sdansds nndnsaniugydvh asuhh87 8gysubah testeeeee eeeeeeeeeee eeeeeee testeee sdansds nndnsaniugydvh asuhh87 8gysubah', type: 'SUCCESS' },
+	{ id: 2, message: 'Teste Sucesso', type: 'SUCCESS' },
+	{ id: 3, title: 'Teste Erro', message: 'Teste Erro teste eeeeeeee eeeeeeee eeeeee testeee sdansds nndnsaniugydvh asuhh87 8gysubah eeeeeeee eeeeeeee eeeeee testeee sdansds nndnsaniugydvh asuhh87 8gysubah', type: 'ERROR' },
+	{ id: 4, message: 'Teste Erro', type: 'ERROR' },
+	{ id: 5, title: 'Teste Alerta', message: 'Teste Alerta testeeeee eeeeeeeeeee eeeeeee testeee sdansds nndnsaniugydvh asuhh87 8gysubah testeeeee eeeeeeeeeee eeeeeee testeee sdansds nndnsaniugydvh asuhh87 8gysubah', type: 'WARNING' },
+	{ id: 6, message: 'Teste Alerta', type: 'WARNING' },
+	{ id: 7, title: 'Teste Informação', message: 'Teste Informação teste eeeeeeee eeeeeeee eeeeee testeee sdansds nndnsaniugydvh asuhh87 8gysubah eeeeeeee eeeeeeee eeeeee testeee sdansds nndnsaniugydvh asuhh87 8gysubah', type: 'INFO' },
+	{ id: 8, message: 'Teste Informação', type: 'INFO' },
+]" />
 <!-- <ngb-alert [type]="alert.type" (closed)="close(alert)">{{ alert.message }}</ngb-alert> -->

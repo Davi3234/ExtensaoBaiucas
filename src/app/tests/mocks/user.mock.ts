@@ -4,14 +4,14 @@ import { User } from '../../service/user/user';
 import { Result } from '../../@types/http'
 import { Message } from '../../@types/message';
 import { IUserService } from '../../interface/user.service.interface';
-import { getUserNextId, ofPadrao } from '../utils';
+import { getUserNextId, ofDefault } from '../utils';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserMockService implements IUserService{
+export class UserMockService implements IUserService {
 
-  listaUser: User[] = [
+  private listaUser: User[] = [
     {
       id: getUserNextId(),
       name: 'Davi',
@@ -34,7 +34,7 @@ export class UserMockService implements IUserService{
 
   listar(): Observable<Result<User[]>> {
     return of({
-      ...ofPadrao,
+      ...ofDefault,
       value: this.listaUser
     });
   }
@@ -43,7 +43,7 @@ export class UserMockService implements IUserService{
     user.id = getUserNextId();
     this.listaUser.push(user);
     return of({
-      ...ofPadrao,
+      ...ofDefault,
       value: user
     });
   }
@@ -54,7 +54,7 @@ export class UserMockService implements IUserService{
     if (existingUser) {
       Object.assign(existingUser, user);
       return of({
-        ...ofPadrao,
+        ...ofDefault,
         value: existingUser
       });
     }
@@ -73,7 +73,7 @@ export class UserMockService implements IUserService{
       },
       ok: false,
       status: 404,
-      value: {id: 0, name: '', login: '', active: false}
+      value: { id: 0, name: '', login: '', active: false }
     });
   }
 
@@ -82,12 +82,12 @@ export class UserMockService implements IUserService{
     return new Observable();
   }
 
-  buscarPorId(id: number): Observable<Result<{user:User}>> {
-    let userReturn = this.listaUser.find(function(element){
+  buscarPorId(id: number): Observable<Result<{ user: User }>> {
+    let userReturn = this.listaUser.find(function (element) {
       return element.id == id;
     });
 
-    if(!userReturn){
+    if (!userReturn) {
       return of({
         error: {
           message: 'Usuário não encontrado',
@@ -102,13 +102,13 @@ export class UserMockService implements IUserService{
         },
         ok: false,
         status: 404,
-        value: {user:{id: 0, name: '', login: '', active: false}}
+        value: { user: { id: 0, name: '', login: '', active: false } }
       });
     }
 
     return of({
-      ...ofPadrao,
-      value: {user: userReturn}
+      ...ofDefault,
+      value: { user: userReturn }
     });
   }
 }

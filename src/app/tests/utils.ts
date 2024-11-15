@@ -1,6 +1,10 @@
 export class MockStorage implements Storage {
   private static storage: { [x: string]: any } = {}
 
+  get length() {
+    return Object.keys(MockStorage.storage).length
+  }
+
   setItem(key: string, value: any) {
     MockStorage.storage[key] = value
   }
@@ -21,10 +25,6 @@ export class MockStorage implements Storage {
   key(indexItem: number) {
     return Object.keys(MockStorage.storage)[indexItem]
   }
-
-  public get length() {
-    return Object.keys(MockStorage.storage).length
-  }
 }
 
 export function getUserNextId(): number {
@@ -34,7 +34,7 @@ export function setUserId(value: number): void {
   setId('user', value);
 }
 
-export const ofPadrao = {
+export const ofDefault = {
   error: null,
   ok: true,
   status: 200,
