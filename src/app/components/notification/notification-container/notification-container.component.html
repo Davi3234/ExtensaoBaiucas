@@ -1,6 +1,6 @@
 <div class="notification-list">
   @for (notification of notifications; track notification; let i = $index) {
-  <div class="notification-item notification-type-{{notification.type.toLowerCase()}}"
+  <div #notificationElement class="notification-item notification-type-{{notification.type.toLowerCase()}}"
     id="notification-id-{{notification.id}}" (click)="onClickNotification(notification.id)">
     <div class="notification-status">
       <i class="notification-icon">

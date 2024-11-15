@@ -18,16 +18,16 @@
 .notification-item {
   display: flex;
   gap: .8rem;
-  background-color: rgba(26, 26, 26, 0.788);
+  background-color: rgba(26, 26, 26, .788);
   padding: .5rem .9rem;
   width: 100%;
   min-height: 3rem;
   max-height: 10rem;
   border-radius: .3rem;
   color: #e4e4e4;
-  animation: slideIn 0.3s ease-out;
+  animation: slideIn .3s ease-out;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all .3s;
 }
 
 .notification-item:hover {
@@ -35,7 +35,11 @@
 }
 
 .notification-item:active {
-  transform: scale(0.95) translateY(-5px);
+  transform: scale(.90) translateY(-5px);
+}
+
+.notification-item.hidden {
+  animation: slideOut .3s ease-out;
 }
 
 .notification-status {

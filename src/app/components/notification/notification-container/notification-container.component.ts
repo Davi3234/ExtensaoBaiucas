@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, QueryList, ViewChildren } from '@angular/core';
 
 @Component({
   selector: 'app-notification-container',
@@ -16,12 +16,22 @@ export class NotificationContainerComponent {
     type: 'WARNING' | 'SUCCESS' | 'INFO' | 'ERROR'
   }[] = []
 
+  @ViewChildren('notificationElement') notificationElements!: QueryList<ElementRef<HTMLDivElement>>;
+
   onClickNotification(id: number) {
-    const index = this.notifications.findIndex(({ id: notificationId }) => notificationId == id)
+    const notificationElement = this.notificationElements.find(el => el.nativeElement.id === `notification-id-${id}`);
 
-    if (index < 0)
-      return
+    if (notificationElement) {
+      notificationElement.nativeElement.classList.add('hidden')
+    }
 
-    this.notifications.splice(index, 1)
+    setTimeout(() => {
+      const index = this.notifications.findIndex(({ id: notificationId }) => notificationId == id)
+
+      if (index < 0)
+        return
+
+      this.notifications.splice(index, 1)
+    }, 300)
   }
 }
