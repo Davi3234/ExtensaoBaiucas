@@ -1,6 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MenuComponent } from '../../core/menu/menu.component';
-import { UserService } from '../../../../service/user/user.service';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ReactiveFormsModule } from '@angular/forms';
 import { lowercaseValidator, numberValidator, symbolValidator, uppercaseValidator } from '../../../../validators/password-validator';
 import { CommonModule } from '@angular/common';
@@ -78,6 +77,7 @@ export class CreateUserComponent implements OnInit {
       });
     }
   }
+
   cancelar() {
     this.router.navigate(['/users']);
   }
