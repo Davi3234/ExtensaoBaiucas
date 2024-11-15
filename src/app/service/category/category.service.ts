@@ -5,13 +5,14 @@ import { Category } from './category';
 import { environment } from '../../environments/environment';
 import { Result } from '../../@types/http'
 import { Message } from '../../@types/message';
+import { ICategoryService } from '../../interface/category.service.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryService {
+export class CategoryService implements ICategoryService{
 
-  private readonly API = `${environment.API_BASE_URL}:80/products`;
+  private readonly API = `${environment.API_BASE_URL}:80/categories`;
 
 
   constructor(

@@ -50,3 +50,11 @@ app-root {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.row-selected td {
+  background-color: #cb5151 !important;
+}
+
+table .selected-row:hover {
+  background-color: #cb5151 !important;
+}

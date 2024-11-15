@@ -1,1 +1,40 @@
-<p>edit-categoria works!</p>
+<app-menu></app-menu>
+<div class="container h-75">
+  <form [formGroup]="formulario" id="user-create" class="container-form mt-2 p-3">
+    <div class="card text-bg-danger">
+      <div class="card-header">
+        <h2>Edição de Categoria</h2>
+      </div>
+      <div class="card-body">
+
+        <div class="mb-3">
+          <label for="name" class="form-label">Nome</label>
+          <input
+            formControlName="name"
+            type="email"
+            class="form-control mb-3"
+            id="name">
+
+          <!-- Validators -->
+          <ngb-alert [dismissible]="false"
+            *ngIf="formulario.get('name')?.touched && formulario.get('name')?.errors?.['required']">
+            O nome é de preenchimento obrigatório
+          </ngb-alert>
+
+        </div>
+
+      </div>
+
+      <div style="float: right;">
+        <div class="actions p-2">
+          <div class="btn-group w-25" role="group">
+            <button type="button" class="btn btn-success" (click)="salvar()">Salvar</button>
+            <button type="button" class="btn btn-primary" (click)="cancelar()">Cancelar</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </form>
+</div>

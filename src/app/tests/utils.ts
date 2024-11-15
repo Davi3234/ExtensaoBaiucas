@@ -40,10 +40,10 @@ export const ofDefault = {
   status: 200,
 };
 
-function getId(model: string): number {
-  setId(model, (parseInt("" + localStorage.getItem(model)) + 1) || 1);
+export function getId(model: string): number {
+  setId(model, parseInt('' + localStorage.getItem(model)) + 1 || 1);
   return parseInt('' + localStorage.getItem(model));
 }
-function setId(model: string, value: number): void {
+export function setId(model: string, value: number): void {
   return localStorage.setItem(model, '' + value);
 }
