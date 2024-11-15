@@ -8,9 +8,9 @@ import {
   HttpStatusCode
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { AuthService } from '../service/auth/auth.service';
 import { Router } from '@angular/router';
 import { catchError } from 'rxjs/operators';
+import { AuthService } from '../../service/auth/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
