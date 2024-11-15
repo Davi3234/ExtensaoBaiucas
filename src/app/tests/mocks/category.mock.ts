@@ -4,22 +4,22 @@ import { Observable, of } from 'rxjs';
 import { Category } from '../../service/category/category';
 import { Result } from '../../@types/http'
 import { Message } from '../../@types/message';
-import { ofPadrao } from '../utils';
+import { ofDefault } from '../utils';
 import { CATEGORY_MOCK_STORAGE } from '../mocks.manager.injection';
 import { CategoryMockStorage } from '../storage/category.storage';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryMockService implements ICategoryService{
+export class CategoryMockService implements ICategoryService {
 
-  constructor (
+  constructor(
     @Inject(CATEGORY_MOCK_STORAGE) private readonly categoryMockStorage: CategoryMockStorage
   ) { }
 
   listar(): Observable<Result<Category[]>> {
     return of({
-      ...ofPadrao,
+      ...ofDefault,
       value: this.categoryMockStorage.getCategories()
     });
   }
@@ -29,7 +29,7 @@ export class CategoryMockService implements ICategoryService{
     this.categoryMockStorage.save(category);
 
     return of({
-      ...ofPadrao,
+      ...ofDefault,
       value: category
     });
   }
@@ -38,7 +38,7 @@ export class CategoryMockService implements ICategoryService{
     this.categoryMockStorage.edit(category);
 
     return of({
-      ...ofPadrao,
+      ...ofDefault,
       value: category
     });
   }
@@ -47,15 +47,15 @@ export class CategoryMockService implements ICategoryService{
     this.categoryMockStorage.remove(id);
 
     return of({
-      ...ofPadrao,
-      value: [{message: "Categoria excluída com sucessa"}]
+      ...ofDefault,
+      value: [{ message: "Categoria excluída com sucessa" }]
     });
   }
 
-  buscarPorId(id: number): Observable<Result<{category:Category}>> {
+  buscarPorId(id: number): Observable<Result<{ category: Category }>> {
     let categoryReturn = this.categoryMockStorage.find(id);
 
-    if(!categoryReturn){
+    if (!categoryReturn) {
       return of({
         error: {
           message: 'Categoria não encontrada',
@@ -70,13 +70,13 @@ export class CategoryMockService implements ICategoryService{
         },
         ok: false,
         status: 404,
-        value: {category:{id: 0, name: '', login: '', active: false}}
+        value: { category: { id: 0, name: '', login: '', active: false } }
       });
     }
 
     return of({
-      ...ofPadrao,
-      value: {category: categoryReturn}
+      ...ofDefault,
+      value: { category: categoryReturn }
     });
   }
 }
