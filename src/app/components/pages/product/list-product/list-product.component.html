@@ -1,1 +1,35 @@
-<p>list-produto works!</p>
+<app-menu></app-menu>
+<div class="container h-75">
+  <form action="" id="product-list" class="container-form mt-2 p-3" style="height: 500px;">
+    <div class="actions mb-2">
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-primary" id="" (click)="incluir()">Incluir</button>
+        <button type="button" class="btn btn-warning" id="btnEditar" disabled (click)="editar()">Editar</button>
+        <button type="button" class="btn btn-danger" id="btnExcluir" disabled (click)="excluir()">Excluir</button>
+      </div>
+    </div>
+    <table class="table table-danger table-hover ">
+
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Valor</th>
+          <th scope="col">Categoria</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (product of products; track $index) {
+          <tr id="line{{product.id}}" scope="row" (click)="selectItem(product.id)">
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.value }}</td>
+            <td>{{ product.category.name }}</td>
+          </tr>
+        }
+      </tbody>
+
+    </table>
+  </form>
+</div>

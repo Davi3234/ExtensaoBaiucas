@@ -5,11 +5,12 @@ import { Product } from './product';
 import { environment } from '../../environments/environment';
 import { Result } from '../../@types/http'
 import { Message } from '../../@types/message';
+import { IProductService } from '../../interface/product.service.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class ProductService implements IProductService{
 
   private readonly API = `${environment.API_BASE_URL}:80/products`;
 
