@@ -8,6 +8,7 @@ import { CATEGORY_SERVICE_TOKEN } from '../../../../service/services.injection';
 import { ICategoryService } from '../../../../interface/category.service.interface';
 import { MenuComponent } from '../../core/menu/menu.component';
 import { Category } from '../../../../service/category/category';
+import { NotificationService } from '../../../../service/notification/notification.service';
 
 @Component({
   selector: 'app-edit-category',
@@ -30,7 +31,8 @@ export class EditCategoryComponent {
     @Inject(CATEGORY_SERVICE_TOKEN) private readonly categoryService: ICategoryService,
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
+    private readonly notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -58,6 +60,10 @@ export class EditCategoryComponent {
     if (this.formulario.valid) {
       this.categoryService.editar(this.formulario.value).subscribe({
         next: () => {
+          this.notificationService.success({
+            title: 'Edição de Categoria',
+            message: 'Sucesso ao editar a categoria',
+          });
           this.cancelar();
         },
         error: ({ error }: { error: Result }) => {
@@ -67,6 +73,10 @@ export class EditCategoryComponent {
             causes.forEach(({ message, origin }) => {
               if (origin.includes('login'))
                 this.formulario.get('login')?.setErrors({ backendError: message });
+            });
+            this.notificationService.error({
+              title: 'Edição de Categoria',
+              message: 'Erro ao editar a categoria',
             });
           }
         }

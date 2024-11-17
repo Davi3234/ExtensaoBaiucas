@@ -26,8 +26,8 @@ export class SelectionService {
     Array.from(elements).forEach((el) => el.className = '');
   }
 
-  enableButton(buttonId: string) {
+  enableButton(buttonId: string, active: boolean = true) {
     const button = document.getElementById(buttonId) as HTMLButtonElement;
-    if (button) button.disabled = false;
+    if (button) button.disabled = !active;
   }
 }

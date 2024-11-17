@@ -169,3 +169,22 @@ app-root {
   --bs-btn-disabled-bg: #218838;
   --bs-btn-disabled-border-color: #218838;
 }
+
+.modal-dark-header {
+  background-color: #343a40;
+  color: white;
+}
+
+.modal-dark-body {
+  background-color: #343a40;
+  color: white;
+}
+
+.modal-dark-footer {
+  background-color: #343a40;
+  border-top: 1px solid #444;
+}
+
+.btn-close-white {
+  filter: invert(1);
+}

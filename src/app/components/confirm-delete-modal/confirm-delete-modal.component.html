@@ -1,0 +1,20 @@
+<div class="modal-header modal-dark-header">
+  <h4 class="modal-title">Confirmação de Exclusão</h4>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="cancel()"
+  ></button>
+</div>
+<div class="modal-body modal-dark-body">
+  <p>Tem certeza de que deseja excluir este registro?</p>
+</div>
+<div class="modal-footer modal-dark-footer">
+  <button type="button" class="btn btn-secondary" (click)="cancel()">
+    Cancelar
+  </button>
+  <button type="button" class="btn btn-danger" (click)="confirm()">
+    Excluir
+  </button>
+</div>
