@@ -20,12 +20,11 @@ export class NotificationContainerComponent implements OnInit {
 
   ngOnInit() {
     this.notificationService.getNotifications().subscribe(notifications => {
-      this.notifications = notifications;
-    });
-  }
+      if (!notifications.length)
+        return
 
-  addNotification(notification: Notification) {
-    this.notifications.push(notification)
+      this.notifications.push(notifications[notifications.length - 1]);
+    });
   }
 
   removeNotification(id: number) {
