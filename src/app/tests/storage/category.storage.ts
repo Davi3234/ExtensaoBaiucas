@@ -23,12 +23,12 @@ export class CategoryMockStorage extends MockStorage {
   }
 
   edit(category: Category) {
-    const categories = this.getCategories().map((u) => (u.id === category.id ? category : u));
+    const categories = this.getCategories().map((u) => (u.id == category.id ? category : u));
     this.setCategories(categories);
   }
 
-  find(categoryId: number): Category | undefined {
-    return this.getCategories().find((u) => u.id === categoryId);
+  find(categoryId?: number): Category | undefined {
+    return this.getCategories().find((u) => u.id == categoryId);
   }
 
   getCategories(): Category[] {

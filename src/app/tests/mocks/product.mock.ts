@@ -5,8 +5,9 @@ import { Product } from '../../service/product/product';
 import { Result } from '../../@types/http'
 import { Message } from '../../@types/message';
 import { ofDefault } from '../utils';
-import { PRODUCT_MOCK_STORAGE } from '../mocks.manager.injection';
+import { CATEGORY_MOCK_STORAGE, PRODUCT_MOCK_STORAGE } from '../mocks.manager.injection';
 import { ProductMockStorage } from '../storage/product.storage';
+import { CategoryMockStorage } from '../storage/category.storage';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ import { ProductMockStorage } from '../storage/product.storage';
 export class ProductMockService implements IProductService{
 
   constructor (
-    @Inject(PRODUCT_MOCK_STORAGE) private readonly productMockStorage: ProductMockStorage
+    @Inject(PRODUCT_MOCK_STORAGE) private readonly productMockStorage: ProductMockStorage,
+    @Inject(CATEGORY_MOCK_STORAGE) private readonly categoryMockStorage: CategoryMockStorage
   ) { }
 
   listar(): Observable<Result<Product[]>> {
@@ -26,6 +28,8 @@ export class ProductMockService implements IProductService{
 
   criar(product: Product): Observable<Result<Product>> {
 
+    product.category = this.categoryMockStorage.find(product.category?.id);
+
     this.productMockStorage.save(product);
 
     return of({
@@ -35,6 +39,9 @@ export class ProductMockService implements IProductService{
   }
 
   editar(product: Product): Observable<Result<Product>> {
+
+    product.category = this.categoryMockStorage.find(product.category?.id);
+
     this.productMockStorage.edit(product);
 
     return of({

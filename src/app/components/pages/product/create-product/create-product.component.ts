@@ -37,17 +37,18 @@ export class CreateProductComponent {
     this.categoryService.listar().subscribe(result => {
       this.categories = result.value
     });
+
     this.formulario = this.formBuilder.group({
-      name: ['X-Burguer', [
+      name: ['', [
         Validators.required,
       ]],
-      description: ['X-Burguer normal', [
+      description: ['', [
         Validators.required,
       ]],
-      value: [25, [
+      value: ['', [
         Validators.required,
       ]],
-      category: [4, [
+      category: ['', [
         Validators.required,
       ]],
     });
@@ -55,6 +56,7 @@ export class CreateProductComponent {
 
   salvar() {
     if (this.formulario.valid) {
+      this.formulario.value.category = {id: this.formulario.value.category};
       this.productService.criar(this.formulario.value).subscribe({
         next: () => {
           this.cancelar();
@@ -64,8 +66,7 @@ export class CreateProductComponent {
             const causes = error.error?.causes || [];
 
             causes.forEach(({ message, origin }) => {
-              if (origin.includes('login'))
-                this.formulario.get('login')?.setErrors({ backendError: message });
+              this.formulario.get('produto')?.setErrors({ backendError: message });
             });
           }
         }

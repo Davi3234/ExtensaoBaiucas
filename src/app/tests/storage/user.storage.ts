@@ -23,12 +23,12 @@ export class UserMockStorage extends MockStorage {
   }
 
   edit(user: User) {
-    const users = this.getUsers().map((u) => (u.id === user.id ? user : u));
+    const users = this.getUsers().map((u) => (u.id == user.id ? user : u));
     this.setUsers(users);
   }
 
   find(userId: number): User | undefined {
-    return this.getUsers().find((u) => u.id === userId);
+    return this.getUsers().find((u) => u.id == userId);
   }
 
   getUsers(): User[] {

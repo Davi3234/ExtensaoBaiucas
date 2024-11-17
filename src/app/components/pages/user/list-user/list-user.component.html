@@ -1,35 +1,48 @@
 <app-menu></app-menu>
 <div class="container h-75">
-  <form action="" id="user-list" class="container-form mt-2 p-3" style="height: 500px;">
-    <div class="actions mb-2">
-      <div class="btn-group" role="group">
-        <button type="button" class="btn btn-primary" id="" (click)="incluir()">Incluir</button>
-        <button type="button" class="btn btn-warning" id="btnEditar" disabled (click)="editar()">Editar</button>
-        <button type="button" class="btn btn-danger" id="btnExcluir" disabled (click)="excluir()">Excluir</button>
+  <form action="" id="user-list" class="container-form container-form-list mt-2 p-3">
+
+    <div class="card text-bg-danger card-list">
+
+      <div class="card-header">
+        <h2>Consulta de Usuários</h2>
+      </div>
+
+      <div class="card-body">
+
+        <div class="actions mb-2">
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-primary" id="" (click)="incluir()">Incluir</button>
+            <button type="button" class="btn btn-warning" id="btnEditar" disabled (click)="editar()">Editar</button>
+            <button type="button" class="btn btn-danger" id="btnExcluir" disabled (click)="excluir()">Excluir</button>
+          </div>
+        </div>
+
+        <table class="table table-danger table-hover ">
+
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Login</th>
+              <th scope="col">Ativo</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @for (user of users; track $index) {
+              <tr id="line{{user.id}}" scope="row" (click)="selectItem(user.id)">
+                <td>{{ user.id }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.login }}</td>
+                <td>{{ (user.active ? "Sim" : "Não") }}</td>
+              </tr>
+            }
+          </tbody>
+
+        </table>
+
       </div>
     </div>
-    <table class="table table-danger table-hover ">
-
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Nome</th>
-          <th scope="col">Login</th>
-          <th scope="col">Ativo</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        @for (user of users; track $index) {
-          <tr id="line{{user.id}}" scope="row" (click)="selectItem(user.id)">
-            <td>{{ user.id }}</td>
-            <td>{{ user.name }}</td>
-            <td>{{ user.login }}</td>
-            <td>{{ (user.active ? "Sim" : "Não") }}</td>
-          </tr>
-        }
-      </tbody>
-
-    </table>
   </form>
 </div>

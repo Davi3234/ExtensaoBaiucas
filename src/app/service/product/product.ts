@@ -5,7 +5,7 @@ export interface Product {
   name: string,
   description: string,
   value: number,
-  category: Category,
+  category?: Category,
   ativo: boolean
   data_inclusao: Date
 }

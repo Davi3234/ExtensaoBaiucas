@@ -23,12 +23,12 @@ export class ProductMockStorage extends MockStorage {
   }
 
   edit(product: Product) {
-    const products = this.getProducts().map((u) => (u.id === product.id ? product : u));
+    const products = this.getProducts().map((u) => (u.id == product.id ? product : u));
     this.setProducts(products);
   }
 
   find(productId: number): Product | undefined {
-    return this.getProducts().find((u) => u.id === productId);
+    return this.getProducts().find((u) => u.id == productId);
   }
 
   getProducts(): Product[] {

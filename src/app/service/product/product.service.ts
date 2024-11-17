@@ -14,7 +14,6 @@ export class ProductService implements IProductService{
 
   private readonly API = `${environment.API_BASE_URL}:80/products`;
 
-
   constructor(
     private readonly http: HttpClient
   ) { }

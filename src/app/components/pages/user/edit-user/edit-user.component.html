@@ -1,7 +1,8 @@
 <app-menu></app-menu>
 <div class="container h-75">
   <form [formGroup]="formulario" id="user-edit" class="container-form mt-2 p-3">
-    <div class="card text-bg-danger">
+
+    <div class="card text-bg-danger card-list">
       <div class="card-header">
         <h2>Edição de Usuário</h2>
       </div>
@@ -105,12 +106,10 @@
 
       </div>
 
-      <div style="float: right;">
-        <div class="actions p-2">
-          <div class="btn-group w-25" role="group">
-            <button type="button" class="btn btn-success" (click)="salvar()">Salvar</button>
-            <button type="button" class="btn btn-primary" (click)="cancelar()">Cancelar</button>
-          </div>
+      <div class="actions p-2 actions-create">
+        <div class="btn-group w-25" role="group">
+          <button type="button" class="btn btn-success" (click)="salvar()">Salvar</button>
+          <button type="button" class="btn btn-primary" (click)="cancelar()">Cancelar</button>
         </div>
       </div>
 

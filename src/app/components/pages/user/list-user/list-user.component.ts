@@ -1,5 +1,5 @@
 import { UserService } from '../../../../service/user/user.service';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { MenuComponent } from '../../core/menu/menu.component';
 import { User } from '../../../../service/user/user';
 import { Router } from '@angular/router';
@@ -13,7 +13,8 @@ import { SelectionService } from '../../../../service/selection/selection.servic
   standalone: true,
   imports: [MenuComponent],
   templateUrl: './list-user.component.html',
-  styleUrl: './list-user.component.css'
+  styleUrl: './list-user.component.css',
+  encapsulation: ViewEncapsulation.None,
 })
 export class ListUserComponent implements OnInit{
 
