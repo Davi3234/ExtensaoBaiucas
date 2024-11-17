@@ -4,7 +4,7 @@ html {
 }
 
 body {
-  background-color: #ff3131;
+  background-color: #2C2A29;
 }
 
 app-root {
@@ -31,13 +31,49 @@ app-root {
 }
 
 /* Table */
-.row-selected td {
-  background-color: #cb5151 !important;
+.table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+.table-dark th{
+  background-color: #3A3735;;
+  color: #f1f1f1;
+}
+.table th {
+  border-top: 2px solid #777;
+  border-bottom: 2px solid #777;
+}
+.table th:last-child {
+  border-right: 2px solid #777;
+}
+.table th:first-child {
+  border-left: 2px solid #777;
+}
+.table tbody tr td:last-child {
+  border-right: 2px solid #777;
+}
+.table tbody tr td:first-child {
+  border-left: 2px solid #777;
+}
+.table tbody tr:last-child td {
+  border-bottom: 2px solid #777;
+}
+.table-hover > tbody > tr:hover > * {
+  --bs-table-bg-state: #3A3735 !important;
+  --bs-table-color-state: white !important;
+  cursor: pointer;
 }
 
-table .selected-row:hover {
-  background-color: #cb5151 !important;
+.table-hover > tbody > .row-selected:hover > * {
+  --bs-table-bg-state: #434343 !important;
 }
+
+.row-selected td {
+  background-color: #434343 !important;
+}
+
+/* FimTable */
 
 /* Others */
 .actions {
@@ -45,13 +81,91 @@ table .selected-row:hover {
   justify-content: flex-end;
 }
 
+.card-list{
+  height: 100%;
+}
+
 .container-form {
-  background-color: #a00000;
+  background-color: #3A3735;
   border-radius: 4px;
+  height: auto;
+}
+
+.container-form-list{
+  height: 83vh;
+}
+
+.text-bg-danger{
+  background-color: #44403F !important;
 }
 
 .text-overflow {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+/* Botões */
+/* Botão Primary */
+.btn-primary {
+  background-color: #337781;
+  border-color: #285f67;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+.btn-primary:hover {
+  background-color: #285f67;
+  border-color: #1e4e55;
+}
+.btn-primary:focus, .btn-primary.focus {
+  background-color: #285f67;
+  border-color: #1e4e55;
+  box-shadow: 0 0 0 0.25rem rgba(51, 119, 129, 0.5);
+}
+.btn-danger {
+  --bs-btn-color: #fff; /* Cor do texto */
+  --bs-btn-bg: #9c3b3b; /* Cor de fundo personalizada */
+  --bs-btn-border-color: #9c3b3b; /* Cor da borda personalizada */
+  --bs-btn-hover-color: #fff; /* Cor do texto no hover */
+  --bs-btn-hover-bg: #7a2929; /* Cor de fundo no hover */
+  --bs-btn-hover-border-color: #7a2929; /* Cor da borda no hover */
+  --bs-btn-focus-shadow-rgb: 156,59,59; /* Cor da sombra no foco */
+  --bs-btn-active-color: #fff; /* Cor do texto no estado ativo */
+  --bs-btn-active-bg: #7a2929; /* Cor de fundo no estado ativo */
+  --bs-btn-active-border-color: #7a2929; /* Cor da borda no estado ativo */
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125); /* Sombra no estado ativo */
+  --bs-btn-disabled-color: #fff; /* Cor do texto no estado desabilitado */
+  --bs-btn-disabled-bg: #9c3b3b; /* Cor de fundo no estado desabilitado */
+  --bs-btn-disabled-border-color: #9c3b3b; /* Cor da borda no estado desabilitado */
+}
+/* Customizando o botão Warning */
+.btn-warning {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #d39e00;
+  --bs-btn-border-color: #d39e00;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #c68a00;
+  --bs-btn-hover-border-color: #c68a00;
+  --bs-btn-focus-shadow-rgb: 211,158,0;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #c68a00;
+  --bs-btn-active-border-color: #c68a00;
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #d39e00;
+  --bs-btn-disabled-border-color: #d39e00;
+}
+
+.btn-success {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #218838;
+  --bs-btn-border-color: #218838;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #1c7430;
+  --bs-btn-hover-border-color: #1c7430;
+  --bs-btn-focus-shadow-rgb: 33,136,56;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #1c7430;
+  --bs-btn-active-border-color: #1c7430;
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #218838;
+  --bs-btn-disabled-border-color: #218838;
 }

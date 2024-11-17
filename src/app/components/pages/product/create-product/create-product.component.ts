@@ -9,6 +9,7 @@ import { IProductService } from '../../../../interface/product.service.interface
 import { MenuComponent } from '../../core/menu/menu.component';
 import { ICategoryService } from '../../../../interface/category.service.interface';
 import { Category } from '../../../../service/category/category';
+import { NotificationService } from '../../../../service/notification/notification.service';
 
 @Component({
   selector: 'app-create-product',
@@ -30,7 +31,8 @@ export class CreateProductComponent {
     @Inject(PRODUCT_SERVICE_TOKEN) private readonly productService: IProductService,
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
-    @Inject(CATEGORY_SERVICE_TOKEN) private readonly categoryService: ICategoryService
+    @Inject(CATEGORY_SERVICE_TOKEN) private readonly categoryService: ICategoryService,
+    private readonly notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -55,10 +57,17 @@ export class CreateProductComponent {
   }
 
   salvar() {
+    this.formulario.markAllAsTouched();
+
     if (this.formulario.valid) {
       this.formulario.value.category = {id: this.formulario.value.category};
       this.productService.criar(this.formulario.value).subscribe({
         next: () => {
+          this.notificationService.success({
+            title: 'Cadastro de Produto',
+            message: 'Sucesso ao cadastrar o produto',
+          });
+
           this.cancelar();
         },
         error: ({ error }: { error: Result }) => {
@@ -67,6 +76,11 @@ export class CreateProductComponent {
 
             causes.forEach(({ message, origin }) => {
               this.formulario.get('produto')?.setErrors({ backendError: message });
+            });
+
+            this.notificationService.error({
+              title: 'Cadastro de Produto',
+              message: 'Erro ao cadastrar o produto',
             });
           }
         }

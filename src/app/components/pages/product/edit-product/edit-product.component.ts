@@ -1,27 +1,31 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Result } from '../../../../@types/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
-import { CATEGORY_SERVICE_TOKEN, PRODUCT_SERVICE_TOKEN } from '../../../../service/services.injection';
+import {
+  CATEGORY_SERVICE_TOKEN,
+  PRODUCT_SERVICE_TOKEN,
+} from '../../../../service/services.injection';
 import { IProductService } from '../../../../interface/product.service.interface';
 import { MenuComponent } from '../../core/menu/menu.component';
 import { ICategoryService } from '../../../../interface/category.service.interface';
 import { Category } from '../../../../service/category/category';
 import { Product } from '../../../../service/product/product';
+import { NotificationService } from '../../../../service/notification/notification.service';
 
 @Component({
   selector: 'app-edit-product',
   standalone: true,
-  imports: [
-    CommonModule,
-    NgbAlertModule,
-    MenuComponent,
-    ReactiveFormsModule
-  ],
+  imports: [CommonModule, NgbAlertModule, MenuComponent, ReactiveFormsModule],
   templateUrl: './edit-product.component.html',
-  styleUrl: './edit-product.component.css'
+  styleUrl: './edit-product.component.css',
 })
 export class EditProductComponent {
   formulario!: FormGroup;
@@ -29,35 +33,29 @@ export class EditProductComponent {
   product!: Product;
 
   constructor(
-    @Inject(PRODUCT_SERVICE_TOKEN) private readonly productService: IProductService,
+    @Inject(PRODUCT_SERVICE_TOKEN)
+    private readonly productService: IProductService,
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
     private readonly route: ActivatedRoute,
-    @Inject(CATEGORY_SERVICE_TOKEN) private readonly categoryService: ICategoryService
-  ) { }
+    @Inject(CATEGORY_SERVICE_TOKEN)
+    private readonly categoryService: ICategoryService,
+    private readonly notificationService: NotificationService
+  ) {}
 
   ngOnInit(): void {
-
     const id = this.route.snapshot.paramMap.get('id');
 
-    this.categoryService.listar().subscribe(result => {
-      this.categories = result.value
+    this.categoryService.listar().subscribe((result) => {
+      this.categories = result.value;
     });
 
     this.formulario = this.formBuilder.group({
       id: [0, []],
-      name: ['', [
-        Validators.required,
-      ]],
-      description: ['', [
-        Validators.required,
-      ]],
-      value: ['', [
-        Validators.required,
-      ]],
-      category: ['', [
-        Validators.required,
-      ]],
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      value: ['', [Validators.required]],
+      category: ['', [Validators.required]],
     });
 
     this.productService.buscarPorId(parseInt(id!)).subscribe((result) => {
@@ -72,12 +70,18 @@ export class EditProductComponent {
   }
 
   salvar() {
-    if (this.formulario.valid) {
+    this.formulario.markAllAsTouched();
 
-      this.formulario.value.category = {id: this.formulario.value.category};
+    if (this.formulario.valid) {
+      this.formulario.value.category = { id: this.formulario.value.category };
 
       this.productService.editar(this.formulario.value).subscribe({
         next: () => {
+          this.notificationService.success({
+            title: 'Edição de Produto',
+            message: 'Sucesso ao editar o produto',
+          });
+
           this.cancelar();
         },
         error: ({ error }: { error: Result }) => {
@@ -85,10 +89,17 @@ export class EditProductComponent {
             const causes = error.error?.causes || [];
 
             causes.forEach(({ message, origin }) => {
-              this.formulario.get('produto')?.setErrors({ backendError: message });
+              this.formulario
+                .get('produto')
+                ?.setErrors({ backendError: message });
+            });
+
+            this.notificationService.error({
+              title: 'Edição de Produto',
+              message: 'Erro ao editar o produto',
             });
           }
-        }
+        },
       });
     }
   }

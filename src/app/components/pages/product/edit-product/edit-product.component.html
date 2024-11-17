@@ -1,37 +1,49 @@
 <app-menu></app-menu>
 <div class="container h-75">
-  <form [formGroup]="formulario" id="user-create" class="container-form mt-2 p-3">
+  <form
+    [formGroup]="formulario"
+    id="user-create"
+    class="container-form mt-2 p-3"
+  >
     <div class="card text-bg-danger">
+
       <div class="card-header text-center">
         <h2>Edição de Produto</h2>
       </div>
+
       <div class="card-body">
 
         <div class="row">
           <div class="col-12 col-md-6 mb-3">
-        <label for="name" class="form-label">Nome</label>
-        <input
-          formControlName="name"
-          type="text"
-          class="form-control"
-          id="name">
-        <ngb-alert [dismissible]="false"
-            class="mt-2"
-          *ngIf="formulario.get('name')?.touched && formulario.get('name')?.errors?.['required']">
-          O nome é de preenchimento obrigatório
-        </ngb-alert>
-      </div>
+            <label for="name" class="form-label">Nome</label>
+            <input
+              formControlName="name"
+              type="text"
+              class="form-control"
+              id="name"
+            />
+            <ngb-alert
+              [dismissible]="false"
+              class="mt-2"
+              *ngIf="formulario.get('name')?.touched && formulario.get('name')?.errors?.['required']"
+            >
+              O nome é de preenchimento obrigatório
+            </ngb-alert>
+          </div>
 
-      <div class="col-12 col-md-6 mb-3">
-        <label for="description" class="form-label">Descrição</label>
+          <div class="col-12 col-md-6 mb-3">
+            <label for="description" class="form-label">Descrição</label>
             <input
               formControlName="description"
               type="text"
               class="form-control"
-              id="description">
-            <ngb-alert [dismissible]="false"
+              id="description"
+            />
+            <ngb-alert
+              [dismissible]="false"
               class="mt-2"
-              *ngIf="formulario.get('description')?.touched && formulario.get('description')?.errors?.['required']">
+              *ngIf="formulario.get('description')?.touched && formulario.get('description')?.errors?.['required']"
+            >
               A descrição é de preenchimento obrigatório
             </ngb-alert>
           </div>
@@ -44,16 +56,20 @@
             <select
               class="form-select form-control"
               formControlName="category"
-              id="category">
-              <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+              id="category"
+            >
+              <option *ngFor="let category of categories" [value]="category.id">
+                {{ category.name }}
+              </option>
             </select>
 
-            <ngb-alert [dismissible]="false"
+            <ngb-alert
+              [dismissible]="false"
               class="mt-2"
-              *ngIf="formulario.get('category')?.touched && formulario.get('category')?.errors?.['required']">
+              *ngIf="formulario.get('category')?.touched && formulario.get('category')?.errors?.['required']"
+            >
               A categoria é de preenchimento obrigatório
             </ngb-alert>
-
           </div>
 
           <div class="col-12 col-md-6 mb-3">
@@ -62,21 +78,31 @@
               formControlName="value"
               type="number"
               class="form-control"
-              id="value">
-            <ngb-alert [dismissible]="false"
+              id="value"
+            />
+            <ngb-alert
+              [dismissible]="false"
               class="mt-2"
-              *ngIf="formulario.get('value')?.touched && formulario.get('value')?.errors?.['required']">
+              *ngIf="formulario.get('value')?.touched && formulario.get('value')?.errors?.['required']"
+            >
               O valor é de preenchimento obrigatório
             </ngb-alert>
           </div>
-
         </div>
 
-        <div class="row" style="float: right;">
+        <div class="row" style="float: right">
           <div class="col">
             <div class="btn-group" role="group">
-              <button type="button" class="btn btn-success" (click)="salvar()">Salvar</button>
-              <button type="button" class="btn btn-primary" (click)="cancelar()">Cancelar</button>
+              <button type="button" class="btn btn-success" (click)="salvar()">
+                Salvar
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="cancelar()"
+              >
+                Cancelar
+              </button>
             </div>
           </div>
         </div>

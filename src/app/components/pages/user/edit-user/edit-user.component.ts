@@ -1,63 +1,71 @@
 import { User } from '../../../../service/user/user';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MenuComponent } from '../../core/menu/menu.component';
-import { UserService } from '../../../../service/user/user.service';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ReactiveFormsModule } from '@angular/forms';
-import { lowercaseValidator, numberValidator, symbolValidator, uppercaseValidator } from '../../../../validators/password-validator';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+  ValidationErrors,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  lowercaseValidator,
+  numberValidator,
+  symbolValidator,
+  uppercaseValidator,
+} from '../../../../validators/password-validator';
 import { CommonModule } from '@angular/common';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IUserService } from '../../../../interface/user.service.interface';
 import { USER_SERVICE_TOKEN } from '../../../../service/services.injection';
+import { NotificationService } from '../../../../service/notification/notification.service';
 
 @Component({
   selector: 'app-edit-user',
   standalone: true,
-  imports: [
-    MenuComponent,
-    CommonModule,
-    ReactiveFormsModule,
-    NgbAlertModule
-  ],
+  imports: [MenuComponent, CommonModule, ReactiveFormsModule, NgbAlertModule],
   templateUrl: './edit-user.component.html',
-  styleUrl: './edit-user.component.css'
+  styleUrl: './edit-user.component.css',
 })
-export class EditUserComponent implements OnInit{
-
+export class EditUserComponent implements OnInit {
   formulario!: FormGroup;
   user!: User;
 
-  constructor (
+  constructor(
     @Inject(USER_SERVICE_TOKEN) private readonly userService: IUserService,
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
-    private readonly route: ActivatedRoute
-  )
-  {}
+    private readonly route: ActivatedRoute,
+    private readonly notificationService: NotificationService
+  ) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
 
-    this.formulario = this.formBuilder.group({
-      id: [0, []],
-      name: ['', [
-        Validators.required,
-        Validators.pattern(/^(?!\s*$)[a-zA-Z\s]+$/)
-      ]],
-      login: ['', [
-        Validators.required,
-        Validators.email
-      ]],
-      password: ['', [
-        Validators.required,
-        Validators.minLength(8),
-        uppercaseValidator(),
-        lowercaseValidator(),
-        numberValidator(),
-        symbolValidator()
-      ]],
-      confirmPassword: ['']
-    }, { validators: this.passwordMatchValidator });
+    this.formulario = this.formBuilder.group(
+      {
+        id: [0, []],
+        name: [
+          '',
+          [Validators.required, Validators.pattern(/^(?!\s*$)[a-zA-Z\s]+$/)],
+        ],
+        login: ['', [Validators.required, Validators.email]],
+        password: [
+          '',
+          [
+            Validators.minLength(8),
+            uppercaseValidator(),
+            lowercaseValidator(),
+            numberValidator(),
+            symbolValidator(),
+          ],
+        ],
+        confirmPassword: [''],
+      },
+      { validators: this.passwordMatchValidator }
+    );
 
     this.userService.buscarPorId(parseInt(id!)).subscribe((result) => {
       this.user = result.value.user;
@@ -66,7 +74,6 @@ export class EditUserComponent implements OnInit{
       this.formulario.get('name')?.setValue(this.user.name);
       this.formulario.get('login')?.setValue(this.user.login);
     });
-
   }
 
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
@@ -75,10 +82,17 @@ export class EditUserComponent implements OnInit{
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
-  salvar(){
-    if(this.formulario.valid){
+  salvar() {
+    this.formulario.markAllAsTouched();
+
+    if (this.formulario.valid) {
       this.userService.editar(this.formulario.value).subscribe({
         next: () => {
+          this.notificationService.success({
+            title: 'Edição de Usuário',
+            message: 'Sucesso ao editar o usuário',
+          });
+
           this.cancelar();
         },
         error: (error) => {
@@ -86,16 +100,23 @@ export class EditUserComponent implements OnInit{
             const causes = error.error?.error?.causes || [];
             causes.forEach((cause: any) => {
               if (cause.cause === 'login') {
-                this.formulario.get('login')?.setErrors({ backendError: cause.message });
+                this.formulario
+                  .get('login')
+                  ?.setErrors({ backendError: cause.message });
               }
             });
+
+            this.notificationService.error({
+              title: 'Edição de Usuário',
+              message: 'Erro ao editar o usuário',
+            });
           }
-        }
+        },
       });
     }
   }
 
-  cancelar(){
+  cancelar() {
     this.router.navigate(['/users']);
   }
 }

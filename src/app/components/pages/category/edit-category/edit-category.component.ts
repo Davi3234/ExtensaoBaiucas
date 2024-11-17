@@ -53,6 +53,8 @@ export class EditCategoryComponent {
   }
 
   salvar() {
+    this.formulario.markAllAsTouched();
+
     if (this.formulario.valid) {
       this.categoryService.editar(this.formulario.value).subscribe({
         next: () => {

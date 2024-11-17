@@ -39,6 +39,8 @@ export class CreateCategoryComponent {
   }
 
   salvar() {
+    this.formulario.markAllAsTouched();
+
     if (this.formulario.valid) {
       this.categoryService.criar(this.formulario.value).subscribe({
         next: () => {
