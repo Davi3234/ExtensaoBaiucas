@@ -1,126 +1,173 @@
 <app-menu></app-menu>
 <div class="container h-75">
   <form [formGroup]="formulario" id="user-edit" class="container-form mt-2 p-3">
-
     <div class="card text-bg-danger card-list">
       <div class="card-header">
         <h2>Edição de Usuário</h2>
       </div>
       <div class="card-body">
 
-        <div class="mb-3">
-          <label for="login" class="form-label">Login</label>
-          <input
-            formControlName="login"
-            type="email"
-            class="form-control mb-3"
-            id="login">
+        <div class="row">
+          <div class="col-12 col-md-6 mb-3">
+            <label for="login" class="form-label">Login</label>
+            <input
+              formControlName="login"
+              type="email"
+              class="form-control mb-3"
+              id="login"
+            />
 
-          <!-- Validators -->
-          <ngb-alert [dismissible]="false"
-            *ngIf="formulario.get('login')?.touched && formulario.get('login')?.errors?.['required']">
-            O login é de preenchimento obrigatório
-          </ngb-alert>
+            <!-- Validators -->
+            <ngb-alert
+              [dismissible]="false"
+              *ngIf="formulario.get('login')?.touched && formulario.get('login')?.errors?.['required']"
+            >
+              O login é de preenchimento obrigatório
+            </ngb-alert>
 
-          <ngb-alert [dismissible]="false"
-            *ngIf="formulario.get('login')?.touched && formulario.get('login')?.errors?.['email']">
-            O login deve ser um email.
-          </ngb-alert>
+            <ngb-alert
+              [dismissible]="false"
+              *ngIf="formulario.get('login')?.touched && formulario.get('login')?.errors?.['email']"
+            >
+              O login deve ser um email.
+            </ngb-alert>
+          </div>
 
+          <div class="col-12 col-md-6 mb-3">
+            <label for="name" class="form-label">Nome</label>
+            <input
+              formControlName="name"
+              type="text"
+              class="form-control mb-3"
+              id="name"
+            />
+
+            <!-- Validators -->
+            <ngb-alert
+              [dismissible]="false"
+              *ngIf="formulario.get('name')?.touched && formulario.get('name')?.errors?.['required']"
+            >
+              O nome é de preenchimento obrigatório
+            </ngb-alert>
+
+            <ngb-alert
+              [dismissible]="false"
+              *ngIf="formulario.get('name')?.touched && formulario.get('name')?.errors?.['pattern']"
+            >
+              O nome deve conter somente letras.
+            </ngb-alert>
+          </div>
         </div>
 
-        <div class="mb-3">
-          <label for="name" class="form-label">Nome</label>
-          <input
-            formControlName="name"
-            type="text"
-            class="form-control mb-3"
-            id="name">
+        <div class="row">
+          <div class="col-12 col-md-6 mb-3">
+            <label for="password" class="form-label">Senha</label>
+            <input
+              formControlName="password"
+              type="password"
+              class="form-control mb-3"
+              id="password"
+            />
 
-          <!-- Validators -->
-          <ngb-alert [dismissible]="false"
-            *ngIf="formulario.get('name')?.touched && formulario.get('name')?.errors?.['required']">
-            O nome é de preenchimento obrigatório
-          </ngb-alert>
+            <!-- Validators -->
 
-          <ngb-alert [dismissible]="false"
-            *ngIf="formulario.get('name')?.touched && formulario.get('name')?.errors?.['pattern']">
-            O nome deve conter somente letras.
-          </ngb-alert>
+            <ngb-alert
+              [dismissible]="false"
+              *ngIf="
+                formulario.get('password')?.touched &&
+                formulario.get('password')?.hasError('minlength')
+              "
+            >
+              A senha deve ter pelo menos 8 caracteres.
+            </ngb-alert>
 
+            <ngb-alert
+              [dismissible]="false"
+              *ngIf="
+                formulario.get('password')?.touched &&
+                formulario.get('password')?.hasError('missingUppercase')
+              "
+            >
+              A senha deve conter pelo menos uma letra maiúscula.
+            </ngb-alert>
+
+            <ngb-alert
+              [dismissible]="false"
+              *ngIf="
+                formulario.get('password')?.touched &&
+                formulario.get('password')?.hasError('missingLowercase')
+              "
+            >
+              A senha deve conter pelo menos uma letra minúscula.
+            </ngb-alert>
+
+            <ngb-alert
+              [dismissible]="false"
+              *ngIf="
+                formulario.get('password')?.touched &&
+                formulario.get('password')?.hasError('missingNumber')
+              "
+            >
+              A senha deve conter pelo menos um número.
+            </ngb-alert>
+
+            <ngb-alert
+              [dismissible]="false"
+              *ngIf="
+                formulario.get('password')?.touched &&
+                formulario.get('password')?.hasError('missingSymbol')
+              "
+            >
+              A senha deve conter pelo menos um símbolo (&#64;, $, !, %, *, ?,
+              &).
+            </ngb-alert>
+          </div>
+          <div class="col-12 col-md-6 mb-3">
+            <label for="confirm-password" class="form-label"
+              >Confirmação de senha</label
+            >
+            <input
+              formControlName="confirmPassword"
+              type="password"
+              class="form-control"
+              id="confirm-password"
+            />
+
+            <!-- Validators -->
+
+            <ngb-alert
+              [dismissible]="false"
+              class="mt-3"
+              *ngIf="
+                formulario.get('confirmPassword')?.touched &&
+                formulario.hasError('passwordMismatch')
+              "
+            >
+              A confirmação de senha não coincide.
+            </ngb-alert>
+          </div>
         </div>
-
-        <div class="mb-3">
-          <label for="password" class="form-label">Senha</label>
-          <input
-            formControlName="password"
-            type="password"
-            class="form-control mb-3"
-            id="password">
-
-          <!-- Validators -->
-
-          <ngb-alert [dismissible]="false"
-            *ngIf="formulario.get('password')?.touched && formulario.get('password')?.hasError('minlength')">
-            A senha deve ter pelo menos 8 caracteres.
-          </ngb-alert>
-
-          <ngb-alert [dismissible]="false"
-            *ngIf="formulario.get('password')?.touched && formulario.get('password')?.hasError('missingUppercase')">
-            A senha deve conter pelo menos uma letra maiúscula.
-          </ngb-alert>
-
-          <ngb-alert [dismissible]="false"
-            *ngIf="formulario.get('password')?.touched && formulario.get('password')?.hasError('missingLowercase')">
-            A senha deve conter pelo menos uma letra minúscula.
-          </ngb-alert>
-
-          <ngb-alert [dismissible]="false"
-            *ngIf="formulario.get('password')?.touched && formulario.get('password')?.hasError('missingNumber')">
-            A senha deve conter pelo menos um número.
-          </ngb-alert>
-
-          <ngb-alert [dismissible]="false"
-            *ngIf="formulario.get('password')?.touched && formulario.get('password')?.hasError('missingSymbol')">
-            A senha deve conter pelo menos um símbolo (&#64;, $, !, %, *, ?, &).
-          </ngb-alert>
-        </div>
-
-        <div class="mb-3">
-          <label for="confirm-password" class="form-label">Confirmação de senha</label>
-          <input
-            formControlName="confirmPassword"
-            type="password"
-            class="form-control"
-            id="confirm-password">
-
-          <!-- Validators -->
-
-          <ngb-alert [dismissible]="false"
-            class="mt-3"
-            *ngIf="formulario.get('confirmPassword')?.touched && formulario.hasError('passwordMismatch')">
-            A confirmação de senha não coincide.
-          </ngb-alert>
-
-        </div>
-
       </div>
 
       <div class="actions p-2 actions-create">
         <div class="btn-group w-25" role="group">
-          <button type="button" class="btn btn-success" (click)="salvar()">Salvar</button>
-          <button type="button" class="btn btn-primary" (click)="cancelar()">Cancelar</button>
+          <button type="button" class="btn btn-success" (click)="salvar()">
+            Salvar
+          </button>
+          <button type="button" class="btn btn-primary" (click)="cancelar()">
+            Cancelar
+          </button>
         </div>
       </div>
-
     </div>
 
     <div class="mt-3">
-      <ngb-alert [dismissible]="false"
-        *ngIf="formulario.get('login')?.hasError('backendError')">
-        {{ formulario.get('login')?.getError('backendError') }}
+      <ngb-alert
+        [dismissible]="false"
+        *ngIf="formulario.get('login')?.hasError('backendError')"
+      >
+        {{ formulario.get("login")?.getError("backendError") }}
       </ngb-alert>
     </div>
-
   </form>
 </div>
