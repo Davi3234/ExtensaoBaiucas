@@ -59,6 +59,7 @@ export class ListProductComponent implements OnInit{
           title: 'Exclusão de Produto',
           message: 'Sucesso ao excluir o produto',
         });
+        this.listAll();
       },
       error: ({ error }: { error: Result }) => {
         if (error.status === 400) {

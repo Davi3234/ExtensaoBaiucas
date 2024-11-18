@@ -59,6 +59,7 @@ export class ListUserComponent implements OnInit {
           title: 'Exclusão de Usuário',
           message: 'Sucesso ao excluir o usuário',
         });
+        this.listAll();
       },
       error: ({ error }: { error: Result }) => {
         if (error.status === 400) {

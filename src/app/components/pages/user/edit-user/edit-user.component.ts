@@ -52,20 +52,29 @@ export class EditUserComponent implements OnInit {
           [Validators.required, Validators.pattern(/^(?!\s*$)[a-zA-Z\s]+$/)],
         ],
         login: ['', [Validators.required, Validators.email]],
-        password: [
-          '',
-          [
-            Validators.minLength(8),
-            uppercaseValidator(),
-            lowercaseValidator(),
-            numberValidator(),
-            symbolValidator(),
-          ],
-        ],
+        password: [''],
         confirmPassword: [''],
       },
       { validators: this.passwordMatchValidator }
     );
+
+    this.formulario.get('password')?.valueChanges.subscribe((password) => {
+      const passwordControl = this.formulario.get('password');
+
+      if (password?.length > 0) {
+        passwordControl?.setValidators([
+          Validators.minLength(8),
+          uppercaseValidator(),
+          lowercaseValidator(),
+          numberValidator(),
+          symbolValidator(),
+        ]);
+      } else {
+        passwordControl?.clearValidators();
+      }
+
+      passwordControl?.updateValueAndValidity();
+    });
 
     this.userService.buscarPorId(parseInt(id!)).subscribe((result) => {
       this.user = result.value.user;
@@ -76,11 +85,18 @@ export class EditUserComponent implements OnInit {
     });
   }
 
+
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password')?.value;
     const confirmPassword = control.get('confirmPassword')?.value;
-    return password === confirmPassword ? null : { passwordMismatch: true };
+
+    if (password?.length > 0 || confirmPassword?.length > 0) {
+      return password === confirmPassword ? null : { passwordMismatch: true };
+    }
+
+    return null;
   }
+
 
   salvar() {
     this.formulario.markAllAsTouched();

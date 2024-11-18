@@ -59,6 +59,7 @@ export class ListCategoryComponent implements OnInit{
           title: 'Exclusão de Categoria',
           message: 'Sucesso ao excluir a categoria',
         });
+        this.listAll();
       },
       error: ({ error }: { error: Result }) => {
         if (error.status === 400) {
