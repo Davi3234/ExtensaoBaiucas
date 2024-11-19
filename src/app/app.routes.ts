@@ -10,6 +10,9 @@ import { EditProductComponent } from './components/pages/product/edit-product/ed
 import { ListCategoryComponent } from './components/pages/category/list-category/list-category.component';
 import { CreateCategoryComponent } from './components/pages/category/create-category/create-category.component';
 import { EditCategoryComponent } from './components/pages/category/edit-category/edit-category.component';
+import { ListOrderComponent } from './components/pages/order/list-order/list-order.component';
+import { CreateOrderComponent } from './components/pages/order/create-order/create-order.component';
+import { EditOrderComponent } from './components/pages/order/edit-order/edit-order.component';
 
 export const routes: Routes = [
   {
@@ -63,6 +66,22 @@ export const routes: Routes = [
   {
     path: 'categories/edit/:id',
     component: EditCategoryComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'orders',
+    component: ListOrderComponent,
+    canActivate: [AuthGuardService],
+    title: "Pedido"
+  },
+  {
+    path: 'orders/create',
+    component: CreateOrderComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'orders/edit/:id',
+    component: EditOrderComponent,
     canActivate: [AuthGuardService]
   },
   {
