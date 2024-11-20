@@ -11,7 +11,7 @@ import { Result } from '../../../../@types/http'
 import { NotificationService } from '../../../../service/notification/notification.service'
 import { NgbdSortableHeader, SortEvent } from '../../../../directives/sortable.directive'
 import { compare } from '../../../../util/sort'
-import { map, Observable, startWith } from 'rxjs'
+import { BehaviorSubject, map, Observable, startWith } from 'rxjs'
 import { FormControl, ReactiveFormsModule } from '@angular/forms'
 import { AsyncPipe, DecimalPipe } from '@angular/common'
 
@@ -26,13 +26,13 @@ import { AsyncPipe, DecimalPipe } from '@angular/common'
 })
 export class ListUserComponent implements OnInit {
   private _users: Usuario[] = []
-  users$!: Observable<Usuario[]>
+  users$ = new BehaviorSubject<Usuario[]>([])
   id?: number
 
   @Input() filter = new FormControl('', { nonNullable: true })
 
   page = 1
-  pageSize = 4
+  pageSize = 10
   collectionSize = 0
 
   @ViewChildren(NgbdSortableHeader) headers!: QueryList<NgbdSortableHeader>
@@ -44,11 +44,15 @@ export class ListUserComponent implements OnInit {
     private readonly modalService: NgbModal,
     private readonly notificationService: NotificationService
   ) {
-    this.users$ = this.filter.valueChanges.pipe(
+    this.filter.valueChanges.pipe(
       startWith(''),
       map((text) => this.search(text)),
     )
+      .subscribe(result => {
+        this.users$.next(result)
+      })
   }
+
   ngOnInit(): void {
     this.listAll()
   }
@@ -59,8 +63,10 @@ export class ListUserComponent implements OnInit {
       this.selectionService.enableButton('btnExcluir', false)
       this.selectionService.enableButton('btnEditar', false)
       this.selectionService.removeSelectedItems()
-      this.filter.setValue('dan')
+      this.filter.setValue('_')
       this.filter.setValue('')
+      this.collectionSize = this._users.length
+      this.refreshPage()
     })
   }
 
@@ -114,8 +120,6 @@ export class ListUserComponent implements OnInit {
       return text === '' || user.name.toLowerCase().includes(text.toLowerCase())
     })
 
-    console.log(text, users, this._users)
-
     return users
   }
 
@@ -139,5 +143,7 @@ export class ListUserComponent implements OnInit {
       (this.page - 1) * this.pageSize,
       (this.page - 1) * this.pageSize + this.pageSize,
     );
+
+    this.users$.next(users)
   }
 }
