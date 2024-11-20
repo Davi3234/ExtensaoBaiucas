@@ -1,58 +1,81 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MenuComponent } from '../../core/menu/menu.component';
 import { Categoria } from '../../../../service/category/category';
 import { Router } from '@angular/router';
 import { SelectionService } from '../../../../service/selection/selection.service';
 import { ICategoryService } from '../../../../interface/category.service.interface';
 import { CATEGORY_SERVICE_TOKEN } from '../../../../service/services.injection';
-import { HttpStatusCode } from '@angular/common/http';
 import { ConfirmDeleteModalComponent } from '../../../confirm-delete-modal/confirm-delete-modal.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { Result } from '../../../../@types/http';
 import { NotificationService } from '../../../../service/notification/notification.service';
+import { GridService } from '../../../../service/grid/grid.service';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
+import { NgbdSortableHeader } from '../../../../directives/sortable.directive';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-list-category',
   standalone: true,
-  imports: [MenuComponent],
+  imports: [MenuComponent, NgbdSortableHeader, AsyncPipe, ReactiveFormsModule, NgbPaginationModule],
   templateUrl: './list-category.component.html',
   styleUrl: './list-category.component.css'
 })
-export class ListCategoryComponent implements OnInit{
+export class ListCategoryComponent implements OnInit {
+  categories$ = new BehaviorSubject<Categoria[]>([])
 
   categories?: Categoria[]
   id?: number
+
+  @Input() filter = new FormControl('', { nonNullable: true })
 
   constructor(
     @Inject(CATEGORY_SERVICE_TOKEN) private readonly categoryService: ICategoryService,
     private readonly route: Router,
     protected readonly selectionService: SelectionService,
     private readonly modalService: NgbModal,
-    private readonly notificationService: NotificationService
-  ){}
+    private readonly notificationService: NotificationService,
+    protected readonly gridService: GridService<Categoria>
+  ) {
+    this.filter.valueChanges.subscribe(value => {
+      this.gridService.filter({ column: 'name', value })
+    })
+
+    this.gridService.setFilterHandler((user, column, value) => {
+      return `${value}` === '' || `${user[column]}`.toLowerCase().includes(`${value}`.toLowerCase())
+    })
+
+    this.gridService.rows$.subscribe(users => {
+      this.categories$.next(users)
+    })
+  }
 
   ngOnInit(): void {
     this.listAll();
   }
 
-  listAll(){
+  listAll() {
     this.categoryService.listar().subscribe(request => {
-      this.categories = request.value;
+      this.gridService.setData(request.value)
+
       this.selectionService.enableButton('btnExcluir', false);
       this.selectionService.enableButton('btnEditar', false);
       this.selectionService.removeSelectedItems();
+
+      this.gridService.refresh()
     });
   }
 
-  incluir(){
+  incluir() {
     this.route.navigate(['categories/create']);
   }
 
-  editar(){
+  editar() {
     this.route.navigate([`categories/edit/${this.id}`]);
   }
 
-  excluir(){
+  excluir() {
     this.categoryService.excluir(this.id!).subscribe({
       next: () => {
         this.notificationService.success({
@@ -84,7 +107,7 @@ export class ListCategoryComponent implements OnInit{
     });
   }
 
-  selectItem(id?: number){
+  selectItem(id?: number) {
     this.id = id;
     this.selectionService.selectItem(id);
   }

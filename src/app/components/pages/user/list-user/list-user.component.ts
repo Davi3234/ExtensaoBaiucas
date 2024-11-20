@@ -57,7 +57,7 @@ export class ListUserComponent implements OnInit {
 
   listAll() {
     this.userService.listar().subscribe((request) => {
-      this.gridService.setData([...request.value, ...request.value, ...request.value, ...request.value])
+      this.gridService.setData(request.value)
 
       this.selectionService.enableButton('btnExcluir', false)
       this.selectionService.enableButton('btnEditar', false)
