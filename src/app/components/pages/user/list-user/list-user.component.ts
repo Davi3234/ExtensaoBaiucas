@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, Inject, Input, OnInit, PipeTransform, QueryList, ViewChildren } from '@angular/core';
 import { MenuComponent } from '../../core/menu/menu.component';
 import { Usuario } from '../../../../service/user/user';
 import { Router } from '@angular/router';
@@ -11,20 +11,25 @@ import { Result } from '../../../../@types/http';
 import { NotificationService } from '../../../../service/notification/notification.service';
 import { NgbdSortableHeader, SortEvent } from '../../../../directives/sortable.directive';
 import { compare } from '../../../../util/sort';
+import { map, Observable, startWith } from 'rxjs';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { AsyncPipe, DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-list-user',
   standalone: true,
   imports: [
-    MenuComponent, NgbdSortableHeader
+    MenuComponent, NgbdSortableHeader, AsyncPipe, ReactiveFormsModule
   ],
   templateUrl: './list-user.component.html',
   styleUrl: './list-user.component.css',
 })
 export class ListUserComponent implements OnInit {
   private _users: Usuario[] = []
-  users: Usuario[] = []
+  users$!: Observable<Usuario[]>;
   id?: number
+
+  @Input() filter = new FormControl('', { nonNullable: true });
 
   @ViewChildren(NgbdSortableHeader) headers!: QueryList<NgbdSortableHeader>;
 
@@ -34,8 +39,12 @@ export class ListUserComponent implements OnInit {
     protected readonly selectionService: SelectionService,
     private readonly modalService: NgbModal,
     private readonly notificationService: NotificationService
-  ) { }
-
+  ) {
+    this.users$ = this.filter.valueChanges.pipe(
+      startWith(''),
+      map((text) => this.search(text)),
+    );
+  }
   ngOnInit(): void {
     this.listAll();
   }
@@ -43,10 +52,11 @@ export class ListUserComponent implements OnInit {
   listAll() {
     this.userService.listar().subscribe((request) => {
       this._users = request.value;
-      this.users = request.value;
       this.selectionService.enableButton('btnExcluir', false);
       this.selectionService.enableButton('btnEditar', false);
       this.selectionService.removeSelectedItems();
+      this.filter.setValue('dan')
+      this.filter.setValue('')
     });
   }
 
@@ -95,6 +105,16 @@ export class ListUserComponent implements OnInit {
     this.id = id;
   }
 
+  search(text: string): Usuario[] {
+    const users = this._users.filter((user) => {
+      return text === '' || user.name.toLowerCase().includes(text.toLowerCase())
+    });
+
+    console.log(text, users, this._users)
+
+    return users
+  }
+
   onSort({ column, direction }: SortEvent) {
     for (const header of this.headers) {
       if (header.sortable !== column) {
@@ -102,10 +122,8 @@ export class ListUserComponent implements OnInit {
       }
     }
 
-    if (direction === '' || column === '') {
-      this.users = this._users;
-    } else {
-      this.users = [...this._users].sort((a: any, b: any) => {
+    if (direction !== '' && column !== '') {
+      this._users = [...this._users].sort((a: any, b: any) => {
         const res = compare(a[column], b[column]);
         return direction === 'asc' ? res : -res;
       });
