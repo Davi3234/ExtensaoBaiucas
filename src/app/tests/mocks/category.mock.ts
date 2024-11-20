@@ -1,12 +1,13 @@
 import { ICategoryService } from './../../interface/category.service.interface';
 import { Inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Category } from '../../service/category/category';
+import { Categoria } from '../../service/category/category';
 import { Result } from '../../@types/http'
 import { Message } from '../../@types/message';
 import { ofDefault } from '../utils';
 import { CATEGORY_MOCK_STORAGE } from '../mocks.manager.injection';
 import { CategoryMockStorage } from '../storage/category.storage';
+import { Produto } from '../../service/product/product';
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +18,21 @@ export class CategoryMockService implements ICategoryService {
     @Inject(CATEGORY_MOCK_STORAGE) private readonly categoryMockStorage: CategoryMockStorage
   ) { }
 
-  listar(): Observable<Result<Category[]>> {
+  listar(): Observable<Result<Categoria[]>> {
     return of({
       ...ofDefault,
       value: this.categoryMockStorage.getCategories()
     });
   }
 
-  criar(category: Category): Observable<Result<Category>> {
+  listarCategoriaProduto(): Observable<Result<{ category: Categoria, products?: Produto[]}[]>> {
+    return of({
+      ...ofDefault,
+      value: this.categoryMockStorage.getCategoriesProducts()
+    });
+  }
+
+  criar(category: Categoria): Observable<Result<Categoria>> {
 
     this.categoryMockStorage.save(category);
 
@@ -34,7 +42,7 @@ export class CategoryMockService implements ICategoryService {
     });
   }
 
-  editar(category: Category): Observable<Result<Category>> {
+  editar(category: Categoria): Observable<Result<Categoria>> {
     this.categoryMockStorage.edit(category);
 
     return of({
@@ -52,7 +60,7 @@ export class CategoryMockService implements ICategoryService {
     });
   }
 
-  buscarPorId(id: number): Observable<Result<{ category: Category }>> {
+  buscarPorId(id: number): Observable<Result<{ category: Categoria }>> {
     let categoryReturn = this.categoryMockStorage.find(id);
 
     if (!categoryReturn) {

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MenuComponent } from '../../core/menu/menu.component';
-import { User } from '../../../../service/user/user';
+import { Usuario } from '../../../../service/user/user';
 import { Router } from '@angular/router';
 import { IUserService } from '../../../../interface/user.service.interface';
 import { USER_SERVICE_TOKEN } from '../../../../service/services.injection';
@@ -20,7 +20,7 @@ import { NotificationService } from '../../../../service/notification/notificati
   styleUrl: './list-user.component.css',
 })
 export class ListUserComponent implements OnInit {
-  users?: User[];
+  users?: Usuario[];
   id?: number;
 
   constructor(

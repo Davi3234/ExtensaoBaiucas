@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NotificationContainerComponent } from './components/notification/notification-container/notification-container.component';
+import { CartComponent } from './components/cart/cart.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NotificationContainerComponent],
+  imports: [RouterOutlet, NotificationContainerComponent, CartComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

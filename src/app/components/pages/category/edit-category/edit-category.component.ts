@@ -7,7 +7,7 @@ import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { CATEGORY_SERVICE_TOKEN } from '../../../../service/services.injection';
 import { ICategoryService } from '../../../../interface/category.service.interface';
 import { MenuComponent } from '../../core/menu/menu.component';
-import { Category } from '../../../../service/category/category';
+import { Categoria } from '../../../../service/category/category';
 import { NotificationService } from '../../../../service/notification/notification.service';
 
 @Component({
@@ -25,7 +25,7 @@ import { NotificationService } from '../../../../service/notification/notificati
 export class EditCategoryComponent {
 
   formulario!: FormGroup;
-  category!: Category;
+  category!: Categoria;
 
   constructor(
     @Inject(CATEGORY_SERVICE_TOKEN) private readonly categoryService: ICategoryService,

@@ -16,8 +16,8 @@ import {
 import { IProductService } from '../../../../interface/product.service.interface';
 import { MenuComponent } from '../../core/menu/menu.component';
 import { ICategoryService } from '../../../../interface/category.service.interface';
-import { Category } from '../../../../service/category/category';
-import { Product } from '../../../../service/product/product';
+import { Categoria } from '../../../../service/category/category';
+import { Produto } from '../../../../service/product/product';
 import { NotificationService } from '../../../../service/notification/notification.service';
 
 @Component({
@@ -29,8 +29,8 @@ import { NotificationService } from '../../../../service/notification/notificati
 })
 export class EditProductComponent {
   formulario!: FormGroup;
-  categories!: Category[];
-  product!: Product;
+  categories!: Categoria[];
+  product!: Produto;
 
   constructor(
     @Inject(PRODUCT_SERVICE_TOKEN)

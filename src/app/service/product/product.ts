@@ -1,11 +1,11 @@
-import { Category } from "../category/category";
+import { Categoria } from "../category/category";
 
-export interface Product {
+export interface Produto {
   id?: number,
   name: string,
   description: string,
   value: number,
-  category?: Category,
+  category?: Categoria,
   ativo: boolean
   data_inclusao: Date
 }

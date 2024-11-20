@@ -195,3 +195,10 @@ app-root {
 .valid-feedback{
   color: #21ad6c;
 }
+.alert-selected {
+  --bs-alert-color: #d4edda !important;
+  --bs-alert-bg: #1e2b20 !important;
+  --bs-alert-border-color: #28a745 !important;
+  --bs-alert-link-color: #c3e6cb !important;
+}
+

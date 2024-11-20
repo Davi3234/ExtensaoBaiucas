@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MenuComponent } from '../../core/menu/menu.component';
-import { Category } from '../../../../service/category/category';
+import { Categoria } from '../../../../service/category/category';
 import { Router } from '@angular/router';
 import { SelectionService } from '../../../../service/selection/selection.service';
 import { ICategoryService } from '../../../../interface/category.service.interface';
@@ -20,7 +20,7 @@ import { NotificationService } from '../../../../service/notification/notificati
 })
 export class ListCategoryComponent implements OnInit{
 
-  categories?: Category[]
+  categories?: Categoria[]
   id?: number
 
   constructor(

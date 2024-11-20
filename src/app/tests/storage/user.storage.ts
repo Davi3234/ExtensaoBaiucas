@@ -1,5 +1,5 @@
 import { getId } from '../utils';
-import { User } from './../../service/user/user';
+import { Usuario } from './../../service/user/user';
 import { MockStorage } from './mock.storage';
 
 export class UserMockStorage extends MockStorage {
@@ -10,7 +10,7 @@ export class UserMockStorage extends MockStorage {
     }
   }
 
-  save(user: User) {
+  save(user: Usuario) {
     const users = this.getUsers();
     user.id = this.getUserNextId();
     users.push(user);
@@ -22,16 +22,16 @@ export class UserMockStorage extends MockStorage {
     this.setUsers(users);
   }
 
-  edit(user: User) {
+  edit(user: Usuario) {
     const users = this.getUsers().map((u) => (u.id == user.id ? user : u));
     this.setUsers(users);
   }
 
-  find(userId: number): User | undefined {
+  find(userId: number): Usuario | undefined {
     return this.getUsers().find((u) => u.id == userId);
   }
 
-  getUsers(): User[] {
+  getUsers(): Usuario[] {
     return JSON.parse(this.getItem("user") || "[]");
   }
 
@@ -41,7 +41,7 @@ export class UserMockStorage extends MockStorage {
   setUserId(value: number): void {
     this.setItem('userId', value);
   }
-  private setUsers(users: User[]) {
+  private setUsers(users: Usuario[]) {
     this.setItem("user", JSON.stringify(users));
   }
 }
