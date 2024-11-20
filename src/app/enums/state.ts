@@ -7,7 +7,11 @@ export enum State {
 
 export enum DescriptionState{
   EP = 'Em Preparo',
-  CO  = 'Completado',
+  CO  = 'Finalizado',
   EE = 'Em Entrega',
   CA  = 'Cancelado'
+}
+
+export function getStateDescription(method?: string){
+  return DescriptionState[method as keyof typeof DescriptionState] || 'Desconhecido';
 }

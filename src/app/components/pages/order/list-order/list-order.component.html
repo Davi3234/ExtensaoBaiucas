@@ -31,8 +31,8 @@
               <td>{{ order.id }}</td>
               <td>{{ order.client?.name }}</td>
               <td>{{ order.date | date: 'dd/MM/yyyy' }}</td>
-              <td>{{ getPaymentDescription(order.paymentMethod) }}</td>
-              <td>{{ getStateDescription(order.state) }}</td>
+              <td>{{ getPayment(order.paymentMethod) }}</td>
+              <td>{{ getState(order.state) }}</td>
               <td>R$ {{ order.totalPrice?.toFixed(2)?.replace(".", ",") }}</td>
             </tr>
             }

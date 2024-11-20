@@ -9,3 +9,6 @@ export enum DescriptionPayment{
   D = 'Dinheiro',
   P = 'Pix'
 }
+export function getPaymentDescription(method?: string): string {
+  return DescriptionPayment[method as keyof typeof DescriptionPayment] || 'Desconhecido';
+}

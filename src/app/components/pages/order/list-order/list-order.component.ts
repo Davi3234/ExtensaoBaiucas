@@ -15,8 +15,8 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { GridService } from '../../../../service/grid/grid.service';
 import { NgbdSortableHeader } from '../../../../directives/sortable.directive';
 import { compare } from '../../../../util/sort';
-import { DescriptionPayment } from '../../../../enums/payment-method';
-import { DescriptionState } from '../../../../enums/state';
+import { DescriptionPayment, getPaymentDescription } from '../../../../enums/payment-method';
+import { DescriptionState, getStateDescription } from '../../../../enums/state';
 @Component({
   selector: 'app-list-order',
   standalone: true,
@@ -75,17 +75,16 @@ export class ListOrderComponent implements OnInit {
     this.route.navigate([`orders/view/${this.id}`]);
   }
 
-  getPaymentDescription(method?: string): string {
-    return DescriptionPayment[method as keyof typeof DescriptionPayment] || 'Desconhecido';
-  }
-
-  getStateDescription(method?: string){
-    return DescriptionState[method as keyof typeof DescriptionState] || 'Desconhecido';
-  }
-
   selectItem(id?: number) {
     this.id = id;
     this.selectionService.selectItem(id);
+  }
+
+  getPayment(method?: string){
+    return getPaymentDescription(method);
+  }
+  getState(method?: string){
+    return getStateDescription(method);
   }
 
 }
