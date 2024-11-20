@@ -5,7 +5,7 @@ import { debounceTime, delay, switchMap, tap } from 'rxjs/operators'
 import { SortColumn, SortDirection } from '../../directives/sortable.directive'
 
 interface SearchResult {
-  rows: SortColumn[]
+  rows: any[]
   total: number
 }
 
