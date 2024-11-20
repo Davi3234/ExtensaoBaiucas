@@ -69,8 +69,8 @@
             <label for="category" class="form-label">Categoria</label>
             <select
               class="form-select form-control"
-              formControlName="category"
-              id="category"
+              formControlName="idCategory"
+              id="idCategory"
             >
               <option *ngFor="let category of categories" [value]="category.id">
                 {{ category.name }}
@@ -80,7 +80,7 @@
             <ngb-alert
               [dismissible]="false"
               class="mt-2"
-              *ngIf="formulario.get('category')?.touched && formulario.get('category')?.errors?.['required']"
+              *ngIf="formulario.get('idCategory')?.touched && formulario.get('idCategory')?.errors?.['required']"
             >
               A categoria é de preenchimento obrigatório
             </ngb-alert>
