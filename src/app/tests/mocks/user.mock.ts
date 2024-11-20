@@ -80,4 +80,32 @@ export class UserMockService implements IUserService {
       value: { user: userReturn }
     });
   }
+
+  buscarUsuarioLogado(): Observable<Result<{ user: Usuario; }>> {
+    let userReturn = this.userMockStorage.find(1);
+
+    if (!userReturn) {
+      return of({
+        error: {
+          message: 'Usuário não encontrado',
+          causes: [
+            {
+              message: 'Usuário não encontrado',
+              origin: [
+                'login'
+              ]
+            }
+          ]
+        },
+        ok: false,
+        status: 404,
+        value: { user: { id: 0, name: '', login: '', active: false, tipo: TypeUser.CLIENTE } }
+      });
+    }
+
+    return of({
+      ...ofDefault,
+      value: { user: userReturn }
+    });
+  }
 }

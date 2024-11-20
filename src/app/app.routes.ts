@@ -12,6 +12,7 @@ import { CreateCategoryComponent } from './components/pages/category/create-cate
 import { EditCategoryComponent } from './components/pages/category/edit-category/edit-category.component';
 import { ListOrderComponent } from './components/pages/order/list-order/list-order.component';
 import { ViewOrderComponent } from './components/pages/order/view-order/view-order.component';
+import { SignUpComponent } from './components/pages/auth/sign-up/sign-up.component';
 
 export const routes: Routes = [
   {
@@ -22,6 +23,10 @@ export const routes: Routes = [
   {
     path: 'auth/login',
     component: LoginComponent,
+  },
+  {
+    path: 'auth/sign-up',
+    component: SignUpComponent,
   },
   {
     path: 'users',

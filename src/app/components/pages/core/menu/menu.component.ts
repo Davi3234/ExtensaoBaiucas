@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router, Routes } from '@angular/router';
 import { routes } from '../../../../app.routes';
 import { CommonModule } from '@angular/common';
 import { CartComponent } from '../../../cart/cart.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { UserService } from '../../../../service/user/user.service';
 import { NotificationService } from '../../../../service/notification/notification.service';
 import { AuthService } from '../../../../service/auth/auth.service';
+import { IUserService } from '../../../../interface/user.service.interface';
+import { USER_SERVICE_TOKEN } from '../../../../service/services.injection';
 
 @Component({
   selector: 'app-menu',
@@ -38,7 +39,7 @@ export class MenuComponent {
     private readonly router: Router,
     private readonly notificationService: NotificationService,
     private readonly authService: AuthService,
-    private readonly userService: UserService
+    @Inject(USER_SERVICE_TOKEN) private readonly userService: IUserService
   ) {
     this.routesWithTitle = routes.filter(route => route.title);
   }
