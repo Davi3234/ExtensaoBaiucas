@@ -1,4 +1,21 @@
-<div class="shopping-cart">
+<div class="shopping-cart" (click)="openCartWindow(content)">
   <i class="fas fa-shopping-cart"></i>
   <span class="item-count">{{ cartItems.length }}</span>
 </div>
+
+<ng-template #content let-offcanvas>
+  <div style="background-color: #3a3735; height: 100%">
+    <div class="offcanvas-header">
+      <h4 class="offcanvas-title" style="color: white">Carrinho</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="offcanvas.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="offcanvas-body">
+      <app-window-cart [cartItems]="cartItems"> </app-window-cart>
+    </div>
+  </div>
+</ng-template>

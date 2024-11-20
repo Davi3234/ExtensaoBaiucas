@@ -1,0 +1,50 @@
+<div ngbAccordion [closeOthers]="true" class="accordion-dark">
+  <div *ngFor="let item of cartItems" ngbAccordionItem>
+    <h2 ngbAccordionHeader>
+      <button ngbAccordionButton>
+        <div class="d-flex justify-content-between">
+          <span class="text-left">{{ item.product.description }} x</span>
+        </div>
+      </button>
+    </h2>
+    <div ngbAccordionCollapse>
+      <div ngbAccordionBody>
+        <div class="form-group">
+          <label for="observacao-{{ item.product.id }}">Observação:</label>
+          <textarea
+            class="form-control"
+            id="observacao-{{ item.product.id }}"
+            [(ngModel)]="item.observation"
+            aria-label="Observação"
+            style="resize: none"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mt-3 total d-flex justify-content-between">
+  <span class="text-left">Total:</span>
+  <span class="text-right"
+    >R$ {{ getTotal().toFixed(2).replace(".", ",") }}</span
+  >
+</div>
+
+<div class="mt-3">
+  <button type="button" class="btn btn-success" (click)="openFinishWindow(content)" style="margin-right: 2vh;">Finalizar</button>
+  <button type="button" class="btn btn-warning">Cancelar</button>
+</div>
+
+<ng-template #content let-modal style="background-color: black;">
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Finalização do Pedido</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<app-finaliza-pedido></app-finaliza-pedido>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-secondary" (click)="modal.close('Save click')">Save</button>
+	</div>
+</ng-template>

@@ -20,15 +20,8 @@ export class CartService {
 
   addItem(item: Item) {
     const currentItems = this.cartItems.value;
-    const existingItem = currentItems.find(i => i.product.id === item.product.id);
 
-    if (existingItem) {
-
-      existingItem.price = item.price;
-      existingItem.observation = item.observation;
-    } else {
-      currentItems.push(item);
-    }
+    currentItems.push(item);
 
     this.cartItems.next([...currentItems]);
 

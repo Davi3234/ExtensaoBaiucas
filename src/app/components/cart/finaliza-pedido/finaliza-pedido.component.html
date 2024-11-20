@@ -1,0 +1,78 @@
+<form [formGroup]="formulario" id="finaliza-pedido" class="mt-2 p-3">
+  <div class="row">
+    <div class="col-12 col-md-6 mb-3">
+      <label for="formaPagamento" class="form-label">Forma de Pagamento</label>
+      <select
+        class="form-select form-control"
+        formControlName="formaPagamento"
+        id="formaPagamento"
+      >
+        <option value="C">Cartão</option>
+        <option value="D">Dinheiro</option>
+        <option value="P">Pix</option>
+      </select>
+
+      <ngb-alert
+        [dismissible]="false"
+        class="mt-2"
+        *ngIf="formulario.get('formaPagamento')?.touched && formulario.get('formaPagamento')?.errors?.['required']"
+      >
+        A forma de pagamento é de preenchimento obrigatório
+      </ngb-alert>
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+      <label for="tipoEntrega" class="form-label">Forma de Entrega</label>
+      <select
+        class="form-select form-control"
+        formControlName="tipoEntrega"
+        id="tipoEntrega"
+      >
+        <option value="D">Delivery</option>
+        <option value="L">No Local</option>
+      </select>
+
+      <ngb-alert
+        [dismissible]="false"
+        class="mt-2"
+        *ngIf="formulario.get('tipoEntrega')?.touched && formulario.get('tipoEntrega')?.errors?.['required']"
+      >
+        A Forma de Entrega é de preenchimento obrigatório
+      </ngb-alert>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-md-6 mb-3">
+      <label for="endereco" class="form-label">Endereço</label>
+
+      <input
+        formControlName="endereco"
+        type="text"
+        class="form-control"
+        id="endereco"
+      />
+
+      <ngb-alert
+        [dismissible]="false"
+        class="mt-2"
+        *ngIf="formulario.get('endereco')?.touched && formulario.get('endereco')?.errors?.['required']"
+      >
+        A categoria é de preenchimento obrigatório
+      </ngb-alert>
+    </div>
+  </div>
+
+  <!-- <div class="row" style="float: right">
+    <div class="col">
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-success" (click)="salvar()">
+          Salvar
+        </button>
+        <button type="button" class="btn btn-primary" (click)="cancelar()">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div> -->
+</form>
