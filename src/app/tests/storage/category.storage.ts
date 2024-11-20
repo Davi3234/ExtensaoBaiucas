@@ -37,9 +37,9 @@ export class CategoryMockStorage extends MockStorage {
     return JSON.parse(this.getItem("category") || "[]");
   }
 
-  getCategoriesProducts(): {category: Categoria, products?: Produto[]}[] {
+  getCategoriesProducts(): {categorias: {category:Categoria, products: Produto[]}[]} {
     let categories = this.getCategories();
-    let array: {category: Categoria, products?: Produto[]}[] = [];
+    let array: any = [];
     let productMock = new ProductMockStorage();
 
     categories.forEach(category => {
@@ -49,7 +49,7 @@ export class CategoryMockStorage extends MockStorage {
       })
     });
 
-    return array;
+    return {categorias: array};
   }
 
   getCategoryNextId(): number {

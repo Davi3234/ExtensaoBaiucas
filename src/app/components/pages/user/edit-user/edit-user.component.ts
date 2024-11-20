@@ -51,6 +51,10 @@ export class EditUserComponent implements OnInit {
           '',
           [Validators.required, Validators.pattern(/^(?!\s*$)[a-zA-Z\s]+$/)],
         ],
+        active: [
+          '',
+          [Validators.required],
+        ],
         login: ['', [Validators.required, Validators.email]],
         password: [''],
         confirmPassword: [''],
@@ -82,6 +86,7 @@ export class EditUserComponent implements OnInit {
       this.formulario.get('id')?.setValue(this.user.id);
       this.formulario.get('name')?.setValue(this.user.name);
       this.formulario.get('login')?.setValue(this.user.login);
+      this.formulario.get('active')?.setValue(this.user.active);
     });
   }
 

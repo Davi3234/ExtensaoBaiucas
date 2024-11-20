@@ -24,18 +24,18 @@ export class CategoryService implements ICategoryService{
     return this.http.get<Result<Categoria[]>>(this.API);
   }
 
-  listarCategoriaProduto(): Observable<Result<{category:Categoria, products: Produto[]}[]>> {
+  listarCategoriaProduto(): Observable<Result<{categorias: {category:Categoria, products: Produto[]}[]}>> {
     const url = `${this.API}/products`
-    return this.http.get<Result<{category:Categoria, products: Produto[]}[]>>(url);
+    return this.http.get<Result<{categorias: {category:Categoria, products: Produto[]}[]}>>(url);
   }
 
   criar(category: Categoria): Observable<Result<Categoria>> {
-    const url = `${this.API}/create`
+    const url = `${this.API}`
     return this.http.post<Result<Categoria>>(url, category)
   }
 
   editar(category: Categoria): Observable<Result<Categoria>> {
-    const url = `${this.API}/edit/${category.id}`
+    const url = `${this.API}/${category.id}`
     return this.http.put<Result<Categoria>>(url, category )
   }
 

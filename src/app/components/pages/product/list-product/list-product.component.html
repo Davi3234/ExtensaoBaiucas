@@ -45,13 +45,13 @@
         </div>
 
         <div ngbAccordion [closeOthers]="true" class="accordion-dark">
-          @for (item of this.list; track item) {
+          @for (item of this.list?.categorias; track item) {
           <div ngbAccordionItem>
             <h2 ngbAccordionHeader (click)="resetButtonState()">
-              <button ngbAccordionButton>{{ item.category.name }}</button>
+              <button ngbAccordionButton>{{ item?.category?.name }}</button>
             </h2>
             <div ngbAccordionCollapse>
-              @for (product of item.products; track product) {
+              @for (product of item?.products; track product) {
               <div ngbAccordionBody>
                 <ng-template>
                   <ngb-alert

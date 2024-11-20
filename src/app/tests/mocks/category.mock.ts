@@ -25,7 +25,7 @@ export class CategoryMockService implements ICategoryService {
     });
   }
 
-  listarCategoriaProduto(): Observable<Result<{ category: Categoria, products?: Produto[]}[]>> {
+  listarCategoriaProduto(): Observable<Result<{categorias: {category:Categoria, products: Produto[]}[]}>> {
     return of({
       ...ofDefault,
       value: this.categoryMockStorage.getCategoriesProducts()

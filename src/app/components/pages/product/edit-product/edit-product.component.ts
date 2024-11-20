@@ -56,6 +56,7 @@ export class EditProductComponent {
       description: ['', [Validators.required]],
       value: ['', [Validators.required]],
       category: ['', [Validators.required]],
+      ativo: ['', [Validators.required]],
     });
 
     this.productService.buscarPorId(parseInt(id!)).subscribe((result) => {
@@ -66,6 +67,7 @@ export class EditProductComponent {
       this.formulario.get('description')?.setValue(this.product.description);
       this.formulario.get('value')?.setValue(this.product.value);
       this.formulario.get('category')?.setValue(this.product.category?.id);
+      this.formulario.get('ativo')?.setValue(this.product.ativo);
     });
   }
 
