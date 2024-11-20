@@ -7,7 +7,7 @@
         <h2>Consulta de Categorias</h2>
       </div>
 
-      <div class="card-body">
+      <div class="card-body position-relative">
         <div class="mb-3 row">
           <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Nome:</label>
           <div class="col-xs-3 col-sm-auto">
@@ -42,7 +42,7 @@
           </tbody>
         </table>
 
-        <div class="d-flex justify-content-between p-2">
+        <div class="d-flex justify-content-between p-2 position-absolute bottom-0">
           <ngb-pagination [collectionSize]="this.gridService.state.total" [(page)]="this.gridService.state.page"
             [pageSize]="this.gridService.state.pageSize" (pageChange)="this.gridService.refresh()">
           </ngb-pagination>

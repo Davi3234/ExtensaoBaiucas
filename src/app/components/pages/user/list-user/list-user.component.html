@@ -8,7 +8,7 @@
         <h2>Consulta de Usuários</h2>
       </div>
 
-      <div class="card-body">
+      <div class="card-body position-relative">
 
         <div class="actions mb-2 justify-content-between">
           <div class="mb-3 row">
@@ -47,7 +47,7 @@
           </tbody>
         </table>
 
-        <div class="d-flex justify-content-between p-2">
+        <div class="d-flex justify-content-between p-2 position-absolute bottom-0">
           <ngb-pagination [collectionSize]="this.gridService.state.total" [(page)]="this.gridService.state.page"
             [pageSize]="this.gridService.state.pageSize" (pageChange)="this.gridService.refresh()">
           </ngb-pagination>

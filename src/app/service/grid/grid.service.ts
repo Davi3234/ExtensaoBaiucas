@@ -29,7 +29,8 @@ export class GridService<T = any> {
     sortDirection: '',
   }
 
-  private _filterHandler: (row: T, column: keyof T, value: any) => boolean = () => false
+  private _filterHandler?: (row: T, column: keyof T, value: any) => boolean = () => false
+  private _orderHandler?: (rowA: T, rowB: T, column: keyof T) => 1 | 0 | -1 = (rowA, rowB, column) => compare(rowA[column] as any, rowB[column] as any)
 
   constructor() { }
 
@@ -58,6 +59,10 @@ export class GridService<T = any> {
     this._filterHandler = handler
   }
 
+  setOrderHandler(handler: (rowA: T, rowB: T, column: keyof T) => 1 | 0 | -1) {
+    this._orderHandler = handler
+  }
+
   refresh() {
     const { sortColumn, searchColumn, sortDirection, pageSize, page, searchValue } = this.state
 
@@ -65,12 +70,12 @@ export class GridService<T = any> {
       // 1. sort
       .sort((rowA: T, rowB: T) => {
         // @ts-expect-error
-        const res = compare(rowA[sortColumn], rowB[sortColumn])
+        const res = this._orderHandler(rowA, rowB, sortColumn)
 
         return sortDirection === 'asc' ? res : -res
       })
       // 2. filter
-      .filter(row => this._filterHandler(row, searchColumn as keyof T, searchValue))
+      .filter(row => !this._filterHandler || this._filterHandler(row, searchColumn as keyof T, searchValue))
       // 3. paginate
       .slice(
         (page - 1) * pageSize,

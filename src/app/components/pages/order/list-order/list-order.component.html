@@ -6,13 +6,13 @@
         <h2>Consulta de Pedidos</h2>
       </div>
 
-      <div class="card-body">
+      <div class="card-body position-relative">
         <div class="actions mb-2">
           <div class="btn-group" role="group">
             <button type="button" class="btn btn-primary" id="btnIncluir" (click)="incluir()">Incluir</button>
             <button type="button" class="btn btn-warning" id="btnEditar" disabled (click)="editar()">Editar</button>
-            <button type="button" class="btn btn-danger" id="btnExcluir" disabled (click)="confirmDelete()">Excluir
-            </button>
+            <button type="button" class="btn btn-danger" id="btnExcluir" disabled
+              (click)="confirmDelete()">Excluir</button>
           </div>
         </div>
 
@@ -20,7 +20,7 @@
           <thead>
             <tr>
               <th scope="col" sortable="id" (sort)="this.gridService.sort($event)">#</th>
-              <th scope="col" sortable="order" (sort)="this.gridService.sort($event)">Cliente</th>
+              <th scope="col" sortable="client" (sort)="this.gridService.sort($event)">Cliente</th>
               <th scope="col" sortable="date" (sort)="this.gridService.sort($event)">Data</th>
               <th scope="col" sortable="paymentMethod" (sort)="this.gridService.sort($event)">Forma de Pagamento</th>
               <th scope="col" sortable="state" (sort)="this.gridService.sort($event)">Situação</th>
@@ -42,7 +42,7 @@
           </tbody>
         </table>
 
-        <div class="d-flex justify-content-between p-2">
+        <div class="d-flex justify-content-between p-2 position-absolute bottom-0">
           <ngb-pagination [collectionSize]="this.gridService.state.total" [(page)]="this.gridService.state.page"
             [pageSize]="this.gridService.state.pageSize" (pageChange)="this.gridService.refresh()">
           </ngb-pagination>

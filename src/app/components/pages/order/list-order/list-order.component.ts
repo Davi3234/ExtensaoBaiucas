@@ -14,6 +14,7 @@ import { BehaviorSubject } from 'rxjs';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { GridService } from '../../../../service/grid/grid.service';
 import { NgbdSortableHeader } from '../../../../directives/sortable.directive';
+import { compare } from '../../../../util/sort';
 
 @Component({
   selector: 'app-list-order',
@@ -36,6 +37,17 @@ export class ListOrderComponent implements OnInit {
   ) {
     this.gridService.setFilterHandler((order, column, value) => {
       return `${value}` === '' || `${order[column]}`.toLowerCase().includes(`${value}`.toLowerCase())
+    })
+
+    this.gridService.setOrderHandler((orderA, orderB, column) => {
+      if (!orderA || !orderB)
+        return 0
+
+      if (column == 'client') {
+        return compare(orderA?.client?.name || '', orderB?.client?.name || '')
+      }
+
+      return compare(orderA[column] as any || '', orderB[column] as any || '')
     })
 
     this.gridService.rows$.subscribe(orders => {
