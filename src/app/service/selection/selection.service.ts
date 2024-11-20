@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
 
 export interface SortEvent {
   column: string
@@ -9,55 +9,58 @@ export interface SortEvent {
   providedIn: 'root'
 })
 export class SelectionService {
-  private selectedId?: number;
+  private selectedId?: number
 
   selectItem(id?: number) {
-    this.selectedId = id;
-    this.removeSelectedItems();
+    this.selectedId = id
+    this.removeSelectedItems()
 
-    const element = document.getElementById(`line${id}`);
+    const element = document.getElementById(`line${id}`)
+
     if (element) {
-      element.className = element.className + " row-selected";
+      element.classList.add('row-selected')
     }
 
     if (this.selectedId) {
-      this.enableButton('btnEditar');
-      this.enableButton('btnExcluir');
+      this.enableButton('btnEditar')
+      this.enableButton('btnExcluir')
     }
   }
 
-  selectAlert(id?: number){
-    this.selectedId = id;
-    this.removeSelectedAlerts();
+  selectAlert(id?: number) {
+    this.selectedId = id
+    this.removeSelectedAlerts()
 
-    const element = document.getElementById(`line${id}`);
+    const element = document.getElementById(`line${id}`)
+
     if (element) {
-      element.className = element.className + " alert-selected";
+      element.classList.add('alert-selected')
     }
 
     if (this.selectedId) {
-      this.enableButton('btnEditar');
-      this.enableButton('btnExcluir');
-      this.enableButton('btnAddCarrinho');
+      this.enableButton('btnEditar')
+      this.enableButton('btnExcluir')
+      this.enableButton('btnAddCarrinho')
     }
-
   }
 
   removeSelectedAlerts() {
+    const elements = document.getElementsByClassName('alert-selected')
 
-    const elements = document.getElementsByClassName('alert-selected');
     Array.from(elements).forEach((el) => {
-      el.className = el.className.replace('alert-selected', '');
-    });
+      el.classList.remove('alert-selected')
+    })
   }
 
   removeSelectedItems() {
-    const elements = document.getElementsByClassName('row-selected');
-    Array.from(elements).forEach((el) => el.className = '');
+    const elements = document.getElementsByClassName('row-selected')
+
+    Array.from(elements).forEach((el) => el.className = '')
   }
 
   enableButton(buttonId: string, active: boolean = true) {
-    const button = document.getElementById(buttonId) as HTMLButtonElement;
-    if (button) button.disabled = !active;
+    const button = document.getElementById(buttonId) as HTMLButtonElement
+
+    if (button) button.disabled = !active
   }
 }

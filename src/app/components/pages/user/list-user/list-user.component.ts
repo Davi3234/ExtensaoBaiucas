@@ -16,7 +16,7 @@ import { compare } from '../../../../util/sort';
   selector: 'app-list-user',
   standalone: true,
   imports: [
-    MenuComponent
+    MenuComponent, NgbdSortableHeader
   ],
   templateUrl: './list-user.component.html',
   styleUrl: './list-user.component.css',
@@ -104,10 +104,11 @@ export class ListUserComponent implements OnInit {
 
     if (direction === '' || column === '') {
       this.users = this._users;
+    } else {
+      this.users = [...this._users].sort((a: any, b: any) => {
+        const res = compare(a[column], b[column]);
+        return direction === 'asc' ? res : -res;
+      });
     }
-    this.users = [...this._users].sort((a: any, b: any) => {
-      const res = compare(a[column], b[column]);
-      return direction === 'asc' ? res : -res;
-    });
   }
 }

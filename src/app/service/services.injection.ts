@@ -23,8 +23,8 @@ export const PRODUCT_SERVICE_TOKEN = new InjectionToken<IProductService>('IProdu
 export const ORDER_SERVICE_TOKEN = new InjectionToken<IOrderService>('IOrderService');
 
 export const servicesInjection = [
-  { provide: USER_SERVICE_TOKEN, useClass: environment.production ? UserService : UserMockService },
-  { provide: AUTH_SERVICE_TOKEN, useClass: environment.production ? AuthService : AuthMockService },
+  { provide: USER_SERVICE_TOKEN, useClass: environment.production ? UserMockService : UserService },
+  { provide: AUTH_SERVICE_TOKEN, useClass: environment.production ? AuthMockService : AuthService },
   { provide: CATEGORY_SERVICE_TOKEN, useClass: environment.production ? CategoryService : CategoryMockService },
   { provide: PRODUCT_SERVICE_TOKEN, useClass: environment.production ? ProductService : ProductMockService },
   { provide: ORDER_SERVICE_TOKEN, useClass: environment.production ? OrderService : OrderMockService },
