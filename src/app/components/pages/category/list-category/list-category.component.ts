@@ -42,12 +42,12 @@ export class ListCategoryComponent implements OnInit {
       this.gridService.filter({ column: 'name', value })
     })
 
-    this.gridService.setFilterHandler((user, column, value) => {
-      return `${value}` === '' || `${user[column]}`.toLowerCase().includes(`${value}`.toLowerCase())
+    this.gridService.setFilterHandler((category, column, value) => {
+      return `${value}` === '' || `${category[column]}`.toLowerCase().includes(`${value}`.toLowerCase())
     })
 
-    this.gridService.rows$.subscribe(users => {
-      this.categories$.next(users)
+    this.gridService.rows$.subscribe(categories => {
+      this.categories$.next(categories)
     })
   }
 
