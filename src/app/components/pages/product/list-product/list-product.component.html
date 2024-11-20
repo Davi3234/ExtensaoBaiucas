@@ -37,16 +37,17 @@
             type="button"
             class="btn btn-success"
             id="btnAddCarrinho"
+            [disabled]="this.disableButtons"
             (click)="addCarrinho()"
           >
             Adicionar ao Carrinho
           </button>
         </div>
 
-        <div ngbAccordion [closeOthers]="true" class="accordion-dark" (ngbAccordionChange)="resetButtonState()">
+        <div ngbAccordion [closeOthers]="true" class="accordion-dark">
           @for (item of this.list; track item) {
           <div ngbAccordionItem>
-            <h2 ngbAccordionHeader>
+            <h2 ngbAccordionHeader (click)="resetButtonState()">
               <button ngbAccordionButton>{{ item.category.name }}</button>
             </h2>
             <div ngbAccordionCollapse>
