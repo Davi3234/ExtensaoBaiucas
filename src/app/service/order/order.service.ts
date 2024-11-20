@@ -10,7 +10,7 @@ import { Message } from '../../@types/message';
 @Injectable({
   providedIn: 'root'
 })
-export class OrderService implements IOrderService{
+export class OrderService implements IOrderService {
 
   private readonly API = `${environment.API_BASE_URL}:80/orders`;
 
@@ -23,13 +23,13 @@ export class OrderService implements IOrderService{
   }
 
   criar(order: Order): Observable<Result<Order>> {
-    const url = `${this.API}/create`
+    const url = `${this.API}`
     return this.http.post<Result<Order>>(url, order)
   }
 
   editar(order: Order): Observable<Result<Order>> {
-    const url = `${this.API}/edit/${order.id}`
-    return this.http.put<Result<Order>>(url, order )
+    const url = `${this.API}/${order.id}`
+    return this.http.put<Result<Order>>(url, order)
   }
 
   excluir(id: number): Observable<Result<Message[]>> {
@@ -37,8 +37,8 @@ export class OrderService implements IOrderService{
     return this.http.delete<Result<Message[]>>(url)
   }
 
-  buscarPorId(id: number): Observable<Result<{order:Order}>> {
+  buscarPorId(id: number): Observable<Result<{ order: Order }>> {
     const url = `${this.API}/${id}`
-    return this.http.get<Result<{order:Order}>>(url)
+    return this.http.get<Result<{ order: Order }>>(url)
   }
 }
