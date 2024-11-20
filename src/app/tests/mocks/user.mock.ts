@@ -7,6 +7,7 @@ import { Message } from '../../@types/message';
 import { IUserService } from '../../interface/user.service.interface';
 import { ofDefault } from '../utils';
 import { USER_MOCK_STORAGE } from '../mocks.manager.injection';
+import { TypeUser } from '../../enums/type-user';
 
 @Injectable({
   providedIn: 'root'
@@ -70,7 +71,7 @@ export class UserMockService implements IUserService {
         },
         ok: false,
         status: 404,
-        value: { user: { id: 0, name: '', login: '', active: false } }
+        value: { user: { id: 0, name: '', login: '', active: false, tipo: TypeUser.CLIENTE } }
       });
     }
 

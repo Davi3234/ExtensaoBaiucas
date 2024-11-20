@@ -47,6 +47,7 @@ export class CreateUserComponent implements OnInit {
           [Validators.required, Validators.pattern(/^(?!\s*$)[a-zA-Z\s]+$/)],
         ],
         login: ['', [Validators.required, Validators.email]],
+        tipo: ['', [Validators.required]],
         password: [
           '',
           [

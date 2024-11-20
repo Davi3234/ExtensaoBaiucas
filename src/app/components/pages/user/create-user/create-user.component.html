@@ -1,16 +1,50 @@
+<app-menu></app-menu>
 <div class="container h-75">
-  <form [formGroup]="formulario" id="user-create" class="container-form mt-2 p-3">
+  <form
+    [formGroup]="formulario"
+    id="user-create"
+    class="container-form mt-2 p-3"
+  >
     <div class="card text-bg-danger">
       <div class="card-header">
         <h2>Cadastro de Usuário</h2>
       </div>
       <div class="card-body">
+
         <div class="row">
           <div class="col-12 col-md-6 mb-3">
+            <label for="tipo" class="form-label">Tipo</label>
+            <select
+              class="form-select form-control"
+              formControlName="tipo"
+              id="tipo"
+            >
+              <option value="C">Cliente</option>
+              <option value="A">Administrador</option>
+            </select>
+
+            <div class="invalid-feedback d-flex flex-column">
+              <span *ngIf="formulario.get('tipo')?.errors?.['required']">
+                O tipo é de preenchimento obrigatório.
+              </span>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 mb-3">
             <label for="login" class="form-label">Login</label>
-            <input formControlName="login" type="email" class="form-control"
-              [class.is-invalid]="formulario.get('login')?.invalid && formulario.get('login')?.touched"
-              [class.is-valid]="formulario.get('login')?.valid && formulario.get('login')?.touched" id="login" />
+            <input
+              formControlName="login"
+              type="email"
+              class="form-control"
+              [class.is-invalid]="
+                formulario.get('login')?.invalid &&
+                formulario.get('login')?.touched
+              "
+              [class.is-valid]="
+                formulario.get('login')?.valid &&
+                formulario.get('login')?.touched
+              "
+              id="login"
+            />
             <div class="invalid-feedback d-flex flex-column">
               <span *ngIf="formulario.get('login')?.errors?.['required']">
                 O login é de preenchimento obrigatório.
@@ -20,12 +54,23 @@
               </span>
             </div>
           </div>
-
-          <div class="col-12 col-md-6 mb-3">
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-12 mb-3">
             <label for="name" class="form-label">Nome</label>
-            <input formControlName="name" type="text" class="form-control"
-              [class.is-invalid]="formulario.get('name')?.invalid && formulario.get('name')?.touched"
-              [class.is-valid]="formulario.get('name')?.valid && formulario.get('name')?.touched" id="name" />
+            <input
+              formControlName="name"
+              type="text"
+              class="form-control"
+              [class.is-invalid]="
+                formulario.get('name')?.invalid &&
+                formulario.get('name')?.touched
+              "
+              [class.is-valid]="
+                formulario.get('name')?.valid && formulario.get('name')?.touched
+              "
+              id="name"
+            />
             <div class="invalid-feedback d-flex flex-column">
               <span *ngIf="formulario.get('name')?.errors?.['required']">
                 O nome é de preenchimento obrigatório.
@@ -40,35 +85,66 @@
         <div class="row">
           <div class="col-12 col-md-6 mb-3">
             <label for="password" class="form-label">Senha</label>
-            <input formControlName="password" type="password" class="form-control"
-              [class.is-invalid]="formulario.get('password')?.invalid && formulario.get('password')?.touched"
-              [class.is-valid]="formulario.get('password')?.valid && formulario.get('password')?.touched"
-              id="password" />
+            <input
+              formControlName="password"
+              type="password"
+              class="form-control"
+              [class.is-invalid]="
+                formulario.get('password')?.invalid &&
+                formulario.get('password')?.touched
+              "
+              [class.is-valid]="
+                formulario.get('password')?.valid &&
+                formulario.get('password')?.touched
+              "
+              id="password"
+            />
             <div class="invalid-feedback d-flex flex-column">
               <span *ngIf="formulario.get('password')?.errors?.['minlength']">
                 A senha deve ter pelo menos 8 caracteres.
               </span>
-              <span *ngIf="formulario.get('password')?.errors?.['missingUppercase']">
+              <span
+                *ngIf="formulario.get('password')?.errors?.['missingUppercase']"
+              >
                 A senha deve conter pelo menos uma letra maiúscula.
               </span>
-              <span *ngIf="formulario.get('password')?.errors?.['missingLowercase']">
+              <span
+                *ngIf="formulario.get('password')?.errors?.['missingLowercase']"
+              >
                 A senha deve conter pelo menos uma letra minúscula.
               </span>
-              <span *ngIf="formulario.get('password')?.errors?.['missingNumber']">
+              <span
+                *ngIf="formulario.get('password')?.errors?.['missingNumber']"
+              >
                 A senha deve conter pelo menos um número.
               </span>
-              <span *ngIf="formulario.get('password')?.errors?.['missingSymbol']">
-                A senha deve conter pelo menos um símbolo (&#64;, $, !, %, *, ?, &).
+              <span
+                *ngIf="formulario.get('password')?.errors?.['missingSymbol']"
+              >
+                A senha deve conter pelo menos um símbolo (&#64;, $, !, %, *, ?,
+                &).
               </span>
             </div>
           </div>
 
           <div class="col-12 col-md-6 mb-3">
-            <label for="confirm-password" class="form-label">Confirmação de senha</label>
-            <input formControlName="confirmPassword" type="password" class="form-control"
-              [class.is-invalid]="formulario.get('confirmPassword')?.invalid && formulario.get('confirmPassword')?.touched"
-              [class.is-valid]="formulario.get('confirmPassword')?.valid && formulario.get('confirmPassword')?.touched"
-              id="confirm-password" />
+            <label for="confirm-password" class="form-label"
+              >Confirmação de senha</label
+            >
+            <input
+              formControlName="confirmPassword"
+              type="password"
+              class="form-control"
+              [class.is-invalid]="
+                formulario.get('confirmPassword')?.invalid &&
+                formulario.get('confirmPassword')?.touched
+              "
+              [class.is-valid]="
+                formulario.get('confirmPassword')?.valid &&
+                formulario.get('confirmPassword')?.touched
+              "
+              id="confirm-password"
+            />
             <div class="invalid-feedback d-flex flex-column">
               <span *ngIf="formulario.hasError('passwordMismatch')">
                 A confirmação de senha não coincide.
