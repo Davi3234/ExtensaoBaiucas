@@ -10,5 +10,5 @@ export interface ICategoryService{
   editar(category: Categoria): Observable<Result<Categoria>>;
   excluir(id: number): Observable<Result<Message[]>>;
   buscarPorId(id: number): Observable<Result<{category:Categoria}>>;
-  listarCategoriaProduto(): Observable<Result<{category:Categoria, products?: Produto[]}[]>>;
+  listarCategoriaProduto(): Observable<Result<{categorias: {category:Categoria, products: Produto[]}[]}>>;
 }

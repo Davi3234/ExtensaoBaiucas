@@ -23,12 +23,12 @@ export class ProductService implements IProductService{
   }
 
   criar(product: Produto): Observable<Result<Produto>> {
-    const url = `${this.API}/create`
+    const url = `${this.API}`
     return this.http.post<Result<Produto>>(url, product)
   }
 
   editar(product: Produto): Observable<Result<Produto>> {
-    const url = `${this.API}/edit/${product.id}`
+    const url = `${this.API}/${product.id}`
     return this.http.put<Result<Produto>>(url, product )
   }
 

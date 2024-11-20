@@ -26,7 +26,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './list-product.component.css',
 })
 export class ListProductComponent implements OnInit {
-  list?: { category: Categoria; products?: Produto[] }[];
+  list?: { categorias: { category: Categoria; products: Produto[] }[] };
   id?: number;
   disableButtons: boolean = true;
 
