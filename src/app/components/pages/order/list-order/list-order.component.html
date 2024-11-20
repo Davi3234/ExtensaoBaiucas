@@ -1,10 +1,6 @@
 <app-menu></app-menu>
 <div class="container h-75">
-  <form
-    action=""
-    id="product-list"
-    class="container-form container-form-list mt-2 p-3"
-  >
+  <form action="" id="product-list" class="container-form container-form-list mt-2 p-3">
     <div class="card text-bg-danger card-list">
       <div class="card-header">
         <h2>Consulta de Pedidos</h2>
@@ -13,31 +9,9 @@
       <div class="card-body">
         <div class="actions mb-2">
           <div class="btn-group" role="group">
-            <button
-              type="button"
-              class="btn btn-primary"
-              id="btnIncluir"
-              (click)="incluir()"
-            >
-              Incluir
-            </button>
-            <button
-              type="button"
-              class="btn btn-warning"
-              id="btnEditar"
-              disabled
-              (click)="editar()"
-            >
-              Editar
-            </button>
-            <button
-              type="button"
-              class="btn btn-danger"
-              id="btnExcluir"
-              disabled
-              (click)="confirmDelete()"
-            >
-              Excluir
+            <button type="button" class="btn btn-primary" id="btnIncluir" (click)="incluir()">Incluir</button>
+            <button type="button" class="btn btn-warning" id="btnEditar" disabled (click)="editar()">Editar</button>
+            <button type="button" class="btn btn-danger" id="btnExcluir" disabled (click)="confirmDelete()">Excluir
             </button>
           </div>
         </div>
@@ -45,25 +19,21 @@
         <table class="table table-dark table-hover">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Cliente</th>
-              <th scope="col">Data</th>
-              <th scope="col">Forma de Pagamento</th>
-              <th scope="col">Situação</th>
-              <th scope="col">Total</th>
+              <th scope="col" sortable="id" (sort)="this.gridService.sort($event)">#</th>
+              <th scope="col" sortable="order" (sort)="this.gridService.sort($event)">Cliente</th>
+              <th scope="col" sortable="date" (sort)="this.gridService.sort($event)">Data</th>
+              <th scope="col" sortable="paymentMethod" (sort)="this.gridService.sort($event)">Forma de Pagamento</th>
+              <th scope="col" sortable="state" (sort)="this.gridService.sort($event)">Situação</th>
+              <th scope="col" sortable="totalPrice" (sort)="this.gridService.sort($event)">Total</th>
             </tr>
           </thead>
 
           <tbody>
-            @for (order of orders; track $index) {
-            <tr
-              id="line{{ order.id }}"
-              scope="row"
-              (click)="selectItem(order.id)"
-            >
+            @for (order of orders$ | async; track $index) {
+            <tr id="line{{ order.id }}" scope="row" (click)="selectItem(order.id)">
               <td>{{ order.id }}</td>
               <td>{{ order.client?.name }}</td>
-              <td>{{ order.date }}</td>
+              <td>{{ order.date | date: 'dd/MM/yyyy' }}</td>
               <td>{{ order.paymentMethod }}</td>
               <td>{{ order.state }}</td>
               <td>{{ order.totalPrice }}</td>
@@ -71,6 +41,12 @@
             }
           </tbody>
         </table>
+
+        <div class="d-flex justify-content-between p-2">
+          <ngb-pagination [collectionSize]="this.gridService.state.total" [(page)]="this.gridService.state.page"
+            [pageSize]="this.gridService.state.pageSize" (pageChange)="this.gridService.refresh()">
+          </ngb-pagination>
+        </div>
       </div>
     </div>
   </form>
