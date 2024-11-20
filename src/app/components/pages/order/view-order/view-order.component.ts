@@ -11,6 +11,7 @@ import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { Categoria } from '../../../../service/category/category';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
+import { Order } from '../../../../service/order/order';
 @Component({
   selector: 'app-view-order',
   standalone: true,
@@ -20,8 +21,9 @@ import { CommonModule } from '@angular/common';
 })
 export class ViewOrderComponent implements OnInit {
   list?: { categorias: { category: Categoria; orders: Produto[] }[] };
-  id?: string;
+  id?: number;
   disableButtons: boolean = true;
+  order?: Order
 
   constructor(
     @Inject(ORDER_SERVICE_TOKEN)
@@ -32,9 +34,15 @@ export class ViewOrderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id')!;
+    this.id = parseInt(this.route.snapshot.paramMap.get('id')!);
+
+    this.orderService.buscarPorId(this.id).subscribe((result) => {
+      this.order = result.value.order;
+      debugger;
+    });
   }
 
-  listAll() {
+  getTotal(): number{
+    return 0;
   }
 }

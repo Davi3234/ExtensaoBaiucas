@@ -8,26 +8,31 @@
 
       <div class="card-body">
         <div ngbAccordion [closeOthers]="true" class="accordion-dark">
-          @for (item of this.list?.categorias; track item) {
-          <div ngbAccordionItem>
-            <h2 ngbAccordionHeader>
-              <button ngbAccordionButton>{{ item?.category?.name }}</button>
-            </h2>
-            <div ngbAccordionCollapse>
-              <!-- @for (product of item?.products; track product) { -->
-              <div ngbAccordionBody>
-                <ng-template>
-                  <ngb-alert [dismissible]="false"
-                    type="dark" class="d-flex justify-content-between">
-                    <span class="text-left"></span>
-                    <span class="text-right"></span>
-                  </ngb-alert>
-                </ng-template>
+          @for (item of this.order?.items; track item) {
+            <div ngbAccordionItem>
+              <h2 ngbAccordionHeader>
+                <button ngbAccordionButton>{{ item?.product?.name }}</button>
+              </h2>
+              <div ngbAccordionCollapse>
+                <div ngbAccordionBody>
+                  <ng-template>
+                    <ngb-alert [dismissible]="false"
+                      type="dark" class="d-flex justify-content-between">
+                      <span class="text-left"></span>
+                      <span class="text-right"></span>
+                    </ngb-alert>
+                  </ng-template>
+                </div>
               </div>
-              <!-- } -->
             </div>
-          </div>
           }
+        </div>
+
+        <div class="mt-3 total d-flex justify-content-between">
+          <span class="text-left">Total:</span>
+          <span class="text-right"
+            >R$ {{ getTotal().toFixed(2).replace(".", ",") }}</span
+          >
         </div>
       </div>
     </div>
