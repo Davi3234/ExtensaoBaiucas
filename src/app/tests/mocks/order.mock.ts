@@ -5,7 +5,7 @@ import { Order } from '../../service/order/order';
 import { Result } from '../../@types/http'
 import { Message } from '../../@types/message';
 import { ofDefault } from '../utils';
-import { CATEGORY_MOCK_STORAGE, PRODUCT_MOCK_STORAGE } from '../mocks.manager.injection';
+import { CATEGORY_MOCK_STORAGE, ORDER_MOCK_STORAGE, PRODUCT_MOCK_STORAGE } from '../mocks.manager.injection';
 import { OrderMockStorage } from '../storage/order.storage';
 import { State } from '../../enums/state';
 import { PaymentMethod } from '../../enums/payment-method';
@@ -17,7 +17,7 @@ import { TypeDelivery } from '../../enums/type-delivery';
 export class OrderMockService implements IOrderService{
 
   constructor (
-    @Inject(PRODUCT_MOCK_STORAGE) private readonly orderMockStorage: OrderMockStorage,
+    @Inject(ORDER_MOCK_STORAGE) private readonly orderMockStorage: OrderMockStorage,
   ) { }
 
   listar(): Observable<Result<Order[]>> {

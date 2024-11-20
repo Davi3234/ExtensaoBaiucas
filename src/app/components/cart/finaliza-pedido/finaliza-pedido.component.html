@@ -37,13 +37,13 @@
         class="mt-2"
         *ngIf="formulario.get('tipoEntrega')?.touched && formulario.get('tipoEntrega')?.errors?.['required']"
       >
-        A Forma de Entrega é de preenchimento obrigatório
+        A forma de entrega é de preenchimento obrigatório
       </ngb-alert>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-12 col-md-6 mb-3">
+    <div class="col-12 col-md-12 mb-3">
       <label for="endereco" class="form-label">Endereço</label>
 
       <input
@@ -56,23 +56,13 @@
       <ngb-alert
         [dismissible]="false"
         class="mt-2"
-        *ngIf="formulario.get('endereco')?.touched && formulario.get('endereco')?.errors?.['required']"
+        *ngIf="
+        formulario.get('endereco')?.touched &&
+        formulario.get('endereco')?.errors?.['required']
+      "
       >
-        A categoria é de preenchimento obrigatório
+        O endereço é de preenchimento obrigatório
       </ngb-alert>
     </div>
   </div>
-
-  <!-- <div class="row" style="float: right">
-    <div class="col">
-      <div class="btn-group" role="group">
-        <button type="button" class="btn btn-success" (click)="salvar()">
-          Salvar
-        </button>
-        <button type="button" class="btn btn-primary" (click)="cancelar()">
-          Cancelar
-        </button>
-      </div>
-    </div>
-  </div> -->
 </form>

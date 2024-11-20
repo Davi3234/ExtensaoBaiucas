@@ -6,14 +6,13 @@ import { Item } from './item';
 
 export interface Order {
   id?: number,
-  date: Date,
+  date?: Date,
   client?: Usuario,
-  totalPrice: number
-  state: State
+  totalPrice?: number
+  state?: State
   paymentMethod: PaymentMethod
-  observation: string,
+  observation?: string,
   type: TypeDelivery
-  address: string,
-  deliveryTax: number,
+  address?: string,
   items?: Item[]
 }
