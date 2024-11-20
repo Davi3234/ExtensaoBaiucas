@@ -1,1 +1,35 @@
-<p>view-order works!</p>
+<app-menu></app-menu>
+<div class="container h-75">
+  <form action="" id="product-list" class="container-form container-form-list mt-2 p-3">
+    <div class="card text-bg-danger card-list">
+      <div class="card-header">
+        <h2>Pedido # {{ this.id }}</h2>
+      </div>
+
+      <div class="card-body">
+        <div ngbAccordion [closeOthers]="true" class="accordion-dark">
+          @for (item of this.list?.categorias; track item) {
+          <div ngbAccordionItem>
+            <h2 ngbAccordionHeader>
+              <button ngbAccordionButton>{{ item?.category?.name }}</button>
+            </h2>
+            <div ngbAccordionCollapse>
+              <!-- @for (product of item?.products; track product) { -->
+              <div ngbAccordionBody>
+                <ng-template>
+                  <ngb-alert [dismissible]="false"
+                    type="dark" class="d-flex justify-content-between">
+                    <span class="text-left"></span>
+                    <span class="text-right"></span>
+                  </ngb-alert>
+                </ng-template>
+              </div>
+              <!-- } -->
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -4,3 +4,10 @@ export enum State {
   IN_DELIVERY = 'EE',
   CANCELED  = 'CA'
 }
+
+export enum DescriptionState{
+  EP = 'Em Preparo',
+  CO  = 'Completado',
+  EE = 'Em Entrega',
+  CA  = 'Cancelado'
+}

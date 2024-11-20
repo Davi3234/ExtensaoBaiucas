@@ -9,10 +9,7 @@
       <div class="card-body position-relative">
         <div class="actions mb-2">
           <div class="btn-group" role="group">
-            <button type="button" class="btn btn-primary" id="btnIncluir" (click)="incluir()">Incluir</button>
-            <button type="button" class="btn btn-warning" id="btnEditar" disabled (click)="editar()">Editar</button>
-            <button type="button" class="btn btn-danger" id="btnExcluir" disabled
-              (click)="confirmDelete()">Excluir</button>
+            <button type="button" class="btn btn-warning" id="btnVisualizar" disabled (click)="visualizar()">Visualizar</button>
           </div>
         </div>
 
@@ -34,9 +31,9 @@
               <td>{{ order.id }}</td>
               <td>{{ order.client?.name }}</td>
               <td>{{ order.date | date: 'dd/MM/yyyy' }}</td>
-              <td>{{ order.paymentMethod }}</td>
-              <td>{{ order.state }}</td>
-              <td>{{ order.totalPrice }}</td>
+              <td>{{ getPaymentDescription(order.paymentMethod) }}</td>
+              <td>{{ getStateDescription(order.state) }}</td>
+              <td>R$ {{ order.totalPrice?.toFixed(2)?.replace(".", ",") }}</td>
             </tr>
             }
           </tbody>

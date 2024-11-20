@@ -23,6 +23,7 @@ export class SelectionService {
 
     if (this.selectedId) {
       this.enableButton('btnEditar')
+      this.enableButton('btnVisualizar')
       this.enableButton('btnExcluir')
     }
   }
