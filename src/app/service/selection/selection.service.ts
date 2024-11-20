@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 
+export interface SortEvent {
+  column: string
+  direction: 'asc' | 'desc'
+}
+
 @Injectable({
   providedIn: 'root'
 })

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { MenuComponent } from '../../core/menu/menu.component';
 import { User } from '../../../../service/user/user';
 import { Router } from '@angular/router';
@@ -9,6 +9,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmDeleteModalComponent } from '../../../confirm-delete-modal/confirm-delete-modal.component';
 import { Result } from '../../../../@types/http';
 import { NotificationService } from '../../../../service/notification/notification.service';
+import { NgbdSortableHeader, SortEvent } from '../../../../directives/sortable.directive';
+import { compare } from '../../../../util/sort';
 
 @Component({
   selector: 'app-list-user',
@@ -20,8 +22,11 @@ import { NotificationService } from '../../../../service/notification/notificati
   styleUrl: './list-user.component.css',
 })
 export class ListUserComponent implements OnInit {
-  users?: User[];
-  id?: number;
+  private _users: User[] = []
+  users: User[] = []
+  id?: number
+
+  @ViewChildren(NgbdSortableHeader) headers!: QueryList<NgbdSortableHeader>;
 
   constructor(
     @Inject(USER_SERVICE_TOKEN) private readonly userService: IUserService,
@@ -29,7 +34,7 @@ export class ListUserComponent implements OnInit {
     protected readonly selectionService: SelectionService,
     private readonly modalService: NgbModal,
     private readonly notificationService: NotificationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.listAll();
@@ -37,6 +42,7 @@ export class ListUserComponent implements OnInit {
 
   listAll() {
     this.userService.listar().subscribe((request) => {
+      this._users = request.value;
       this.users = request.value;
       this.selectionService.enableButton('btnExcluir', false);
       this.selectionService.enableButton('btnEditar', false);
@@ -87,5 +93,21 @@ export class ListUserComponent implements OnInit {
   selectItem(id?: number) {
     this.selectionService.selectItem(id);
     this.id = id;
+  }
+
+  onSort({ column, direction }: SortEvent) {
+    for (const header of this.headers) {
+      if (header.sortable !== column) {
+        header.direction = '';
+      }
+    }
+
+    if (direction === '' || column === '') {
+      this.users = this._users;
+    }
+    this.users = [...this._users].sort((a: any, b: any) => {
+      const res = compare(a[column], b[column]);
+      return direction === 'asc' ? res : -res;
+    });
   }
 }
