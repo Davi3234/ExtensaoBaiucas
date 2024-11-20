@@ -15,7 +15,8 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { GridService } from '../../../../service/grid/grid.service';
 import { NgbdSortableHeader } from '../../../../directives/sortable.directive';
 import { compare } from '../../../../util/sort';
-
+import { DescriptionPayment, getPaymentDescription } from '../../../../enums/payment-method';
+import { DescriptionState, getStateDescription } from '../../../../enums/state';
 @Component({
   selector: 'app-list-order',
   standalone: true,
@@ -63,57 +64,27 @@ export class ListOrderComponent implements OnInit {
     this.orderService.listar().subscribe(request => {
       this.gridService.setData(request.value)
 
-      this.selectionService.enableButton('btnExcluir', false);
-      this.selectionService.enableButton('btnEditar', false);
+      this.selectionService.enableButton('btnVisualizar', false);
       this.selectionService.removeSelectedItems();
 
       this.gridService.refresh()
     });
   }
 
-  incluir() {
-    this.route.navigate(['orders/create']);
-  }
-
-  editar() {
-    this.route.navigate([`orders/edit/${this.id}`]);
-  }
-
-  excluir() {
-    this.orderService.excluir(this.id!).subscribe({
-      next: () => {
-        this.notificationService.success({
-          title: 'Exclusão de Pedido',
-          message: 'Sucesso ao excluir o pedido',
-        });
-        this.listAll();
-      },
-      error: ({ error }: { error: Result }) => {
-        if (error.status === 400) {
-          this.notificationService.error({
-            title: 'Exclusão de Pedido',
-            message: 'Erro ao excluir o pedido',
-          });
-        }
-      }
-    });
-  }
-
-  confirmDelete(): void {
-    const modalRef = this.modalService.open(ConfirmDeleteModalComponent);
-    const modalInstance = modalRef.componentInstance as ConfirmDeleteModalComponent;
-
-    modalInstance.onConfirm.subscribe(() => {
-      this.excluir();
-    });
-
-    modalInstance.onCancel.subscribe(() => {
-    });
+  visualizar() {
+    this.route.navigate([`orders/view/${this.id}`]);
   }
 
   selectItem(id?: number) {
     this.id = id;
     this.selectionService.selectItem(id);
+  }
+
+  getPayment(method?: string){
+    return getPaymentDescription(method);
+  }
+  getState(method?: string){
+    return getStateDescription(method);
   }
 
 }

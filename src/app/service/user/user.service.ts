@@ -23,12 +23,12 @@ export class UserService implements IUserService {
   }
 
   criar(user: Usuario): Observable<Result<Usuario>> {
-    const url = `${this.API}/create`
+    const url = `${this.API}`
     return this.http.post<Result<Usuario>>(url, user)
   }
 
   editar(user: Usuario): Observable<Result<Usuario>> {
-    const url = `${this.API}/edit/${user.id}`
+    const url = `${this.API}/${user.id}`
     return this.http.put<Result<Usuario>>(url, user)
   }
 

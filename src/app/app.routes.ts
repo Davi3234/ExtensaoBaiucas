@@ -11,6 +11,7 @@ import { ListCategoryComponent } from './components/pages/category/list-category
 import { CreateCategoryComponent } from './components/pages/category/create-category/create-category.component';
 import { EditCategoryComponent } from './components/pages/category/edit-category/edit-category.component';
 import { ListOrderComponent } from './components/pages/order/list-order/list-order.component';
+import { ViewOrderComponent } from './components/pages/order/view-order/view-order.component';
 
 export const routes: Routes = [
   {
@@ -75,6 +76,11 @@ export const routes: Routes = [
     component: ListOrderComponent,
     canActivate: [AuthGuardService],
     title: "Pedido"
+  },
+  {
+    path: 'orders/view/:id',
+    component: ViewOrderComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: '**',

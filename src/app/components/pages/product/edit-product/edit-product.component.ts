@@ -55,7 +55,8 @@ export class EditProductComponent {
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
       value: ['', [Validators.required]],
-      category: ['', [Validators.required]],
+      idCategory: ['', [Validators.required]],
+      category: ['', []],
       ativo: ['', [Validators.required]],
     });
 
@@ -66,7 +67,7 @@ export class EditProductComponent {
       this.formulario.get('name')?.setValue(this.product.name);
       this.formulario.get('description')?.setValue(this.product.description);
       this.formulario.get('value')?.setValue(this.product.value);
-      this.formulario.get('category')?.setValue(this.product.category?.id);
+      this.formulario.get('idCategory')?.setValue(this.product.category?.id);
       this.formulario.get('ativo')?.setValue(this.product.ativo);
     });
   }
@@ -74,8 +75,9 @@ export class EditProductComponent {
   salvar() {
     this.formulario.markAllAsTouched();
 
+    this.formulario.value.category = {id: this.formulario.value.idCategory};
     if (this.formulario.valid) {
-      this.formulario.value.category = { id: this.formulario.value.category };
+      this.formulario.value.category = {id: this.formulario.value.idCategory};
 
       this.productService.editar(this.formulario.value).subscribe({
         next: () => {
