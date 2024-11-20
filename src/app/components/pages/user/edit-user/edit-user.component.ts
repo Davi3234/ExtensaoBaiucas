@@ -1,4 +1,4 @@
-import { User } from '../../../../service/user/user';
+import { Usuario } from '../../../../service/user/user';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MenuComponent } from '../../core/menu/menu.component';
 import {
@@ -31,7 +31,7 @@ import { NotificationService } from '../../../../service/notification/notificati
 })
 export class EditUserComponent implements OnInit {
   formulario!: FormGroup;
-  user!: User;
+  user!: Usuario;
 
   constructor(
     @Inject(USER_SERVICE_TOKEN) private readonly userService: IUserService,

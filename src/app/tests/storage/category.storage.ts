@@ -1,6 +1,8 @@
+import { Produto } from '../../service/product/product';
 import { getId } from '../utils';
-import { Category } from './../../service/category/category';
+import { Categoria } from './../../service/category/category';
 import { MockStorage } from './mock.storage';
+import { ProductMockStorage } from './product.storage';
 
 export class CategoryMockStorage extends MockStorage {
   constructor() {
@@ -10,7 +12,7 @@ export class CategoryMockStorage extends MockStorage {
     }
   }
 
-  save(category: Category) {
+  save(category: Categoria) {
     const categories = this.getCategories();
     category.id = this.getCategoryNextId();
     categories.push(category);
@@ -22,17 +24,32 @@ export class CategoryMockStorage extends MockStorage {
     this.setCategories(categories);
   }
 
-  edit(category: Category) {
+  edit(category: Categoria) {
     const categories = this.getCategories().map((u) => (u.id == category.id ? category : u));
     this.setCategories(categories);
   }
 
-  find(categoryId?: number): Category | undefined {
+  find(categoryId?: number): Categoria | undefined {
     return this.getCategories().find((u) => u.id == categoryId);
   }
 
-  getCategories(): Category[] {
+  getCategories(): Categoria[] {
     return JSON.parse(this.getItem("category") || "[]");
+  }
+
+  getCategoriesProducts(): {category: Categoria, products?: Produto[]}[] {
+    let categories = this.getCategories();
+    let array: {category: Categoria, products?: Produto[]}[] = [];
+    let productMock = new ProductMockStorage();
+
+    categories.forEach(category => {
+      array.push({
+        category,
+        products: [...productMock.getProductsByCategory(category.id)]
+      })
+    });
+
+    return array;
   }
 
   getCategoryNextId(): number {
@@ -41,7 +58,7 @@ export class CategoryMockStorage extends MockStorage {
   setCategoryId(value: number): void {
     this.setItem('categoryId', value);
   }
-  private setCategories(categories: Category[]) {
+  private setCategories(categories: Categoria[]) {
     this.setItem("category", JSON.stringify(categories));
   }
 }

@@ -1,7 +1,7 @@
 import { UserMockStorage } from './../storage/user.storage';
 import { Inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { User } from '../../service/user/user';
+import { Usuario } from '../../service/user/user';
 import { Result } from '../../@types/http'
 import { Message } from '../../@types/message';
 import { IUserService } from '../../interface/user.service.interface';
@@ -17,14 +17,14 @@ export class UserMockService implements IUserService {
     @Inject(USER_MOCK_STORAGE) private readonly userMockStorage: UserMockStorage
   ) { }
 
-  listar(): Observable<Result<User[]>> {
+  listar(): Observable<Result<Usuario[]>> {
     return of({
       ...ofDefault,
       value: this.userMockStorage.getUsers()
     });
   }
 
-  criar(user: User): Observable<Result<User>> {
+  criar(user: Usuario): Observable<Result<Usuario>> {
 
     this.userMockStorage.save(user);
 
@@ -34,7 +34,7 @@ export class UserMockService implements IUserService {
     });
   }
 
-  editar(user: User): Observable<Result<User>> {
+  editar(user: Usuario): Observable<Result<Usuario>> {
     this.userMockStorage.edit(user);
 
     return of({
@@ -52,7 +52,7 @@ export class UserMockService implements IUserService {
     });
   }
 
-  buscarPorId(id: number): Observable<Result<{ user: User }>> {
+  buscarPorId(id: number): Observable<Result<{ user: Usuario }>> {
     let userReturn = this.userMockStorage.find(id);
 
     if (!userReturn) {

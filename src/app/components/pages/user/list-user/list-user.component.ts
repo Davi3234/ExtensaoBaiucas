@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { MenuComponent } from '../../core/menu/menu.component';
-import { User } from '../../../../service/user/user';
+import { Usuario } from '../../../../service/user/user';
 import { Router } from '@angular/router';
 import { IUserService } from '../../../../interface/user.service.interface';
 import { USER_SERVICE_TOKEN } from '../../../../service/services.injection';
@@ -22,8 +22,8 @@ import { compare } from '../../../../util/sort';
   styleUrl: './list-user.component.css',
 })
 export class ListUserComponent implements OnInit {
-  private _users: User[] = []
-  users: User[] = []
+  private _users: Usuario[] = []
+  users: Usuario[] = []
   id?: number
 
   @ViewChildren(NgbdSortableHeader) headers!: QueryList<NgbdSortableHeader>;

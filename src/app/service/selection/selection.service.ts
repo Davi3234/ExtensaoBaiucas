@@ -26,6 +26,31 @@ export class SelectionService {
     }
   }
 
+  selectAlert(id?: number){
+    this.selectedId = id;
+    this.removeSelectedAlerts();
+
+    const element = document.getElementById(`line${id}`);
+    if (element) {
+      element.className = element.className + " alert-selected";
+    }
+
+    if (this.selectedId) {
+      this.enableButton('btnEditar');
+      this.enableButton('btnExcluir');
+      this.enableButton('btnAddCarrinho');
+    }
+
+  }
+
+  removeSelectedAlerts() {
+
+    const elements = document.getElementsByClassName('alert-selected');
+    Array.from(elements).forEach((el) => {
+      el.className = el.className.replace('alert-selected', '');
+    });
+  }
+
   removeSelectedItems() {
     const elements = document.getElementsByClassName('row-selected');
     Array.from(elements).forEach((el) => el.className = '');

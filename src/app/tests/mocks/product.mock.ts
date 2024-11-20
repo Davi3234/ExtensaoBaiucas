@@ -1,7 +1,7 @@
 import { IProductService } from './../../interface/product.service.interface';
 import { Inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Product } from '../../service/product/product';
+import { Produto } from '../../service/product/product';
 import { Result } from '../../@types/http'
 import { Message } from '../../@types/message';
 import { ofDefault } from '../utils';
@@ -19,14 +19,14 @@ export class ProductMockService implements IProductService{
     @Inject(CATEGORY_MOCK_STORAGE) private readonly categoryMockStorage: CategoryMockStorage
   ) { }
 
-  listar(): Observable<Result<Product[]>> {
+  listar(): Observable<Result<Produto[]>> {
     return of({
       ...ofDefault,
       value: this.productMockStorage.getProducts()
     });
   }
 
-  criar(product: Product): Observable<Result<Product>> {
+  criar(product: Produto): Observable<Result<Produto>> {
 
     product.category = this.categoryMockStorage.find(product.category?.id);
 
@@ -38,7 +38,7 @@ export class ProductMockService implements IProductService{
     });
   }
 
-  editar(product: Product): Observable<Result<Product>> {
+  editar(product: Produto): Observable<Result<Produto>> {
 
     product.category = this.categoryMockStorage.find(product.category?.id);
 
@@ -55,11 +55,11 @@ export class ProductMockService implements IProductService{
 
     return of({
       ...ofDefault,
-      value: [{message: "Product excluída com sucessa"}]
+      value: [{message: "Produto excluída com sucessa"}]
     });
   }
 
-  buscarPorId(id: number): Observable<Result<{product:Product}>> {
+  buscarPorId(id: number): Observable<Result<{product:Produto}>> {
     let productReturn = this.productMockStorage.find(id);
 
     if(!productReturn){

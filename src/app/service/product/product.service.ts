@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Product } from './product';
+import { Produto } from './product';
 import { environment } from '../../environments/environment';
 import { Result } from '../../@types/http'
 import { Message } from '../../@types/message';
@@ -18,18 +18,18 @@ export class ProductService implements IProductService{
     private readonly http: HttpClient
   ) { }
 
-  listar(): Observable<Result<Product[]>> {
-    return this.http.get<Result<Product[]>>(this.API);
+  listar(): Observable<Result<Produto[]>> {
+    return this.http.get<Result<Produto[]>>(this.API);
   }
 
-  criar(product: Product): Observable<Result<Product>> {
+  criar(product: Produto): Observable<Result<Produto>> {
     const url = `${this.API}/create`
-    return this.http.post<Result<Product>>(url, product)
+    return this.http.post<Result<Produto>>(url, product)
   }
 
-  editar(product: Product): Observable<Result<Product>> {
+  editar(product: Produto): Observable<Result<Produto>> {
     const url = `${this.API}/edit/${product.id}`
-    return this.http.put<Result<Product>>(url, product )
+    return this.http.put<Result<Produto>>(url, product )
   }
 
   excluir(id: number): Observable<Result<Message[]>> {
@@ -37,8 +37,8 @@ export class ProductService implements IProductService{
     return this.http.delete<Result<Message[]>>(url)
   }
 
-  buscarPorId(id: number): Observable<Result<{product:Product}>> {
+  buscarPorId(id: number): Observable<Result<{product:Produto}>> {
     const url = `${this.API}/${id}`
-    return this.http.get<Result<{product:Product}>>(url)
+    return this.http.get<Result<{product:Produto}>>(url)
   }
 }

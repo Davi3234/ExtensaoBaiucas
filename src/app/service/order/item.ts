@@ -1,7 +1,7 @@
-import { Product } from "../product/product"
+import { Produto } from "../product/product"
 
 export interface Item {
-  product: Product,
+  product: Produto,
   price: number
   observation: string
 }

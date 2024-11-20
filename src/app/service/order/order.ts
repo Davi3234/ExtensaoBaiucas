@@ -1,13 +1,13 @@
 import { PaymentMethod } from '../../enums/payment-method';
 import { State } from '../../enums/state';
 import { TypeDelivery } from '../../enums/type-delivery';
-import { User } from '../user/user';
+import { Usuario } from '../user/user';
 import { Item } from './item';
 
 export interface Order {
   id?: number,
   date: Date,
-  client?: User,
+  client?: Usuario,
   totalPrice: number
   state: State
   paymentMethod: PaymentMethod

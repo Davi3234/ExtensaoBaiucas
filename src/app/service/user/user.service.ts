@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from './user';
+import { Usuario } from './user';
 import { environment } from '../../environments/environment';
 import { Result } from '../../@types/http'
 import { Message } from '../../@types/message';
@@ -19,18 +19,18 @@ export class UserService implements IUserService{
     private readonly http: HttpClient
   ) { }
 
-  listar(): Observable<Result<User[]>> {
-    return this.http.get<Result<User[]>>(this.API);
+  listar(): Observable<Result<Usuario[]>> {
+    return this.http.get<Result<Usuario[]>>(this.API);
   }
 
-  criar(user: User): Observable<Result<User>> {
+  criar(user: Usuario): Observable<Result<Usuario>> {
     const url = `${this.API}/create`
-    return this.http.post<Result<User>>(url, user)
+    return this.http.post<Result<Usuario>>(url, user)
   }
 
-  editar(user: User): Observable<Result<User>> {
+  editar(user: Usuario): Observable<Result<Usuario>> {
     const url = `${this.API}/edit/${user.id}`
-    return this.http.put<Result<User>>(url, user )
+    return this.http.put<Result<Usuario>>(url, user )
   }
 
   excluir(id: number): Observable<Result<Message[]>> {
@@ -38,9 +38,9 @@ export class UserService implements IUserService{
     return this.http.delete<Result<Message[]>>(url)
   }
 
-  buscarPorId(id: number): Observable<Result<{user:User}>> {
+  buscarPorId(id: number): Observable<Result<{user:Usuario}>> {
     const url = `${this.API}/${id}`
-    return this.http.get<Result<{user:User}>>(url)
+    return this.http.get<Result<{user:Usuario}>>(url)
   }
 
 }

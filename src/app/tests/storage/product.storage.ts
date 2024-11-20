@@ -1,5 +1,5 @@
 import { getId } from '../utils';
-import { Product } from './../../service/product/product';
+import { Produto } from './../../service/product/product';
 import { MockStorage } from './mock.storage';
 
 export class ProductMockStorage extends MockStorage {
@@ -10,7 +10,7 @@ export class ProductMockStorage extends MockStorage {
     }
   }
 
-  save(product: Product) {
+  save(product: Produto) {
     const products = this.getProducts();
     product.id = this.getProductNextId();
     products.push(product);
@@ -18,21 +18,25 @@ export class ProductMockStorage extends MockStorage {
   }
 
   remove(productId: number) {
-    const products = this.getProducts().filter((u) => u.id !== productId);
+    const products = this.getProducts().filter((u) => u.id != productId);
     this.setProducts(products);
   }
 
-  edit(product: Product) {
+  edit(product: Produto) {
     const products = this.getProducts().map((u) => (u.id == product.id ? product : u));
     this.setProducts(products);
   }
 
-  find(productId: number): Product | undefined {
+  find(productId: number): Produto | undefined {
     return this.getProducts().find((u) => u.id == productId);
   }
 
-  getProducts(): Product[] {
+  getProducts(): Produto[] {
     return JSON.parse(this.getItem("product") || "[]");
+  }
+
+  getProductsByCategory(categoryId?: number): Produto[] {
+    return this.getProducts().filter((u) => u.category?.id == categoryId);
   }
 
   getProductNextId(): number {
@@ -41,7 +45,7 @@ export class ProductMockStorage extends MockStorage {
   setProductId(value: number): void {
     this.setItem('productId', value);
   }
-  private setProducts(products: Product[]) {
+  private setProducts(products: Produto[]) {
     this.setItem("product", JSON.stringify(products));
   }
 }
