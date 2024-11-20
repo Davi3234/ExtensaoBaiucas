@@ -1,19 +1,19 @@
-import { Component, Inject, Input, OnInit, PipeTransform, QueryList, ViewChildren } from '@angular/core'
+import { Component, Inject, Input, OnInit } from '@angular/core'
 import { MenuComponent } from '../../core/menu/menu.component'
 import { Usuario } from '../../../../service/user/user'
 import { Router } from '@angular/router'
 import { IUserService } from '../../../../interface/user.service.interface'
 import { USER_SERVICE_TOKEN } from '../../../../service/services.injection'
 import { SelectionService } from '../../../../service/selection/selection.service'
-import { NgbModal, NgbPaginationModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap'
+import { NgbModal, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap'
 import { ConfirmDeleteModalComponent } from '../../../confirm-delete-modal/confirm-delete-modal.component'
 import { Result } from '../../../../@types/http'
 import { NotificationService } from '../../../../service/notification/notification.service'
-import { NgbdSortableHeader, SortEvent } from '../../../../directives/sortable.directive'
-import { compare } from '../../../../util/sort'
-import { BehaviorSubject, map, Observable, startWith } from 'rxjs'
+import { NgbdSortableHeader } from '../../../../directives/sortable.directive'
+import { BehaviorSubject } from 'rxjs'
 import { FormControl, ReactiveFormsModule } from '@angular/forms'
-import { AsyncPipe, DecimalPipe } from '@angular/common'
+import { AsyncPipe } from '@angular/common'
+import { GridService } from '../../../../service/grid/grid.service'
 
 @Component({
   selector: 'app-list-user',
@@ -25,32 +25,30 @@ import { AsyncPipe, DecimalPipe } from '@angular/common'
   styleUrl: './list-user.component.css',
 })
 export class ListUserComponent implements OnInit {
-  private _users: Usuario[] = []
   users$ = new BehaviorSubject<Usuario[]>([])
   id?: number
 
   @Input() filter = new FormControl('', { nonNullable: true })
-
-  page = 1
-  pageSize = 10
-  collectionSize = 0
-
-  @ViewChildren(NgbdSortableHeader) headers!: QueryList<NgbdSortableHeader>
 
   constructor(
     @Inject(USER_SERVICE_TOKEN) private readonly userService: IUserService,
     private readonly route: Router,
     protected readonly selectionService: SelectionService,
     private readonly modalService: NgbModal,
-    private readonly notificationService: NotificationService
+    private readonly notificationService: NotificationService,
+    protected readonly gridService: GridService<Usuario>
   ) {
-    this.filter.valueChanges.pipe(
-      startWith(''),
-      map((text) => this.search(text)),
-    )
-      .subscribe(result => {
-        this.users$.next(result)
-      })
+    this.filter.valueChanges.subscribe(value => {
+      this.gridService.filter({ column: 'name', value })
+    })
+
+    this.gridService.setFilterHandler((user, column, value) => {
+      return `${value}` === '' || `${user[column]}`.toLowerCase().includes(`${value}`.toLowerCase())
+    })
+
+    this.gridService.rows$.subscribe(users => {
+      this.users$.next(users)
+    })
   }
 
   ngOnInit(): void {
@@ -59,14 +57,13 @@ export class ListUserComponent implements OnInit {
 
   listAll() {
     this.userService.listar().subscribe((request) => {
-      this._users = request.value
+      this.gridService.setData([...request.value, ...request.value, ...request.value, ...request.value])
+
       this.selectionService.enableButton('btnExcluir', false)
       this.selectionService.enableButton('btnEditar', false)
       this.selectionService.removeSelectedItems()
-      this.filter.setValue('_')
-      this.filter.setValue('')
-      this.collectionSize = this._users.length
-      this.refreshPage()
+
+      this.gridService.refresh()
     })
   }
 
@@ -113,37 +110,5 @@ export class ListUserComponent implements OnInit {
   selectItem(id?: number) {
     this.selectionService.selectItem(id)
     this.id = id
-  }
-
-  search(text: string): Usuario[] {
-    const users = this._users.filter((user) => {
-      return text === '' || user.name.toLowerCase().includes(text.toLowerCase())
-    })
-
-    return users
-  }
-
-  onSort({ column, direction }: SortEvent) {
-    for (const header of this.headers) {
-      if (header.sortable !== column) {
-        header.direction = ''
-      }
-    }
-
-    if (direction !== '' && column !== '') {
-      this._users = [...this._users].sort((a: any, b: any) => {
-        const res = compare(a[column], b[column])
-        return direction === 'asc' ? res : -res
-      })
-    }
-  }
-
-  refreshPage() {
-    const users = this._users.slice(
-      (this.page - 1) * this.pageSize,
-      (this.page - 1) * this.pageSize + this.pageSize,
-    );
-
-    this.users$.next(users)
   }
 }

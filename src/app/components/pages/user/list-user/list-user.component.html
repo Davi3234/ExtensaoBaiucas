@@ -29,10 +29,10 @@
         <table class="table table-dark table-hover">
           <thead>
             <tr>
-              <th scope="col" sortable="id" (sort)="onSort($event)">#</th>
-              <th scope="col" sortable="name" (sort)="onSort($event)">Nome</th>
-              <th scope="col" sortable="login" (sort)="onSort($event)">Login</th>
-              <th scope="col" sortable="active" (sort)="onSort($event)">Ativo</th>
+              <th scope="col" sortable="id" (sort)="this.gridService.sort($event)">#</th>
+              <th scope="col" sortable="name" (sort)="this.gridService.sort($event)">Nome</th>
+              <th scope="col" sortable="login" (sort)="this.gridService.sort($event)">Login</th>
+              <th scope="col" sortable="active" (sort)="this.gridService.sort($event)">Ativo</th>
             </tr>
           </thead>
           <tbody>
@@ -48,8 +48,8 @@
         </table>
 
         <div class="d-flex justify-content-between p-2">
-          <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
-            (pageChange)="refreshPage()">
+          <ngb-pagination [collectionSize]="this.gridService.state.total" [(page)]="this.gridService.state.page"
+            [pageSize]="this.gridService.state.pageSize" (pageChange)="this.gridService.refresh()">
           </ngb-pagination>
         </div>
       </div>
