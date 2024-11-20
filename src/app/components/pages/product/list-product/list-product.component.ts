@@ -109,6 +109,7 @@ export class ListProductComponent implements OnInit {
     this.selectionService.selectAlert(id);
     this.disableButtons = false;
   }
+
   resetButtonState() {
     this.disableButtons = true;
   }
