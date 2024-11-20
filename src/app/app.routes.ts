@@ -15,14 +15,18 @@ import { ListOrderComponent } from './components/pages/order/list-order/list-ord
 export const routes: Routes = [
   {
     path: '',
+    redirectTo: 'users',
     pathMatch: 'full',
-    redirectTo: 'users'
+  },
+  {
+    path: 'auth/login',
+    component: LoginComponent,
   },
   {
     path: 'users',
     component: ListUserComponent,
     canActivate: [AuthGuardService],
-    title: "Usuário"
+    title: 'Usuário',
   },
   {
     path: 'users/create',
@@ -73,7 +77,7 @@ export const routes: Routes = [
     title: "Pedido"
   },
   {
-    path: 'auth/login',
-    component: LoginComponent
-  }
+    path: '**',
+    redirectTo: 'auth/login',
+  },
 ];
