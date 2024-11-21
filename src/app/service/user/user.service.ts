@@ -10,10 +10,9 @@ import { IUserService } from '../../interface/user.service.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService implements IUserService{
+export class UserService implements IUserService {
 
   private readonly API = `${environment.API_BASE_URL}:80/users`;
-
 
   constructor(
     private readonly http: HttpClient
@@ -30,7 +29,7 @@ export class UserService implements IUserService{
 
   editar(user: Usuario): Observable<Result<Usuario>> {
     const url = `${this.API}/${user.id}`
-    return this.http.put<Result<Usuario>>(url, user )
+    return this.http.put<Result<Usuario>>(url, user)
   }
 
   excluir(id: number): Observable<Result<Message[]>> {
@@ -38,9 +37,13 @@ export class UserService implements IUserService{
     return this.http.delete<Result<Message[]>>(url)
   }
 
-  buscarPorId(id: number): Observable<Result<{user:Usuario}>> {
+  buscarPorId(id: number): Observable<Result<{ user: Usuario }>> {
     const url = `${this.API}/${id}`
-    return this.http.get<Result<{user:Usuario}>>(url)
+    return this.http.get<Result<{ user: Usuario }>>(url)
   }
 
+  buscarUsuarioLogado(): Observable<Result<{ user: Usuario }>> {
+    const url = `${this.API}/current`
+    return this.http.get<Result<{ user: Usuario }>>(url)
+  }
 }

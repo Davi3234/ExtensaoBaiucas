@@ -21,7 +21,7 @@ export class CartComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private readonly notificationService: NotificationService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.cartService.getItems().subscribe(items => {
@@ -47,7 +47,7 @@ export class CartComponent implements OnInit {
   }
 
   openCartWindow(content: any) {
-    if(this.cartItems.length > 0){
+    if (this.cartItems.length > 0) {
       this.offcanvasService.open(content, { position: 'end' });
       return;
     }
