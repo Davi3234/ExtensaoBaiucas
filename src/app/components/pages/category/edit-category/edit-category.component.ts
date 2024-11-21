@@ -70,10 +70,6 @@ export class EditCategoryComponent {
           if (error.status === 400) {
             const causes = error.error?.causes || [];
 
-            causes.forEach(({ message, origin }) => {
-              if (origin.includes('login'))
-                this.formulario.get('login')?.setErrors({ backendError: message });
-            });
             this.notificationService.error({
               title: 'Edição de Categoria',
               message: 'Erro ao editar a categoria',

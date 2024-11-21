@@ -58,13 +58,6 @@ export class LoginComponent implements OnInit {
           if (error.status === 400) {
             const causes = error?.error?.causes || [];
 
-            causes.forEach(({ message, origin }) => {
-              if (origin.includes('login'))
-                this.formulario.get('login')?.setErrors({ backendError: message });
-
-              if (origin.includes('password'))
-                this.formulario.get('password')?.setErrors({ backendError: message });
-            });
             this.notificationService.error({ title: 'Autenticação', message: 'Erro ao na autenticação do usuário' })
           }
         }

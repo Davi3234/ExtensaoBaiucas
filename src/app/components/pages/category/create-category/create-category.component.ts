@@ -56,13 +56,6 @@ export class CreateCategoryComponent {
         error: ({ error }: { error: Result }) => {
           if (error.status === 400) {
             const causes = error.error?.causes || [];
-
-            causes.forEach(({ message, origin }) => {
-              if (origin.includes('login'))
-                this.formulario
-                  .get('login')
-                  ?.setErrors({ backendError: message });
-            });
             this.notificationService.error({
               title: 'Cadastro de Categoria',
               message: 'Erro ao cadastrar a categoria',
