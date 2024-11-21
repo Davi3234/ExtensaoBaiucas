@@ -15,9 +15,12 @@
 
       <div class="card-body">
         <div ngbAccordion [closeOthers]="true" class="accordion-dark">
-          <div *ngFor="let item of this.order?.items" ngbAccordionItem>
+          @for (item of this.order?.items; track item) {
+          <div ngbAccordionItem>
             <h2 ngbAccordionHeader>
-              <button ngbAccordionButton>{{ item?.product?.name }}</button>
+              <button ngbAccordionButton>
+                {{ item?.product?.name }}
+              </button>
             </h2>
             <div ngbAccordionCollapse>
               <div ngbAccordionBody>
@@ -29,6 +32,7 @@
                     <textarea
                       class="form-control"
                       id="observacao-{{ item?.product }}"
+                      name="observacao-{{ item?.product }}"
                       [(ngModel)]="item.observation"
                       aria-label="Observação"
                       style="resize: none"
@@ -39,6 +43,7 @@
               </div>
             </div>
           </div>
+          }
         </div>
 
         <div class="mt-3 total d-flex justify-content-between">

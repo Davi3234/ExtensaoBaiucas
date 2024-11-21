@@ -82,12 +82,10 @@ export class ListProductComponent implements OnInit {
         this.listAll();
       },
       error: ({ error }: { error: Result }) => {
-        if (error.status === 400) {
-          this.notificationService.error({
-            title: 'Exclusão de Produto',
-            message: 'Erro ao excluir o produto',
-          });
-        }
+        this.notificationService.error({
+          title: 'Exclusão de Produto',
+          message: 'Erro ao excluir o produto',
+        });
       },
     });
   }

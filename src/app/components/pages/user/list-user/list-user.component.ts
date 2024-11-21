@@ -85,12 +85,10 @@ export class ListUserComponent implements OnInit {
         this.listAll()
       },
       error: ({ error }: { error: Result }) => {
-        if (error.status === 400) {
-          this.notificationService.error({
-            title: 'Exclusão de Usuário',
-            message: 'Erro ao excluir o usuário',
-          })
-        }
+        this.notificationService.error({
+          title: 'Exclusão de Usuário',
+          message: 'Erro ao excluir o usuário',
+        })
       }
     })
   }
